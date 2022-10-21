@@ -1,0 +1,65 @@
+@import url('https://fonts.googleapis.com/css2?family=IM+Fell+Double+Pica&family=Nerko+One&display=swap');
+
+.form-two{
+    margin: auto;
+    text-align: center;
+    margin-top: 50px;
+    font-family: 'IM Fell Double Pica';
+    width: 100vw;
+    height: 100vh;
+    background-color: antiquewhite;
+}
+
+.maincontainer{
+    text-align: center;
+    padding: 30px;
+    border: 1px solid  rgb(15, 147, 123);
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 5px 5px 5px rgb(179, 177, 177);
+    margin: auto;
+    
+}
+
+h1{
+    padding-top: 30px;
+    margin-bottom: 30px;
+    color:rgb(15, 147, 123);
+}
+
+.container-photos{
+    justify-content: center;
+    margin: auto;
+}
+
+h5{
+    margin-top: 30px;
+    margin-bottom: 20px;
+}
+
+.social-media{
+    justify-content: center;
+}
+
+input{
+    text-align: center;
+}
+
+img{
+    margin: 5px;
+}
+
+.media{
+    margin-bottom: 10px;
+    
+}
+
+.icon{
+    width: 35px;
+    height: 35px;
+    margin-right: 10px;
+}
+
+.select-img{
+    margin-right: 10px;
+}
