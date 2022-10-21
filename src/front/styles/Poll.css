@@ -1,0 +1,38 @@
+.full-poll{
+  background:  url(https://wallpapers.com/images/hd/travel-wallpaper-group-cf4dc850xhw9rto5.jpg) no-repeat;
+  position: absolute;
+  width: 100%;
+}
+
+.container{
+  margin-top: 10px;
+  background: rgba(255, 255, 255, 0.834);
+  border-radius: 50px;
+}
+
+textarea{
+  height: 320px;
+
+}
+.instructions{
+  font-size: 0.8rem;
+}
+
+.slider {
+  width: 50%;
+  height: 20px;
+  padding: 5px;
+ 
+  background: rgba(24, 176, 151, 0.362);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+
+  }
+
+.slider p {
+  
+  font-family: Open Sans;
+  color: rgb(0, 0, 0);
+  }
+
