@@ -7,7 +7,9 @@ const CreateTrips = () => {
   const url = "https://restcountries.com/v3.1/all";
   const [countries, setCountries] = useState([]);
   const [selected, setSelected] = useState("");
-  const [state, setState]=useState([])
+  const [state, setState]=useState([]);
+  const [selectedState, setSelectedState] =useState("")
+
 
   // const{ id }=useParams();
 
@@ -45,7 +47,7 @@ const CreateTrips = () => {
 
   useEffect(()=>{
     const getstate=async () => {
-    const res = await fetch(url);
+    const res = await fetch(`https://restcountries.com/v2/name/${selected}?fullText=true`);
     console.log(res);
     const getst= await res.json();
     console.log(getst);
@@ -53,7 +55,13 @@ const CreateTrips = () => {
   }
   
   getstate();
-    }, [selected]);
+    }, [handleChange]);
+
+  // const handleChangetwo=(event)=> {
+  //     const getstateid = event.target.value;
+  //     console.log(getstateid)
+  //     setSelectedState(getstateid);
+  //   }
         
   return (
     <>
@@ -82,16 +90,16 @@ const CreateTrips = () => {
             </select>
 
             <h4>Choose the city</h4>
-            <select className="custom-select ">
+            <select className="custom-select " >
             {state 
                 .sort((a, b) => (a.capital > b.capital ? 1 : -1))
-                .map((res) => {
+                .map((getstate) => {
                   return (
-                    <option key={res.id} value={res.id}>
-                      {res.capital}
+                    <option key={getstate.id} value={getstate.id}>
+                      {getstate.capital}
                     </option>
-                  );
-                })}
+                   );
+                })} 
             </select>
           </div>
           <div className="trip-date">
