@@ -148,3 +148,29 @@ class Activities(db.Model):  # type: ignore
     def delete(self):
         db.session.delete(self)
         db.session.commit()
+
+class Gallery(db.Model): #usar para formulario con fotos
+    __tablename__ = 'galleries'
+    id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String(100), nullable="False")
+    filename = db.Column(db.String(200), nullable=False)
+    active = db.Column(db.Boolean(), default=True)
+
+    def serialize(self):
+        return {
+            "id": self.id,
+            "title": self.title,
+            "filename": self.filename,
+            "active": self.active
+        }
+
+    def save(self):
+        db.session.add(self)
+        db.session.commit()
+
+    def update(self):
+        db.session.commit()
+
+    def delete(self):
+        db.session.delete(self)
+        db.session
