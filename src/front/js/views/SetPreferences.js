@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import '/workspace/Final-Project/src/front/styles/SetPreferences.css'
+import '../../styles/setpreferences.css'
 //import { Link, useParams } from 'react-router-dom';
 //import ReactDOM from 'react-dom';
 
