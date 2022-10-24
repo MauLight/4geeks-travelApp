@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { Link, useParams } from "react-router-dom";
 import { Context } from "../store/appContext";
 import "../../styles/login.css";
@@ -28,9 +28,8 @@ const Login = () => {
               <strong>Don't have an Account? Create an Account!</strong>
             </Link>
           </div>
-          <div className="container m-auto align-items-center">
-            <div className="row justify-content-end pb-5"></div>
-            <div className="row justify-content-center">
+          <div className="container align-items-center">
+            <div className="row justify-content-center ">
               <div className="col-5 border border-dark p-2 mb-2 border-opacity-50 rounded bg-white">
                 <div className="mx-5  mt-5  mb-5 messageLogin text-center">
                   Log in to your Account
@@ -69,7 +68,7 @@ const Login = () => {
                     <button
                       type="submit"
                       class="btn btn-outline-primary"
-                      onClick={()=>actions.login(email,password)}
+                      onClick={() => actions.login(email, password)}
                     >
                       Login
                     </button>

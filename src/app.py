@@ -2,13 +2,16 @@
 This module takes care of starting the API Server, Loading the DB and Adding the endpoints
 """
 import os
+from dotenv import load_dotenv
 from flask import Flask, request, jsonify, url_for, send_from_directory
 from flask_migrate import Migrate
 from flask_swagger import swagger
 from flask_cors import CORS
 from api.utils import APIException, generate_sitemap
 from api.models import db
+
 import cloudinary
+
 from api.routes.main import bpMain
 from api.routes.users import bpUser
 from api.routes.auth import bpUsers
@@ -54,7 +57,7 @@ cloudinary.config(
 # Add all endpoints form the API with a "api" prefix
 # app.register_blueprint(api, url_prefix='/api')
 app.register_blueprint(bpMain)
-app.register_blueprint(bpUsers, url_prefix= '/api')
+app.register_blueprint(bpUsers)
 # Handle/serialize errors like a JSON object
 @app.errorhandler(APIException)
 def handle_invalid_usage(error):
