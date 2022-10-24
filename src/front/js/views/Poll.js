@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import ReactDOM from 'react-dom';
-import '/workspace/Final-Project/src/front/styles/Poll.css'
+import '../../styles/poll.css'
 const Nombre = () => {
     const [firstInput, setFirstInput] = useState('7');
     const [secondInput, setSecondInput] = useState('7');

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import '/workspace/Final-Project/src/front/styles/account1.css'
+import '../../styles/account1.css'
 
 const Account1 = () => {
     const url = 'https://restcountries.com/v3.1/all'
