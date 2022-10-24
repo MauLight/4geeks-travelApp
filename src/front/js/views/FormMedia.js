@@ -293,7 +293,7 @@ const FormMedia = () => {
       <div className="container">
         <div className="row">
           <div className="col-md-12 py-5">
-            <h1 className="text-center">Gallery</h1>
+            <h1 className="text-center">Photos</h1>
             <button
               className="btn btn-primary"
               type="button"
