@@ -8,7 +8,11 @@ from flask_swagger import swagger
 from flask_cors import CORS
 from api.utils import APIException, generate_sitemap
 from api.models import db
-from api.routes import api
+import cloudinary
+from api.routes.main import bpMain
+from api.routes.users import bpUser
+from api.routes.auth import bpUsers
+
 from api.admin import setup_admin
 from api.commands import setup_commands
 
@@ -39,9 +43,18 @@ setup_admin(app)
 # add the admin
 setup_commands(app)
 
-# Add all endpoints form the API with a "api" prefix
-app.register_blueprint(api, url_prefix='/api')
 
+cloudinary.config(
+    cloud_name = os.getenv('CLOUDINARY_CLOUD_NAME'),
+    api_key = os.getenv('CLOUDINARY_API_KEY'),
+    api_secret = os.getenv('CLOUDINARY_API_SECRET'),
+    secure = True
+)
+
+# Add all endpoints form the API with a "api" prefix
+# app.register_blueprint(api, url_prefix='/api')
+app.register_blueprint(bpMain)
+app.register_blueprint(bpUsers, url_prefix= '/api')
 # Handle/serialize errors like a JSON object
 @app.errorhandler(APIException)
 def handle_invalid_usage(error):

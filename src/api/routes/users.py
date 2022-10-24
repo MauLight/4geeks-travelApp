@@ -1,5 +1,5 @@
 from flask import Blueprint, jsonify, request
-from models import User, Trips, Activities
+from api.models import User, Trips, Activities
 
 
 bpUser = Blueprint('bpUser', __name__)
@@ -62,7 +62,7 @@ def store_user():
     email = request.json.get('email') # type: ignore
     password = request.json.get('password') # type: ignore
     verified = request.json.get('verified') # type: ignore
-
+##### 
     user = User()
     user.firstname = firstname
     user.lastname = lastname
