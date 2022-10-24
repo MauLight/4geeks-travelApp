@@ -2,16 +2,9 @@ import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import ScrollToTop from "./component/scrollToTop";
 
-<<<<<<< HEAD
+import  Login from "./views/Login";
 import Account1 from "./views/Account1";
 import FormMedia from "./views/FormMedia";
-=======
-import  Login from "./views/Login";
-
-import  Account1 from "./views/Account1";
-import  SetPreferences from "./views/SetPreferences";
-import  Poll from "./views/Poll";
->>>>>>> 026d165df628550276377c1df09ef2ddc5d7a235
 import CreateTrips from "./views/CreateTrips";
 import SetPreferences from "./views/SetPreferences";
 import Poll from "./views/Poll";
