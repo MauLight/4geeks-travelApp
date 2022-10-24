@@ -76,12 +76,6 @@ def serve_any_other_file(path):
     response.cache_control.max_age = 0 # avoid cache memory
     return response
 
-@app.route('/account/page/1', methods=['GET'])
-def account():
-    path = './src/front/js/views/Account1.js'
-    response = send_from_directory(static_file_dir, path)
-    return response
-
 
 # this only runs if `$ python src/main.py` is executed
 if __name__ == '__main__':
