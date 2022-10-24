@@ -26,7 +26,7 @@ const Account1 = () => {
         
     }
     const handleClick  = () => {
-        props.history.push('/account/page/2')
+        
     }
 
     return (
