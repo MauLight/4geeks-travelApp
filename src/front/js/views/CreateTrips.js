@@ -8,7 +8,7 @@ const CreateTrips = () => {
   const [countries, setCountries] = useState([]);
   const [selected, setSelected] = useState("");
   const [state, setState]=useState([]);
-  const [selectedState, setSelectedState] =useState("")
+  // const [selectedState, setSelectedState] =useState("")
 
 
   // const{ id }=useParams();
@@ -55,7 +55,7 @@ const CreateTrips = () => {
   }
   
   getstate();
-    }, [handleChange]);
+    }, []);
 
   // const handleChangetwo=(event)=> {
   //     const getstateid = event.target.value;
@@ -92,7 +92,7 @@ const CreateTrips = () => {
             <h4>Choose the city</h4>
             <select className="custom-select " >
             {state 
-                .sort((a, b) => (a.capital > b.capital ? 1 : -1))
+                // .sort((a, b) => (a.capital > b.capital ? 1 : -1))
                 .map((getstate) => {
                   return (
                     <option key={getstate.id} value={getstate.id}>
