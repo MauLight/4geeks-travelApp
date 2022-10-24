@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useHistory } from 'react';
 import { Link } from 'react-router-dom';
 import '../../styles/account1.css'
 
@@ -16,22 +16,28 @@ const Account1 = () => {
 
     const fetchCountries = async () => {
         const response = await fetch(url)
-        console.log(response)
+        //console.log(response)
         const responseJSON = await response.json()
-        console.log(responseJSON)
+        //console.log(responseJSON)
         setCountry(responseJSON)
     }
 
-    const handleSubmitAccount1 = () => {
-
-
-
+    const handleSubmitAccount1  = () => {
+        
+    }
+    const handleClick  = () => {
+        props.history.push('/account/page/2')
     }
 
     return (
 
         <form onSubmit={handleSubmitAccount1}>
             <div className='full-account1 py-2'>
+                <div className='d-flex justify-content-end me-2'>
+                    <Link to="/login" className='text-success'>
+                        <strong >Already have an account? Log in</strong>
+                    </Link>
+                </div>
                 <div className='container '>
 
                     <h1 className='mt-3 mb-2 text-center'>Create your account</h1>
@@ -115,7 +121,7 @@ const Account1 = () => {
                         </div>
                         <div className='col-lg-3 col-12 mb-5 mx-auto'></div>
                     </div>
-                    <button type='submit' className='btn btn-success mb-3 d-flex mx-auto'>Submit</button>
+                    <button type='submit' onClick={handleClick} className='btn btn-success mb-3 d-flex mx-auto'>Submit</button>
                 </div >
             </div >
         </form >

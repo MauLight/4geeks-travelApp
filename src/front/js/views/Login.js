@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { Link, useParams } from "react-router-dom";
 import { Context } from "../store/appContext";
 import "../../styles/login.css";
@@ -24,7 +24,7 @@ const Login = () => {
         <div className="contenedorPrincipal" id="contenedorPrincipal">
           <div className="" id="toAccount">
             {/* agregar link Account 1*/}
-            <Link to="/account1">
+            <Link to="/account/page/1">
               <strong>Don't have an Account? Create an Account!</strong>
             </Link>
           </div>
