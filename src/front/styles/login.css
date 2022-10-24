@@ -1,0 +1,21 @@
+.messageLogin{
+    font-family: 'Lobster', cursive;
+    /* font-family: 'Roboto', sans-serif; */
+        font-size: calc(1.5em + 1.5vw)
+}
+#toAccount{
+    position: relative;
+    top:2vh;
+    right: 2vw;
+    text-align: end;
+    margin-left: 2rem;
+    font-size: calc(0.5rem + 1vw);
+    font-family: sans-serif;
+    color: rgb(red, green, rgba(12, 12, 102, 0.89));
+
+}
+.container{
+    position: relative;
+    align-items: center;
+    margin: auto;
+}

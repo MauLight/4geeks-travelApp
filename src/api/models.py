@@ -7,9 +7,14 @@ class User(db.Model):  # type: ignore
     id = db.Column(db.Integer, primary_key= True)
     firstname = db.Column(db.String(50), nullable= False)
     lastname = db.Column(db.String(50), nullable= False)
-    birthdate = db.Column(db.String(50))
     email = db.Column(db.String(50), nullable= False, unique = True)
     password = db.Column(db.String(50), nullable= False)
+    birthdate = db.Column(db.String(50))
+    gender = db.Column(db.String(20)) 
+    languages=db.Column(db.String(20))
+    countryofresidence=db.Column(db.String(20))
+    socialmedia=db.Column(db.String(20))
+    photos=db.Column(db.String(20))
     verified = db.Column(db.Boolean(), default = True)
     mytrips = db.relationship('Trips', cascade = 'all, delete', backref= 'user')
 
@@ -18,9 +23,13 @@ class User(db.Model):  # type: ignore
             'id': self.id,
             'firstname': self.firstname,
             'lastname': self.lastname,
-            'birthdate': self.birthdate,
             'email': self.email,
             'password' : self.password,
+            'birthdate': self.birthdate,
+            'gender': self.gender,
+            'languages': self.languages,
+            'countryofresidence': self.countryofresidence,
+            'socialmedia': self.socialmedia,
             'verified': self.verified
         }
 
