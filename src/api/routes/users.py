@@ -56,7 +56,6 @@ def get_trips_with_activities_by_user_id_and_trip_id(id, mytrips_id):
 #POST NEW USER
 @bpUser.route('/users', methods=['POST'])  # type: ignore
 def store_user():
-    id = request.json.get('id')
     firstname = request.json.get('firstname') # type: ignore
     lastname = request.json.get('lastname') # type: ignore
     birthdate = request.json.get('birthdate') # type: ignore

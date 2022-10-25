@@ -46,7 +46,7 @@ const Account1 = () => {
     const addUser = async (url, id) => {
         try {
 
-            const info = {}
+            const info = {firstname:'karina', lastname:'paez'}
 
             const response = await fetch(url, {
                method: 'POST',
