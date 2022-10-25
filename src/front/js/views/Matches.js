@@ -48,7 +48,7 @@ const Loading = () => {
     )
 };
 
-export default function RecommendationCard() {
+export default function MatchCard() {
 
     const [matches, setMatches] = useState(null);
 

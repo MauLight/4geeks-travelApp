@@ -10,21 +10,22 @@ const Account1 = () => {
     const [userinsta, setUserInsta] = useState("");
     const [usertweet, setUserTweet] = useState("");
     const [countries, setCountry] = useState([])
-    const [formData, setFormData] = useState({
-        firstName: '',
-        lastName: '',
-        birthdate: '',
-        email: '',
-        password: '',
-        languages: '',
-        gender: '',
-        countryofresidence: '',
-        instagram: '',
-        facebook: '',
-        twitter: '',
-        verified: '',
+    const [user, setUser] = useState(null)
+    // const [formData, setFormData] = useState({
+    //     firstName: '',
+    //     lastName: '',
+    //     birthdate: '',
+    //     email: '',
+    //     password: '',
+    //     languages: '',
+    //     gender: '',
+    //     countryofresidence: '',
+    //     instagram: '',
+    //     facebook: '',
+    //     twitter: '',
+    //     verified: '',
 
-    })
+    // })
     useEffect(() => {
         fetchCountries()
     }, [])
@@ -41,37 +42,34 @@ const Account1 = () => {
 
     }
 
-    const addUser = async (url) => {
+
+    const addUser = async (url, id) => {
         try {
 
-            const info = {
-                title: 'Prueba New User',
-
-            }
+            const info = {}
 
             const response = await fetch(url, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(info)
+               method: 'POST',
+               headers: {
+                'Content-Type': 'application/json'
+               },
+               body: JSON.stringify(info)
             });
             const data = await response.json()
-            setFormData(data)
 
-            console.log(formData);
+            console.log(data);
+            setUser(data)
 
         } catch (error) {
             console.log(error)
         }
     }
-
     const handleClick = () => {
-        console.log(`${process.env.REACT_APP_API_URL}/users`)
-        addUser(`${process.env.REACT_APP_API_URL}/users`)
-    }
+        addUser(`${process.env.REACT_APP_API_URL}/users`, user.id)
+        
+ }
 
-
+    
     return (
 
         <form onSubmit={handleSubmitAccount1}>

@@ -56,7 +56,7 @@ def get_trips_with_activities_by_user_id_and_trip_id(id, mytrips_id):
 #POST NEW USER
 @bpUser.route('/users', methods=['POST'])  # type: ignore
 def store_user():
-    users_id = request.json.get('users_id')
+    id = request.json.get('id')
     firstname = request.json.get('firstname') # type: ignore
     lastname = request.json.get('lastname') # type: ignore
     birthdate = request.json.get('birthdate') # type: ignore
@@ -71,7 +71,7 @@ def store_user():
     verified = request.json.get('verified') # type: ignore
 ##### 
     user = User()
-    user.users_id = users.id
+    user.id = id
     user.firstname = firstname
     user.lastname = lastname
     user.birthdate = birthdate
@@ -80,6 +80,9 @@ def store_user():
     user.languages = languages
     user.gender = gender
     user.countryofresidence = countryofresidence
+    user.instagram = instagram
+    user.facebook = facebook
+    user.twitter = twitter
     user.verified = verified
     user.save()
     return jsonify(user.serialize()), 201
