@@ -62,8 +62,6 @@ setup_commands(app)
 # Add all endpoints form the API with a "api" prefix
 # app.register_blueprint(api, url_prefix='/api')
 app.register_blueprint(bpMain)
-
-app.register_blueprint(bpAuth)
 app.register_blueprint(bpUser)
 app.register_blueprint(bpAuth)
 app.register_blueprint(bpGI, url_prefix="/api")
