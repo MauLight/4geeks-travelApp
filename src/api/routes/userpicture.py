@@ -42,14 +42,14 @@ def userpictures():
         return jsonify(gallery_image.serialize()), 200 
 
 
-# @bpUP.route('/userpictures/<int:id>', methods=['PUT'])
-# def galleries_update_active(id):
+@bpUP.route('/userpictures/<int:id>', methods=['PUT'])
+def user_picture_update_(id):
 
-#         active = request.json.get('active')
+        file = request.json.get('file')
 
-#         gallery_image = Gallery.query.get(id)
-#         gallery_image.active = active
-#         gallery_image.update()
+        user_picture_image = Gallery.query.get(id)
+        user_picture_image.active = active
+        gallery_image.update()
 
-#         return jsonify(gallery_image.serialize()), 200
+        return jsonify(gallery_image.serialize()), 200
 
