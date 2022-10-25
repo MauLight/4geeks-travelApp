@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from "react";
+import React, { useEffect, useState, useContext ,useNavigate} from "react";
 import { Link, useParams } from "react-router-dom";
 import { Context } from "../store/appContext";
 import "../../styles/login.css";
@@ -17,7 +17,7 @@ const Login = () => {
   const { store, actions } = useContext(Context);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
+  const navigate =useNavigate();
   return (
     <>
       <section id="login" style={style}>
@@ -68,7 +68,7 @@ const Login = () => {
                     <button
                       type="submit"
                       class="btn btn-outline-primary"
-                      onClick={() => actions.login(email, password)}
+                      onClick={() => actions.login(email, password, navigate)}
                     >
                       Login
                     </button>

@@ -1,3 +1,5 @@
+import { Navigate } from "react-router-dom";
+
 const getState = ({ getStore, getActions, setStore }) => {
   return {
     store: {
@@ -58,7 +60,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 
         
       },
-	  login : async (email,password) => {
+	  login : async (email,password,navigate) => {
 		console.warn(email, password);
 		let item = { email, password };
 		let result = await fetch(`${process.env.BACKEND_URL}/login`, {
@@ -73,6 +75,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 		console.log(resultFinal);
 		setStore({currentUser: resultFinal});
 		sessionStorage.setItem("currentUser", JSON.stringify(resultFinal));
+    navigate("/profile");
 		},
 	  
     },
