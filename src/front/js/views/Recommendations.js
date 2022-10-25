@@ -62,6 +62,9 @@ export default function RecommendationCard() {
 
   return (
     <div className="container">
+      <h1 className="mb-5">
+        Beautiful place! we'll give you some recommendations for your trip:
+      </h1>
       <div className="row">
         {!!trips && trips.results.length > 0 ? (
           trips.results.map((trip) => {
