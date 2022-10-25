@@ -9,6 +9,8 @@ import CreateTrips from "./views/CreateTrips";
 import SetPreferences from "./views/SetPreferences";
 import Poll from "./views/Poll";
 import Prueba from "./views/Prueba";
+import RecommendationCard from "./views/Recommendations";
+import MatchCard from "./views/Matches";
 import injectContext from "./store/appContext";
 
 import { Navbar } from "./component/navbar";
@@ -33,7 +35,8 @@ const Layout = () => {
                         <Route path="/setpreferences" element={<SetPreferences />}/>
                         <Route path="/poll" element={<Poll />}/>
                         <Route path="/prueba" element={<Prueba />}/>
-                        
+                        <Route path="/recommendations" element={<RecommendationCard />}/>
+                        <Route path="/matches" element={<MatchCard />}/>
                     </Routes>
                     <Footer />
                 </ScrollToTop>
