@@ -1,13 +1,28 @@
 import React, { useEffect, useState, useHistory } from 'react';
 import { Link } from 'react-router-dom';
+import { FaFacebookSquare, FaTwitter, FaInstagramSquare } from "react-icons/fa";
 import '../../styles/account1.css'
+import "../../styles/formmedia.css";
 
 const Account1 = () => {
     const url = 'https://restcountries.com/v3.1/all'
+    const [userface, setUserFace] = useState("");
+    const [userinsta, setUserInsta] = useState("");
+    const [usertweet, setUserTweet] = useState("");
     const [countries, setCountry] = useState([])
     const [formData, setFormData] = useState({
         firstName: '',
         lastName: '',
+        birthdate: '',
+        email: '',
+        password: '',
+        languages: '',
+        gender: '',
+        countryofresidence: '',
+        instagram: '',
+        facebook: '',
+        twitter: '',
+        verified: '',
 
     })
     useEffect(() => {
@@ -22,12 +37,40 @@ const Account1 = () => {
         setCountry(responseJSON)
     }
 
-    const handleSubmitAccount1  = () => {
-        
+    const handleSubmitAccount1 = () => {
+
     }
-    const handleClick  = () => {
-        
+
+    const addUser = async (url) => {
+        try {
+
+            const info = {
+                title: 'Prueba New User',
+
+            }
+
+            const response = await fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(info)
+            });
+            const data = await response.json()
+            setFormData(data)
+
+            console.log(formData);
+
+        } catch (error) {
+            console.log(error)
+        }
     }
+
+    const handleClick = () => {
+        console.log(`${process.env.REACT_APP_API_URL}/users`)
+        addUser(`${process.env.REACT_APP_API_URL}/users`)
+    }
+
 
     return (
 
@@ -46,32 +89,32 @@ const Account1 = () => {
 
                     <div className='row mt-3'>
                         <div className='col-lg-4 col-12 mb-5 mx-auto'>
-                            <label for='exampleInputText' className='form-label'>First Name</label>
-                            <input type='text' className='form-control' id='exampleInputText' />
+                            <label htmlFor='exampleInputText' className='form-label'>First Name</label>
+                            <input type='text' className='form-control' id='exampleInputText' name='firstname' />
                         </div>
                         <div className='col-lg-4 col-12 mb-5 mx-auto'>
-                            <label for='exampleInputText' className='form-label'>Last Name</label>
-                            <input type='text' className='form-control' id='exampleInputText' />
+                            <label htmlFor='exampleInputText' className='form-label'>Last Name</label>
+                            <input type='text' className='form-control' id='exampleInputText' name='lastname' />
                         </div>
                         <div className='col-lg-3 col-12 mx-auto'>
-                            <p className='exampleInputDate' for='exampleDate'>Birth Date</p>
-                            <input type='date' className='form-label w-100' id='exampleDate' />
+                            <p className='exampleInputDate' htmlFor='exampleDate'>Birth Date</p>
+                            <input type='date' className='form-label w-100' id='exampleDate' name='birthdate' />
                         </div>
                     </div>
                     <div className='row'>
                         <div className='col-lg-4 col-12 mb-5 mx-auto'>
-                            <label for='exampleInputEmail1' className='form-label'>Email address</label>
-                            <input type='email' className='form-control' id='exampleInputEmail1' aria-describedby='emailHelp' />
+                            <label htmlFor='exampleInputEmail1' className='form-label'>Email address</label>
+                            <input type='email' className='form-control' id='exampleInputEmail1' aria-describedby='emailHelp' name='email' />
                             <div id='emailHelp' className='form-text'>We'll never share your email with anyone else.</div>
                         </div>
                         <div className='col-lg-4 col-12 mb-5 mx-auto'>
-                            <label for='exampleInputPassword1' className='form-label'>Password</label>
-                            <input type='password' className='form-control' id='exampleInputPassword1' />
+                            <label htmlFor='exampleInputPassword1' className='form-label'>Password</label>
+                            <input type='password' className='form-control' id='exampleInputPassword1' name='password' />
                         </div>
                         <div className='col-lg-3 col-12 mx-auto'>
-                            <label for='exampleInputEmail1' className='form-label'>Language</label>
-                            <select className='form-select mb-3' aria-label='.form-select-lg example'>
-                                <option value='English' selected>English</option>
+                            <label htmlFor='exampleInputEmail1' className='form-label'>Language</label>
+                            <select className='form-select mb-3' aria-label='.form-select-lg example' name='languages'>
+                                <option value='English' >English</option>
                                 <option value='Arabic'>Arabic</option>
                                 <option value='Bengali'>Bengali</option>
                                 <option value='French'>French</option>
@@ -89,21 +132,21 @@ const Account1 = () => {
                     <div className='row'>
                         <div className='col-lg-4 col-12 mb-5 mx-auto'>
                             <label className='form-label'>Gender</label>
-                            <div className='form-check' required>
-                                <input className='form-check-input' type='radio' name='flexRadioDefault' id='flexRadioDefault1' value='Female' />
-                                <label className='form-check-label' for='flexRadioDefault1'>
+                            <div className='form-check' >
+                                <input className='form-check-input' type='radio' name='gender' id='flexRadioDefault1' value='Female' />
+                                <label className='form-check-label' htmlFor='flexRadioDefault1'>
                                     Female
                                 </label>
                             </div>
                             <div className='form-check'>
-                                <input className='form-check-input' type='radio' name='flexRadioDefault' id='flexRadioDefault2' value='Male' />
-                                <label className='form-check-label' for='flexRadioDefault1'>
+                                <input className='form-check-input' type='radio' name='gender' id='flexRadioDefault2' value='Male' />
+                                <label className='form-check-label' htmlFor='flexRadioDefault1'>
                                     Male
                                 </label>
                             </div>
                             <div className='form-check'>
-                                <input className='form-check-input' type='radio' name='flexRadioDefault' id='flexRadioDefault3' value='NonBinary' />
-                                <label className='form-check-label' for='flexRadioDefault1'>
+                                <input className='form-check-input' type='radio' name='gender' id='flexRadioDefault3' value='NonBinary' />
+                                <label className='form-check-label' htmlFor='flexRadioDefault1'>
                                     Non Binary
                                 </label>
                             </div>
@@ -113,13 +156,77 @@ const Account1 = () => {
                         </div>
                         <div className='col-lg-4 col-12 mb-5 mx-auto'>
                             <label className='form-label'> Country of Residence</label>
-                            <select className='form-select' aria-label='select country of residence' required>
+                            <select className='form-select' aria-label='select country of residence' required name='countryofresidence'>
                                 {countries.sort((a, b) => a.name.common > b.name.common ? 1 : -1).map((country, index) => {
                                     return <option key={index} value={country?.name?.common}>{country?.name?.common}</option>
                                 })}
                             </select>
                         </div>
-                        <div className='col-lg-3 col-12 mb-5 mx-auto'></div>
+                        <div className='col-lg-3 col-12 mb-5 mx-auto'>
+                            {/* REDES SOCIALES */}
+                            <div className="social-media">
+
+                                <label className='form-label'>Social Media</label>
+
+                                {/* FACEBOOK */}
+                                <div className="row">
+                                    <div className="col d-flex mb-1">
+
+
+                                        <FaFacebookSquare className="icon text-primary" />
+
+                                        <input
+                                            type="text"
+                                            className="form-control"
+                                            id="facebook"
+                                            placeholder="user"
+                                            value={userface}
+                                            onChange={(e) => setUserFace(e.target.value)}
+                                            name='facebook'
+                                        />
+
+                                    </div>
+                                </div>
+                                {/* INSTAGRAM */}
+                                <div className="row">
+                                    <div className="col d-flex mb-1">
+
+
+                                        <FaInstagramSquare className="icon text-primary" />
+
+                                        <input
+                                            type="text"
+                                            className="form-control"
+                                            id="instagram"
+                                            placeholder="user"
+                                            value={userinsta}
+                                            onChange={(e) => setUserInsta(e.target.value)}
+                                            name='instagram'
+                                        />
+
+                                    </div>
+                                </div>
+                                {/* TWITTER */}
+                                <div className="row">
+                                    <div className="col d-flex mb-1">
+
+
+                                        <FaTwitter className="icon text-primary" />
+
+                                        <input
+                                            type="text"
+                                            className="form-control"
+                                            id="twitter"
+                                            placeholder="user"
+                                            value={usertweet}
+                                            onChange={(e) => setUserTweet(e.target.value)}
+                                            name='twitter'
+                                        />
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     <button type='submit' onClick={handleClick} className='btn btn-success mb-3 d-flex mx-auto'>Submit</button>
                 </div >
