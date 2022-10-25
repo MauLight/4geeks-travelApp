@@ -1,5 +1,6 @@
-import React, { useEffect, useState, useContext ,useNavigate} from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { Link, useParams } from "react-router-dom";
+import { useNavigation } from '@react-navigation/native';
 import { Context } from "../store/appContext";
 import "../../styles/login.css";
 import trip from "../../img/trip.jpg";
@@ -17,7 +18,7 @@ const Login = () => {
   const { store, actions } = useContext(Context);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const navigate =useNavigate();
+  const navigate =useNavigation();
   return (
     <>
       <section id="login" style={style}>

@@ -14,7 +14,7 @@ import cloudinary
 
 from api.routes.main import bpMain
 from api.routes.users import bpUser
-from api.routes.auth import bpAuth
+from api.routes.auth import bpAuth 
 from api.routes.galleries import bpGI
 from api.routes.userpicture import bpUP
 
