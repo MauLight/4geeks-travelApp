@@ -62,7 +62,7 @@ setup_commands(app)
 # Add all endpoints form the API with a "api" prefix
 # app.register_blueprint(api, url_prefix='/api')
 app.register_blueprint(bpMain)
-app.register_blueprint(bpUsers)
+app.register_blueprint(bpAuth)
 app.register_blueprint(bpGI, url_prefix="/api")
 app.register_blueprint(bpUP, url_prefix="/api")
 
@@ -86,12 +86,6 @@ def serve_any_other_file(path):
         path = 'index.html'
     response = send_from_directory(static_file_dir, path)
     response.cache_control.max_age = 0 # avoid cache memory
-    return response
-
-@app.route('/account/page/1', methods=['GET'])
-def account():
-    path = './src/front/js/views/Account1.js'
-    response = send_from_directory(static_file_dir, path)
     return response
 
 # this only runs if `$ python src/main.py` is executed

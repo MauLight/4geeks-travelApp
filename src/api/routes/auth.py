@@ -4,33 +4,33 @@ from werkzeug.security import generate_password_hash, check_password_hash # libr
 from flask_jwt_extended import create_access_token, create_refresh_token
 import datetime
 
-bpUsers = Blueprint('bpUsers', __name__)
+bpAuth = Blueprint('bpAuth', __name__)
 
-@bpUsers.route('/register', methods=['POST'])
-def register():
+# @bpAuth.route('/register', methods=['POST'])
+# def register():
 
-    username = request.json.get('username') 
-    password = request.json.get('password')
-    active = request.json.get('active', True)
+#     username = request.json.get('username') 
+#     password = request.json.get('password')
+#     active = request.json.get('active', True)
 
-    if not username: return jsonify({ "status": "error", "code": 400, "message": "Username is required!"}), 400
-    if not password: return jsonify({ "status": "error", "code": 400, "message": "Password is required!"}), 400
-
-
-    user = User()
-    user.username = username
-    user.password = generate_password_hash(password)
-    user.active = active
-    user.save()
-
-    data = {
-        "user": user.serialize()
-    }
-
-    return jsonify({ "status": "success", "code": 201, "message": "User registered successfully!", "data": data}), 201
+#     if not username: return jsonify({ "status": "error", "code": 400, "message": "Username is required!"}), 400
+#     if not password: return jsonify({ "status": "error", "code": 400, "message": "Password is required!"}), 400
 
 
-@bpUsers.route('/login', methods=['POST'])
+#     user = User()
+#     user.username = username
+#     user.password = generate_password_hash(password)
+#     user.active = active
+#     user.save()
+
+#     data = {
+#         "user": user.serialize()
+#     }
+
+#     return jsonify({ "status": "success", "code": 201, "message": "User registered successfully!", "data": data}), 201
+
+
+@bpAuth.route('/login', methods=['POST'])
 def login():
 
     email = request.json.get('email') 

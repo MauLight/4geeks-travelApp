@@ -33,8 +33,14 @@ const FormMedia = () => {
       setCountries(gettrip);
     }
 
-    getcountry();
-    }, []);
+  const getImagesGallery = async (filter) => {
+    try {
+      let query =
+        filter === null
+          ? ""
+          : filter === true
+          ? "?active=true"
+          : "?active=false"; // validando si filtramos o no el resultado
 
   const handleChange=(event)=> {
     const getcountryid = event.target.value;
@@ -196,15 +202,44 @@ const FormMedia = () => {
             </div>
             {/* FOTOGRAFIA PERFIL USUARIO */}
             <div className="user-picture col-4">
-            <div className="row photos">
-                <h5 className="">Travel photos</h5>
-              </div>
+              <div className="row">
+                {
+                !!gallery &&
+                gallery.map((image, index) => {
+                  return (
+                  <div className="col-md-4" key={index}>
+                    <div className="card position-relative my-3">
+                      <img src={image.filename} className="card-img-top" alt="..." />
+                      <div className="card-body">
+                        <p className="card-text text-center text-primary">{image.title}</p>
+                        
+                        <div className="form-check form-switch">
+                          <input className="form-check-input" type="checkbox" role="switch" id="imageActive"
+                          checked={(image.active ? "checked" : "")}
+                          onChange={() => handleChangeActive(image.id, !image.active)}/>
+                          <label className="form-check-label" htmlFor="imageActive">{image.active ? "active" : "inactive"}
+                          </label>
+                        </div>
+
+                        </div>
+                        <span className={"position-absolute top-0 start-100 translate-middle badge rounded-pill " + (image.active ? "bg-success" : "bg-danger")}>
+                          {image.active ? "active" : "inactive"}
+                          <span className="visually-hidden">Image Status</span>
+                        </span>
+                        </div>
+                        </div>
+                        )
+                      })
+                      }
+                </div>
             </div>
-          <input
+            </div>
+          </div>
+          {/* <input
             className="btn-submit btn-primary col-3"
             type="submit"
             value="Submit"
-          ></input>
+          ></input> */}
         </div>
         </div>
       </div>

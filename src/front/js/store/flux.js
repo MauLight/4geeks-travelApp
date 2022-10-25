@@ -73,8 +73,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 		console.log(resultFinal);
 		setStore({currentUser: resultFinal});
 		sessionStorage.setItem("currentUser", JSON.stringify(resultFinal));
-		
-	  },
+		},
 	  
     },
   };
