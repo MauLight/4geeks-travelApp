@@ -1,5 +1,6 @@
-import React, { useEffect, useState, useContext ,useNavigation } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { Link, useParams } from "react-router-dom";
+import { useNavigation } from '@react-navigation/native';
 import { Context } from "../store/appContext";
 import "../../styles/login.css";
 import trip from "../../img/trip.jpg";
