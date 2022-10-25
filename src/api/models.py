@@ -69,6 +69,36 @@ class User(db.Model):  # type: ignore
         db.session.delete(self)
         db.session.commit()
 
+class CreateTrip(db.Model):  # creacion del viaje
+    __tablename__ = 'createtrips'
+    id = db.Column(db.Integer, primary_key= True)
+    country_trip = db.Column(db.Integer, nullable= False)
+    capital_trip = db.Column(db.Integer, nullable= False)
+    start_date = db.Column(db.DateTime)
+    end_date = db.Column(db.DateTime)
+    # activities = db.relationship('Activities', cascade = 'all, delete', backref= 'trip')
+    users_id = db.Column(db.Integer, db.ForeignKey('users.id', ondelete= 'CASCADE'), nullable= False)
+
+    def serialize(self):
+        return {
+            'id': self.id,
+            'country_trip': self.country_trip,
+            'capital_trip': self.capital_trip,
+            'start_date': self.start_date,
+            'end_date': self.end_date,
+        }
+
+    def save(self):
+        db.session.add(self)
+        db.session.commit()
+
+    def update(self):
+        db.session.commit()
+
+    def delete(self):
+        db.session.delete(self)
+        db.session.commit()
+
 class Trips(db.Model):  # type: ignore
     __tablename__ = 'mytrips'
     id = db.Column(db.Integer, primary_key= True)
@@ -149,12 +179,13 @@ class Activities(db.Model):  # type: ignore
         db.session.delete(self)
         db.session.commit()
 
-class Gallery(db.Model): #usar para formulario con fotos
+class Gallery(db.Model): #usar para formulario con fotos DE VIAJES
     __tablename__ = 'galleries'
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(100), nullable="False")
     filename = db.Column(db.String(200), nullable=False)
     active = db.Column(db.Boolean(), default=True)
+    users_id = db.Column(db.Integer, db.ForeignKey('users.id', ondelete= 'CASCADE'), nullable= False)
 
     def serialize(self):
         return {
@@ -162,6 +193,30 @@ class Gallery(db.Model): #usar para formulario con fotos
             "title": self.title,
             "filename": self.filename,
             "active": self.active
+        }
+
+    def save(self):
+        db.session.add(self)
+        db.session.commit()
+
+    def update(self):
+        db.session.commit()
+
+    def delete(self):
+        db.session.delete(self)
+        db.session
+
+class UserPicture(db.Model): #usar para formulario con foto de usuario
+    __tablename__ = 'userpictures'
+    id = db.Column(db.Integer, primary_key=True)
+    filename = db.Column(db.String(200), nullable=False) 
+    users_id = db.Column(db.Integer, db.ForeignKey('users.id', ondelete= 'CASCADE'), nullable= False)
+
+    def serialize(self):
+        return {
+            "id": self.id,
+            "user_id": self.user_id,
+            "filename": self.filename,
         }
 
     def save(self):

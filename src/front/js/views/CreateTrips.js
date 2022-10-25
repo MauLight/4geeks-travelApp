@@ -23,7 +23,7 @@ const CreateTrips = () => {
   //   {value: '6', label: 'Rome'},
   //   {value: '7', label: 'Madrid'},
   //   {value: '8', label: 'London'},
-  //   {value: '', label: 'Paris'}
+  //   {value: '9', label: 'Paris'}
   // ]
 
   useEffect(() => {

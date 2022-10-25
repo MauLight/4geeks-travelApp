@@ -1,5 +1,5 @@
 from flask import Blueprint, request, jsonify
-from models import Gallery
+from api.models import Gallery
 import cloudinary.uploader
 
 bpGI = Blueprint('bpGI', __name__)
@@ -20,24 +20,6 @@ def galleries():
           galleries = Gallery.query.all()
           galleries = list(map(lambda imagen: imagen.serialize(), galleries))
           return jsonify(galleries), 200
-
-    """ if request.method == 'POST':
-        
-        title = request.form['title']
-        active = request.form['active']
-        image = request.files['image']
-
-        resp = cloudinary.uploader.upload(image, folder="gallery")
-
-        if not resp: return jsonify({ "msg": "error uploading image"}), 400
-
-        gallery_image = Gallery()
-        gallery_image.title = title
-        gallery_image.active = True if active == 'true' else False
-        gallery_image.filename = resp['secure_url']
-        gallery_image.save()
-
-        return jsonify(gallery_image.serialize()), 200 """
 
     if request.method == 'POST':
         
