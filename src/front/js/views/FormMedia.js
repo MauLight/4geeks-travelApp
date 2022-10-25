@@ -7,7 +7,7 @@
 
 import React, { useContext, useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
-import { FaFacebookSquare, FaTwitter, FaInstagramSquare } from "react-icons/fa";
+// import { FaFacebookSquare, FaTwitter, FaInstagramSquare } from "react-icons/fa";
 import "../../styles/formmedia.css";
 import { Context } from "../store/appContext";
 
@@ -16,49 +16,40 @@ const FormMedia = () => {
   // const [userinsta, setUserInsta] = useState("");
   // const [usertweet, setUserTweet] = useState("");
   // const [gallery, setGallery] = useState(null);
-
-  const [title, setTitle] = useState("");
-  const [active, setActive] = useState(true);
+  const [gallery, setGallery] = useState(null)
+  // const [title, setTitle] = useState("");
+  // const [active, setActive] = useState(true);
   const [image, setImage] = useState(null);
   const [error, setError] = useState(null);
-  const [filter, setFilter] = useState(null);
+  // const [filter, setFilter] = useState(null);
 
   useEffect(() => {
-    getImagesGallery(filter);
-  }, []);
 
-  useEffect(() => {
-    getImagesGallery(filter);
-  }, [filter]);
-
-  const getImagesGallery = async (filter) => {
-    try {
-      let query =
-        filter === null
-          ? ""
-          : filter === true
-          ? "?active=true"
-          : "?active=false"; // validando si filtramos o no el resultado
-
-      const response = await fetch(
-        `${process.env.REACT_APP_API_URL}/api/galleries${query}`
-      );
-      const data = await response.json();
-
-      setGallery(data);
-    } catch (error) {
-      console.log(error.message);
+    const getcountry = async () => {
+      const response = await fetch(url);
+      console.log(response);
+      const gettrip = await response.json();
+      console.log(gettrip);
+      setCountries(gettrip);
     }
-  };
+
+    getcountry();
+    }, []);
+
+  const handleChange=(event)=> {
+    const getcountryid = event.target.value;
+    console.log(getcountryid)
+    setSelected(getcountryid);
+  }
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    if (title !== "" && image !== null) {
+    if (image !== null) {
       const formData = new FormData();
 
-      formData.append("title", title);
-      formData.append("active", active);
+      // formData.append("title", title);
+      // formData.append("active", active);
       for (let i = 0; i < image.length; i++) {
         formData.append("images", image[i]);
       }
@@ -77,7 +68,7 @@ const FormMedia = () => {
   const uploadImage = async (formData) => {
     try {
       const response = await fetch(
-        `${process.env.REACT_APP_API_URL}/api/galleries`,
+        `${process.env.BACKEND_URL}/api/galleries`,
         {
           method: "POST",
           body: formData,
@@ -86,9 +77,9 @@ const FormMedia = () => {
       const data = await response.json();
 
       if (data.length > 0) {
-        getImagesGallery(filter);
-        setTitle("");
-        setActive(true);
+        // getImagesGallery(filter);
+        // setTitle("");
+        // setActive(true);
         setImage(null);
         setError(null);
       } else {
@@ -103,7 +94,7 @@ const FormMedia = () => {
     console.log(status);
     try {
       const response = await fetch(
-        `${process.env.REACT_APP_API_URL}/api/galleries/${id}`,
+        `${process.env.BACKEND_URL}/api/galleries/${id}`,
         {
           method: "PUT",
           body: JSON.stringify({
@@ -131,9 +122,9 @@ const FormMedia = () => {
           <div className="row horrible d-flex-inline">
             <div className="container-photos col-6">
               <div className="row photos">
-                <h5 className="">Photos</h5>
+                <h5 className="">User Picture</h5>
               </div>
-              {/* <div className="row cards">
+              <div className="row cards">
                 {!!gallery &&
                   gallery.map((image, index) => {
                     return (
@@ -182,8 +173,8 @@ const FormMedia = () => {
                       </div>
                     );
                   })}
-              </div> */}
-              {/* <div className="row chosen">
+              </div>
+              <div className="row chosen">
                 <form onSubmit={handleSubmit}>
                   <div className="mb-3">
                     <input
@@ -201,48 +192,19 @@ const FormMedia = () => {
                     </button>
                   </div>
                 </form>
-              </div> */}
+              </div>
             </div>
             {/* FOTOGRAFIA PERFIL USUARIO */}
             <div className="user-picture col-4">
-              <div className="row">
-                {
-                !!gallery &&
-                gallery.map((image, index) => {
-                  return (
-                  <div className="col-md-4" key={index}>
-                    <div className="card position-relative my-3">
-                      <img src={image.filename} className="card-img-top" alt="..." />
-                      <div className="card-body">
-                        <p className="card-text text-center text-primary">{image.title}</p>
-                        
-                        <div className="form-check form-switch">
-                          <input className="form-check-input" type="checkbox" role="switch" id="imageActive"
-                          checked={(image.active ? "checked" : "")}
-                          onChange={() => handleChangeActive(image.id, !image.active)}/>
-                          <label className="form-check-label" htmlFor="imageActive">{image.active ? "active" : "inactive"}
-                          </label>
-                        </div>
-
-                        </div>
-                        <span className={"position-absolute top-0 start-100 translate-middle badge rounded-pill " + (image.active ? "bg-success" : "bg-danger")}>
-                          {image.active ? "active" : "inactive"}
-                          <span className="visually-hidden">Image Status</span>
-                        </span>
-                        </div>
-                        </div>
-                        )
-                      })
-                      }
-                </div>
+            <div className="row photos">
+                <h5 className="">Travel photos</h5>
+              </div>
             </div>
-            </div>
-          </div>
-          {/* <input
+          <input
             className="btn-submit btn-primary col-3"
             type="submit"
             value="Submit"
-          ></input> */}
+          ></input>
         </div>
         </div>
       </div>
