@@ -8,6 +8,7 @@ import FormMedia from "./views/FormMedia";
 import CreateTrips from "./views/CreateTrips";
 import SetPreferences from "./views/SetPreferences";
 import Poll from "./views/Poll";
+import Prueba from "./views/Prueba";
 import injectContext from "./store/appContext";
 
 import { Navbar } from "./component/navbar";
@@ -31,6 +32,7 @@ const Layout = () => {
                         <Route path="/createtrip" element={<CreateTrips />}/>
                         <Route path="/setpreferences" element={<SetPreferences />}/>
                         <Route path="/poll" element={<Poll />}/>
+                        <Route path="/prueba" element={<Prueba />}/>
                         
                     </Routes>
                     <Footer />

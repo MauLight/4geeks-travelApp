@@ -15,9 +15,14 @@ import cloudinary
 from api.routes.main import bpMain
 from api.routes.users import bpUser
 from api.routes.auth import bpUsers
+from api.routes.galleries import bpGI
+from api.routes.userpicture import bpUP
 
 from api.admin import setup_admin
 from api.commands import setup_commands
+
+
+load_dotenv()
 
 #from models import Person
 
@@ -58,6 +63,10 @@ cloudinary.config(
 # app.register_blueprint(api, url_prefix='/api')
 app.register_blueprint(bpMain)
 app.register_blueprint(bpUsers)
+app.register_blueprint(bpGI, url_prefix="/api")
+app.register_blueprint(bpUP, url_prefix="/api")
+
+
 # Handle/serialize errors like a JSON object
 @app.errorhandler(APIException)
 def handle_invalid_usage(error):
