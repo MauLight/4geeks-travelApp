@@ -24,7 +24,7 @@ const Login = () => {
         <div className="contenedorPrincipal" id="contenedorPrincipal">
           <div className="" id="toAccount">
             {/* agregar link Account 1*/}
-            <Link to="/account1">
+            <Link to="/account/page/1">
               <strong>Don't have an Account? Create an Account!</strong>
             </Link>
           </div>

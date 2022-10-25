@@ -13,8 +13,9 @@ class User(db.Model):  # type: ignore
     gender = db.Column(db.String(20)) 
     languages=db.Column(db.String(20))
     countryofresidence=db.Column(db.String(20))
-    socialmedia=db.Column(db.String(20))
-    photos=db.Column(db.String(20))
+    instagram=db.Column(db.String(20), unique = True)
+    facebook=db.Column(db.String(20), unique = True)
+    twitter=db.Column(db.String(20), unique = True)
     verified = db.Column(db.Boolean(), default = True)
     mytrips = db.relationship('Trips', cascade = 'all, delete', backref= 'user')
 
@@ -29,7 +30,9 @@ class User(db.Model):  # type: ignore
             'gender': self.gender,
             'languages': self.languages,
             'countryofresidence': self.countryofresidence,
-            'socialmedia': self.socialmedia,
+            'instagram': self.instagram,
+            'facebook': self.facebook,
+            'twitter': self.twitter,
             'verified': self.verified
         }
 
@@ -38,9 +41,15 @@ class User(db.Model):  # type: ignore
             'id': self.id,
             'firstname': self.firstname,
             'lastname': self.lastname,
-            'birthdate': self.birthdate,
             'email': self.email,
             'password' : self.password,
+            'birthdate': self.birthdate,
+            'gender': self.gender,
+            'languages': self.languages,
+            'countryofresidence': self.countryofresidence,
+            'instagram': self.instagram,
+            'facebook': self.facebook,
+            'twitter': self.twitter,
             'verified': self.verified,
             'mytrips' : [trip.serialize() for trip in self.mytrips]
         }
@@ -50,9 +59,15 @@ class User(db.Model):  # type: ignore
             'id': self.id,
             'firstname': self.firstname,
             'lastname': self.lastname,
-            'birthdate': self.birthdate,
             'email': self.email,
             'password' : self.password,
+            'birthdate': self.birthdate,
+            'gender': self.gender,
+            'languages': self.languages,
+            'countryofresidence': self.countryofresidence,
+            'instagram': self.instagram,
+            'facebook': self.facebook,
+            'twitter': self.twitter,
             'verified': self.verified,
             'mytrips' : [trip.serialize_with_activities() for trip in self.mytrips]
         }
@@ -135,6 +150,7 @@ class Trips(db.Model):  # type: ignore
             'activities' : [activity.serialize() for activity in self.activities],
             'users_id': self.users_id
         }
+        
 
     def save(self):
         db.session.add(self)
