@@ -3,6 +3,10 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import ScrollToTop from "./component/scrollToTop";
 
 import Login from "./views/Login";
+<<<<<<< HEAD
+=======
+import  from "./views/Login";
+>>>>>>> 54a2021 (profile/Layout)
 import Account1 from "./views/Account1";
 import FormMedia from "./views/FormMedia";
 import CreateTrips from "./views/CreateTrips";
@@ -28,7 +32,8 @@ const Layout = () => {
                 <ScrollToTop>
                     <Navbar />
                     <Routes>
-                        <Route path="/login" element={<Login />}/>
+                        <Route path="/login" element={<Login />}/>     
+                        <Route path="/profile" element={<Profile />}/>
                         <Route path="/account/page/1" element={<Account1 />}/>
                         <Route path="/account/page/2" element={<FormMedia />}/>
                         <Route path="/createtrip" element={<CreateTrips />}/>
@@ -37,6 +42,7 @@ const Layout = () => {
                         <Route path="/prueba" element={<Prueba />}/>
                         <Route path="/recommendations" element={<RecommendationCard />}/>
                         <Route path="/matches" element={<MatchCard />}/>
+                        {/* <Route path="/prueba" element={<Prueba />}/> */}
                     </Routes>
                     <Footer />
                 </ScrollToTop>
