@@ -5,15 +5,14 @@ import ScrollToTop from "./component/scrollToTop";
 import Login from "./views/Login";
 import Profile from "./views/Profile";
 import Account1 from "./views/Account1";
-import FormMedia from "./views/FormMedia";
+import PhotosAccount from "./views/PhotosAccount";
+import Mytrips from "./views/AdmTrips";
 import CreateTrips from "./views/CreateTrips";
 import SetPreferences from "./views/SetPreferences";
 import Poll from "./views/Poll";
-import Prueba from "./views/Prueba";
 import RecommendationCard from "./views/Recommendations";
 import MatchCard from "./views/Matches";
 
-// import Prueba from "./views/Prueba";
 
 import injectContext from "./store/appContext";
 
@@ -35,14 +34,14 @@ const Layout = () => {
                         <Route path="/login" element={<Login />}/>     
                         <Route path="/profile" element={<Profile />}/>
                         <Route path="/account/page/1" element={<Account1 />}/>
-                        <Route path="/account/page/2" element={<FormMedia />}/>
+                        <Route path="/account/page/2" element={<PhotosAccount />}/>
+                        <Route path="/profile" element={<Profile />}/>
+                        <Route path="/mytrips" element={<Mytrips />}/>
                         <Route path="/createtrip" element={<CreateTrips />}/>
                         <Route path="/setpreferences" element={<SetPreferences />}/>
                         <Route path="/poll" element={<Poll />}/>
-                        <Route path="/prueba" element={<Prueba />}/>
                         <Route path="/recommendations" element={<RecommendationCard />}/>
                         <Route path="/matches" element={<MatchCard />}/>
-                        {/* <Route path="/prueba" element={<Prueba />}/> */}
                     </Routes>
                     <Footer />
                 </ScrollToTop>
