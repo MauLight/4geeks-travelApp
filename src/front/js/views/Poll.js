@@ -19,8 +19,8 @@ const Nombre = () => {
         <div className='full-poll'>
             <form onSubmit={handleSubmitPoll}>
                 <div className='container'>
-                    <h1 className='text-center pt-3'>Username! Your trip to (city) has been completed...</h1>
-                    <h5 className='text-center'>You chose (username1) as your partner, please give us your feedback</h5>
+                    <h1 className='text-center pt-3'>Your trip has been completed...</h1>
+                    <h5 className='text-center'>Please give us your feedback on the partner you chose</h5>
                     <div className='row mt-5 d-flex '>
                         <div className='col-lg-5 col-12 text-center'>
                             <img src='https://www.pngall.com/wp-content/uploads/5/User-Profile-PNG-High-Quality-Image.png' alt='user image' className='w-50' />
@@ -35,18 +35,18 @@ const Nombre = () => {
                         <div className='col-lg-7 col-12 align-content-center'>
                             <p>From 1 to 7, being 1 the worst and 7 the best experience: </p>
                             <p class="instructions">(set sliders according to your preferences)</p>
-                            <label for='customRange1' class='form-label'>Was (username1) a good match according to what you were looking for?</label>
+                            <label for='customRange1' class='form-label'>Was your partner a good match according to what you were looking for?</label>
                             <div className='d-flex'>
                                 <input type='range' class='slider form-range w-50 mb-3  in-line' min='1' max='7' step='1' id='customRange1' onInput={handleFirstInput} />
                                 <label className='form-label in-line ms-4' id='rangeValue'>{firstInput}</label>
                             </div>
-                            <p for='customRange2' class='form-label'>Would you recommend (username1) to join other travellers?</p>
+                            <p for='customRange2' class='form-label'>Would you recommend your partner to join other travellers?</p>
                             <div className='d-flex'>
                                 <input type='range' class='slider form-range w-50 mb-3' min='1' max='7' step='1' id='customRange2' onInput={handleSecondInput} />
                                 <p className='d-flex in-line ms-4' id='rangeValue'>{secondInput}</p>
                             </div>
                             <div className='mb-3'>
-                                <p className='form-label'>If your score is above or equal to 5 tell us why do you recommend username1 (choose 3)</p>
+                                <p className='form-label'>If your score is above or equal to 5 tell us why do you recommend your partner (choose 3)</p>
                                 <div className='form-check '>
                                     <input className='form-check-input' type='checkbox' id='Checkbox1' value='Funny' />
                                     <label className='form-check-label' for='Checkbox1'>Funny</label>
@@ -74,7 +74,7 @@ const Nombre = () => {
                                 </div>
                             </div>
                             <div className='mb-3'>
-                                <label className='form-label'>If your score is under 5 tell us why do you not recommend username1 (choose 3)</label>
+                                <label className='form-label'>If your score is under 5 tell us why do you not recommend your partner(choose 3)</label>
                                 <div className='form-check'>
                                     <input className='form-check-input' type='checkbox' id='secondCheckbox1' value='Bored' />
                                     <label className='form-check-label' for='Checkbox1'>Bored</label>
