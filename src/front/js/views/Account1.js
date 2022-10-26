@@ -37,13 +37,13 @@ const Account1 = () => {
         //console.log(responseJSON)
         setCountry(responseJSON)
     }
-
+   
     const handleSubmitAccount1 = (e) => {
         e.preventDefault()
         const sampleForm = document.getElementById("account");
 
         //Add an event listener to the form element and handler for the submit an event.
-        acc.addEventListener("submit", async (e) => {
+        sampleForm.addEventListener("submit", async (e) => {
             /**
              * Prevent the default browser behaviour of submitting
              * the form so that you can handle this instead.
@@ -112,16 +112,19 @@ const Account1 = () => {
 
             //If the response is not ok throw an error (for debugging)
             if (!res.ok) {
+                
                 let error = await res.text();
-                throw new Error(error);
+                throw new Error(error); 
             }
             //If the response was OK, return the response body.
+            window.location = '/account/page/2'
             return res.json();
         }
     }
 
+    const handleClick = () => { 
 
-    const handleClick = () => { }
+    }
 
     return (
 
