@@ -1,52 +1,20 @@
-// const media = (userface, userinsta, usertweet) => {
-//   if (userface === "" && userinsta === "" && usertweet === "")
-//     alert("Missing field");
-// };
-
-// export default FormMedia;
-
 import React, { useContext, useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 // import { FaFacebookSquare, FaTwitter, FaInstagramSquare } from "react-icons/fa";
 import "../../styles/formmedia.css";
 import { Context } from "../store/appContext";
 
-const FormMedia = () => {
-  // const [userface, setUserFace] = useState("");
-  // const [userinsta, setUserInsta] = useState("");
-  // const [usertweet, setUserTweet] = useState("");
-  // const [gallery, setGallery] = useState(null);
-  const [gallery, setGallery] = useState(null)
-  // const [title, setTitle] = useState("");
-  // const [active, setActive] = useState(true);
+const PhotosAccount = () => {
+ 
+  const [gallery, setGallery] = useState(null);
+  const [title, setTitle] = useState("");
+  const [active, setActive] = useState(true);
   const [image, setImage] = useState(null);
   const [error, setError] = useState(null);
-  // const [filter, setFilter] = useState(null);
+  const [filter, setFilter] = useState(null);
 
   useEffect(() => {
 
-    const getcountry = async () => {
-      const response = await fetch(url);
-      console.log(response);
-      const gettrip = await response.json();
-      console.log(gettrip);
-      setCountries(gettrip);
-    }
-
-  const getImagesGallery = async (filter) => {
-    try {
-      let query =
-        filter === null
-          ? ""
-          : filter === true
-            ? "?active=true"
-            : "?active=false"; // validando si filtramos o no el resultado
-
-  const handleChange=(event)=> {
-    const getcountryid = event.target.value;
-    console.log(getcountryid)
-    setSelected(getcountryid);
-  }
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -54,8 +22,8 @@ const FormMedia = () => {
     if (image !== null) {
       const formData = new FormData();
 
-      // formData.append("title", title);
-      // formData.append("active", active);
+      formData.append("title", title);
+      formData.append("active", active);
       for (let i = 0; i < image.length; i++) {
         formData.append("images", image[i]);
       }
@@ -83,9 +51,9 @@ const FormMedia = () => {
       const data = await response.json();
 
       if (data.length > 0) {
-        // getImagesGallery(filter);
-        // setTitle("");
-        // setActive(true);
+        getImagesGallery(filter);
+        setTitle("");
+        setActive(true);
         setImage(null);
         setError(null);
       } else {
@@ -121,7 +89,6 @@ const FormMedia = () => {
   };
 
   return (
-    <>
       <div className="form-two">
         <div className="maincontainer col-10">
           <h1>CREATE YOUR ACCOUNT</h1>
@@ -204,8 +171,8 @@ const FormMedia = () => {
             <div className="user-picture col-4">
               <div className="row">
                 {
-                  !!gallery &&
-                  gallery.map((image, index) => {
+                  !!picture &&
+                  picture.map((image, index) => {
                     return (
                       <div className="col-md-4" key={index}>
                         <div className="card position-relative my-3">
@@ -228,9 +195,8 @@ const FormMedia = () => {
                           </span>
                         </div>
                       </div>
-                    )
-                  })
-                }
+                 );
+                })}
               </div>
             </div>
           </div>
@@ -241,9 +207,6 @@ const FormMedia = () => {
             value="Submit"
           ></input> */}
       </div>
-
-    </>
   );
-};
-
-export default FormMedia;
+})}
+export default PhotosAccount;

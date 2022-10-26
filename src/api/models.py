@@ -1,4 +1,5 @@
 from flask_sqlalchemy import SQLAlchemy
+from datetime import datetime
 
 db = SQLAlchemy()
 
@@ -89,8 +90,8 @@ class CreateTrip(db.Model):  # creacion del viaje
     id = db.Column(db.Integer, primary_key= True)
     country_trip = db.Column(db.Integer, nullable= False)
     capital_trip = db.Column(db.Integer, nullable= False)
-    start_date = db.Column(db.DateTime)
-    end_date = db.Column(db.DateTime)
+    start_date = db.Column(db.DateTime(), default=datetime.now())
+    end_date = db.Column(db.DateTime(), default=datetime.now())
     # activities = db.relationship('Activities', cascade = 'all, delete', backref= 'trip')
     users_id = db.Column(db.Integer, db.ForeignKey('users.id', ondelete= 'CASCADE'), nullable= False)
 
