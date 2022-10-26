@@ -63,7 +63,6 @@ cloudinary.config(
 # app.register_blueprint(api, url_prefix='/api')
 app.register_blueprint(bpMain)
 
-app.register_blueprint(bpAuth)
 app.register_blueprint(bpUser)
 app.register_blueprint(bpAuth)
 app.register_blueprint(bpGI, url_prefix="/api")
