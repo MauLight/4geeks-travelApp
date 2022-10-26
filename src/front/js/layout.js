@@ -2,10 +2,10 @@ import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import ScrollToTop from "./component/scrollToTop";
 
-import Login from "./views/Login";
+//import Login from "./views/Login";
 import Profile from "./views/Profile";
 import Account1 from "./views/Account1";
-import FormMedia from "./views/FormMedia";
+//import FormMedia from "./views/FormMedia";
 import CreateTrips from "./views/CreateTrips";
 import SetPreferences from "./views/SetPreferences";
 import Poll from "./views/Poll";
@@ -32,10 +32,10 @@ const Layout = () => {
                 <ScrollToTop>
                     <Navbar />
                     <Routes>
-                        <Route path="/login" element={<Login />}/>     
+                        {/* <Route path="/login" element={<Login />}/>      */}
                         <Route path="/profile" element={<Profile />}/>
                         <Route path="/account/page/1" element={<Account1 />}/>
-                        <Route path="/account/page/2" element={<FormMedia />}/>
+                        {/* <Route path="/account/page/2" element={<FormMedia />}/> */}
                         <Route path="/createtrip" element={<CreateTrips />}/>
                         <Route path="/setpreferences" element={<SetPreferences />}/>
                         <Route path="/poll" element={<Poll />}/>
