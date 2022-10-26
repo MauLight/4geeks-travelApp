@@ -2,6 +2,8 @@ import React, { useEffect, useState, useContext } from "react";
 import { Link, useParams } from "react-router-dom";
 import ReactDOM from "react-dom";
 import { Context } from "../store/appContext";
+import { FaStar } from "react-icons/fa";
+
 const Profile = () => {
   const [profileImage, setProfileImage] = useState(null);
 
@@ -102,7 +104,7 @@ const Profile = () => {
                     <li>`Gender: ${store.gender}` </li>
                     <li>`Native Languaje: ${store.languaje}` </li>
                     <li>`Country of residence: {store.countryOfResidence}`</li>
-                    <li>`Instagram: {store.media.intagram}`</li>
+                    <li>`Instagram: {store.instagram}`</li>
                     <li>`Facebook: {store.facebook}`</li>
                     <li>`Twitter: {store.twitter}`</li>
                   </ul>

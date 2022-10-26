@@ -37,42 +37,98 @@ const Account1 = () => {
         //console.log(responseJSON)
         setCountry(responseJSON)
     }
+   
+    const handleSubmitAccount1 = (e) => {
+        e.preventDefault()
+        const sampleForm = document.getElementById("account");
 
-    const handleSubmitAccount1 = () => {
+        //Add an event listener to the form element and handler for the submit an event.
+        sampleForm.addEventListener("submit", async (e) => {
+            /**
+             * Prevent the default browser behaviour of submitting
+             * the form so that you can handle this instead.
+             */
+            e.preventDefault();
 
-    }
+            /**
+             * Get the element attached to the event handler.
+             */
+            let form = e.currentTarget;
 
+            /**
+             * Take the URL from the form's `action` attribute.
+             */
+            let url = `${process.env.BACKEND_URL}/users`;
 
-    const addUser = async (url, id) => {
-        try {
+            try {
+                /**
+                 * Takes all the form fields and make the field values
+                 * available through a `FormData` instance.
+                 */
+                let formData = new FormData(form);
 
-            const info = {}
+                /**
+                 * The `postFormFieldsAsJson()` function in the next step.
+                 */
+                let responseData = await postFormFieldsAsJson({ url, formData });
 
-            const response = await fetch(url, {
-               method: 'POST',
-               headers: {
-                'Content-Type': 'application/json'
-               },
-               body: JSON.stringify(info)
-            });
-            const data = await response.json()
+                //Destructure the response data
+                let { serverDataResponse } = responseData;
 
-            console.log(data);
-            setUser(data)
+                //Display the response data in the console (for debugging)
+                console.log(serverDataResponse);
+            } catch (error) {
+                //If an error occurs display it in the console (for debugging)
+                console.error(error);
+            }
+        });
 
-        } catch (error) {
-            console.log(error)
+        /**
+         * Helper function to POST data as JSON with Fetch.
+         */
+        async function postFormFieldsAsJson({ url, formData }) {
+            //Create an object from the form data entries
+            let formDataObject = Object.fromEntries(formData.entries());
+            // Format the plain form data as JSON
+            let formDataJsonString = JSON.stringify(formDataObject);
+
+            //Set the fetch options (headers, body)
+            let fetchOptions = {
+                //HTTP method set to POST.
+                method: "POST",
+                //Set the headers that specify you're sending a JSON body request and accepting JSON response
+                headers: {
+                    "Content-Type": "application/json",
+                    "Accept": "application/json",
+                    "Access-Control-Allow-Origin": "*"
+                },
+                // POST request body as JSON string.
+                body: formDataJsonString,
+            };
+
+            //Get the response body as JSON.
+            //If the response was not OK, throw an error.
+            let res = await fetch(url, fetchOptions);
+
+            //If the response is not ok throw an error (for debugging)
+            if (!res.ok) {
+                
+                let error = await res.text();
+                throw new Error(error); 
+            }
+            //If the response was OK, return the response body.
+            window.location = '/account/page/2'
+            return res.json();
         }
     }
-    const handleClick = () => {
-        addUser(`${process.env.REACT_APP_API_URL}/users`, user.id)
-        
- }
 
-    
+    const handleClick = () => { 
+
+    }
+
     return (
 
-        <form onSubmit={handleSubmitAccount1}>
+        <form onSubmit={handleSubmitAccount1} id='account'>
             <div className='full-account1 py-2'>
                 <div className='d-flex justify-content-end me-2'>
                     <Link to="/login" className='text-success'>
