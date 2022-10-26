@@ -10,22 +10,6 @@ const CreateTrips = () => {
   const [state, setState]=useState([]);
   // const [selectedState, setSelectedState] =useState("")
 
-
-  // const{ id }=useParams();
-
-  // const chosen =[
-  //   {value: '0', label: 'Buenos Aires'},
-  //   {value: '1', label: 'Brasilia'},
-  //   {value: '2', label: 'Santiago'},
-  //   {value: '3', label: 'Bogotá'},
-  //   {value: '4', label: 'Mexico city'},
-  //   {value: '5', label: 'Athens'},
-  //   {value: '6', label: 'Rome'},
-  //   {value: '7', label: 'Madrid'},
-  //   {value: '8', label: 'London'},
-  //   {value: '9', label: 'Paris'}
-  // ]
-
   useEffect(() => {
 
     const getcountry = async () => {
@@ -76,8 +60,6 @@ const CreateTrips = () => {
 
               {countries.length > 0 && countries
                 .filter((country)=>{
-                  // console.log(country.name.common)
-                  // console.log(["Argentina","Brazil","Chile",'Colombia'].indexOf(country?.name?.common)!==-1,"Chile")
                   return ["Argentina","Brazil","Chile","Colombia", "Mexico", "Greece", "Italy", "Spain", "United Kingdom", "France"].indexOf(country?.name?.common)!=-1})
                 .sort((a, b) => (a.name.common > b.name.common ? 1 : -1))
                 .map((getcountry) => {
