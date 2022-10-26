@@ -2,10 +2,10 @@ import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import ScrollToTop from "./component/scrollToTop";
 
-import Login from "./views/Login";
+//import Login from "./views/Login";
 import Profile from "./views/Profile";
 import Account1 from "./views/Account1";
-import PhotosAccount from "./views/PhotosAccount";
+//import PhotosAccount from "./views/PhotosAccount";
 import Mytrips from "./views/AdmTrips";
 import CreateTrips from "./views/CreateTrips";
 import SetPreferences from "./views/SetPreferences";
@@ -31,12 +31,12 @@ const Layout = () => {
                 <ScrollToTop>
                     <Navbar />
                     <Routes>
-                        <Route path="/login" element={<Login />}/>     
+                        {/* <Route path="/login" element={<Login />}/>      */}
                         <Route path="/profile" element={<Profile />}/>
                         <Route path="/account/page/1" element={<Account1 />}/>
-                        <Route path="/account/page/2" element={<PhotosAccount />}/>
+                        {/* <Route path="/account/page/2" element={<PhotosAccount />}/>
                         <Route path="/profile" element={<Profile />}/>
-                        <Route path="/mytrips" element={<Mytrips />}/>
+                        <Route path="/mytrips" element={<Mytrips />}/> */}
                         <Route path="/createtrip" element={<CreateTrips />}/>
                         <Route path="/setpreferences" element={<SetPreferences />}/>
                         <Route path="/poll" element={<Poll />}/>
