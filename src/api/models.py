@@ -199,17 +199,14 @@ class Activities(db.Model):  # type: ignore
 class Gallery(db.Model): #usar para formulario con fotos DE VIAJES
     __tablename__ = 'galleries'
     id = db.Column(db.Integer, primary_key=True)
-    title = db.Column(db.String(100), nullable="False")
     filename = db.Column(db.String(200), nullable=False)
-    active = db.Column(db.Boolean(), default=True)
     users_id = db.Column(db.Integer, db.ForeignKey('users.id', ondelete= 'CASCADE'), nullable= False)
 
     def serialize(self):
         return {
             "id": self.id,
-            "title": self.title,
             "filename": self.filename,
-            "active": self.active
+            "users_id": self.users_id,
         }
 
     def save(self):

@@ -1,14 +1,8 @@
 """empty message
 
-<<<<<<<< HEAD:migrations/versions/047d7a60ca6f_.py
-Revision ID: 047d7a60ca6f
+Revision ID: 43e966a811fa
 Revises: 
-Create Date: 2022-10-26 22:52:06.181834
-========
-Revision ID: 26cddcb21038
-Revises: 
-Create Date: 2022-10-26 21:13:02.038872
->>>>>>>> 60a64cb0cd5d13b3b626c4841f30fd1578051828:migrations/versions/26cddcb21038_.py
+Create Date: 2022-10-27 15:36:29.758175
 
 """
 from alembic import op
@@ -16,11 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-<<<<<<<< HEAD:migrations/versions/047d7a60ca6f_.py
-revision = '047d7a60ca6f'
-========
-revision = '26cddcb21038'
->>>>>>>> 60a64cb0cd5d13b3b626c4841f30fd1578051828:migrations/versions/26cddcb21038_.py
+revision = '43e966a811fa'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -60,9 +50,7 @@ def upgrade():
     )
     op.create_table('galleries',
     sa.Column('id', sa.Integer(), nullable=False),
-    sa.Column('title', sa.String(length=100), nullable=False),
     sa.Column('filename', sa.String(length=200), nullable=False),
-    sa.Column('active', sa.Boolean(), nullable=True),
     sa.Column('users_id', sa.Integer(), nullable=False),
     sa.ForeignKeyConstraint(['users_id'], ['users.id'], ondelete='CASCADE'),
     sa.PrimaryKeyConstraint('id')

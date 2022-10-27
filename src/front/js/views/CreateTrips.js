@@ -40,25 +40,7 @@ const CreateTrips = () => {
     mostrar_capital();
   }
 
-  
-    // const mostrar_capital = async () => {
-    //   const resCapital = await fetch(`https://restcountries.com/v3.1/name/${selected}?fullText=true`);
-    //   console.log(resCapital);
-    
-
-
-  // const mostrar_capital = async (selected) => {
-  //   const resCapital = await fetch(`https://restcountries.eu/rest/v2/${selected}/eesti`);
-  //   console.log(resCapital);
-  //   const getCapital= await resCapital.json();
-  //   console.log(getCapital);
-  //   setState(getCapital);
-  // }
-  
-
-
-
-  
+     
   useEffect(() => {
 
     getCountry(); 
