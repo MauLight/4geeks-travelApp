@@ -13,7 +13,7 @@ const Profile = () => {
   const [error, setError] = useState(null);
   const [filter, setFilter] = useState(null);
   const { store, actions } = useContext(Context);
-  const id = store.id;
+  const user_id = store.id;
 
   useEffect(() => {
     getImageUser(filter);
