@@ -55,23 +55,23 @@ class User(db.Model):  # type: ignore
             'mytrips' : [trip.serialize() for trip in self.mytrips]
         }
     
-    def serialize_with_trips_with_activities(self):
-        return {
-            'id': self.id,
-            'firstname': self.firstname,
-            'lastname': self.lastname,
-            'email': self.email,
-            'password' : self.password,
-            'birthdate': self.birthdate,
-            'gender': self.gender,
-            'languages': self.languages,
-            'countryofresidence': self.countryofresidence,
-            'instagram': self.instagram,
-            'facebook': self.facebook,
-            'twitter': self.twitter,
-            'verified': self.verified,
-            'mytrips' : [trip.serialize_with_activities() for trip in self.mytrips]
-        }
+    # def serialize_with_trips_with_activities(self):
+    #     return {
+    #         'id': self.id,
+    #         'firstname': self.firstname,
+    #         'lastname': self.lastname,
+    #         'email': self.email,
+    #         'password' : self.password,
+    #         'birthdate': self.birthdate,
+    #         'gender': self.gender,
+    #         'languages': self.languages,
+    #         'countryofresidence': self.countryofresidence,
+    #         'instagram': self.instagram,
+    #         'facebook': self.facebook,
+    #         'twitter': self.twitter,
+    #         'verified': self.verified,
+    #         'mytrips' : [trip.serialize_with_activities() for trip in self.mytrips]
+    #     }
 
 
     def save(self):
