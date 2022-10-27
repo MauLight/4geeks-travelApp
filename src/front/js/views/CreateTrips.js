@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 import "../../styles/createtrips.css";
+
 // import { Context } from "../store/appContext";
 
 const CreateTrips = () => {
@@ -51,7 +52,6 @@ const CreateTrips = () => {
       }, [selected]);
   return (
     <>
-      {/* <Navbar /> */}
       <div className="bigcontainer">
         <h1>CREATE YOUR TRIP</h1>
         <div className="container-trip col-10">

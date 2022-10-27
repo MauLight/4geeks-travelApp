@@ -1,14 +1,13 @@
 import React, { useContext, useEffect, useState } from "react";
-
 import { Context } from "../store/appContext";
 
 const PhotosAccount = () => {
-  const [gallery, setGallery] = useState(null);
-  const [photoUser, setPhotoUser] = useState(null);
+  const [gallery, setGallery] = useState("");
+  const [photoUser, setPhotoUser] = useState("");
   const {store, actions } = useContext(Context);
 
-  const [image, setImage] = useState(null);
-  const [imageUser, setImageUser] = useState(null);
+  const [image, setImage] = useState("");
+  const [imageUser, setImageUser] = useState("");
 
   const [error, setError] = useState(null);
   const user_id = store.currentUser.id;
