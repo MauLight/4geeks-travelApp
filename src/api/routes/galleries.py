@@ -63,48 +63,30 @@ from flask import Blueprint, request, jsonify
 from api.models import Gallery, UserPicture
 import cloudinary.uploader
 
-bpGI = Blueprint('bpGI', _name_)
+bpGI = Blueprint('bpGI', __name__)
 
 
 @bpGI.route('/galleries', methods=['POST'])
 def galleries():
 
-    if request.method == 'POST':
-
-        user_id = request.args.get('user_id')
+        user_id = request.form['user_id']
         images = request.files.getlist('images')
-        # debo modificar algo al sacar multiple desde el input correspondiente??
-        imageUser = request.files.getlist('imageUser')
 
         print(images)
-        print(imageUser)
         data = []
-
-        resp1 = cloudinary.uploader.upload(imageUser, folder="picture")
-
-        if not resp1:
-            return jsonify({"msg": "error uploading image"}), 400
-
-        user_picture_image = UserPicture()
-        user_picture_image.filename = resp1['secure_url']
-        user_picture_image.user_id = user_id
-        user_picture_image.save()
-
-        data.append(user_picture_image.serialize())
 
         for image in images:
 
             print(image)
 
-            resp2 = cloudinary.uploader.upload(image, folder="gallery")
+            resp = cloudinary.uploader.upload(image, folder="gallery")
 
-            if not resp2:
+            if not resp:
                 return jsonify({"msg": "error uploading image"}), 400
 
             gallery_image = Gallery()
-            # gallery_image.title = title
-            # gallery_image.active = True if active == 'true' else False
-            gallery_image.filename = resp2['secure_url']
+            gallery_image.user_id = user_id
+            gallery_image.filename = resp['secure_url']
             gallery_image.save()
 
             data.append(gallery_image.serialize())
@@ -112,19 +94,14 @@ def galleries():
         return jsonify(data), 200
 
 
-@bpGI.route('/galleries/<int:id o user_id>', methods=['GET'])
-def galleries_get():
+@bpGI.route('/galleries/<int:user_id>', methods=['GET'])
+def galleries_get(user_id):
 
     if request.method == 'GET':
 
-      # data = []
-        user_id = request.args.get('user_id')
         if user_id is not None:
-            user_picture_image = UserPicture.query.filter_by(user_id=users_id)
-            user_picture_image = list(
-                map(lambda imagen: imagen.serialize(), userpictures))
-
+            galleries = Gallery.query.filter_by(user_id = user_id)
             galleries = Gallery.query.filter_by(user_id=users_id)
             galleries = list(map(lambda imagen: imagen.serialize(), galleries))
-
             return jsonify(user_picture_image, galleries), 200
+

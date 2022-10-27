@@ -144,30 +144,30 @@ const Account1 = () => {
                     <div className='row mt-3'>
                         <div className='col-lg-4 col-12 mb-5 mx-auto'>
                             <label htmlFor='exampleInputText' className='form-label'>First Name</label>
-                            <input type='text' className='form-control' id='exampleInputText' name='firstname' required/>
+                            <input type='text' className='form-control' id='exampleInputText' name='firstname' />
                         </div>
                         <div className='col-lg-4 col-12 mb-5 mx-auto'>
                             <label htmlFor='exampleInputText' className='form-label'>Last Name</label>
-                            <input type='text' className='form-control' id='exampleInputText' name='lastname' required/>
+                            <input type='text' className='form-control' id='exampleInputText' name='lastname' />
                         </div>
                         <div className='col-lg-3 col-12 mx-auto'>
                             <p className='exampleInputDate' htmlFor='exampleDate'>Birth Date</p>
-                            <input type='date' className='form-label w-100' id='exampleDate' name='birthdate' required/>
+                            <input type='date' className='form-label w-100' id='exampleDate' name='birthdate' />
                         </div>
                     </div>
                     <div className='row'>
                         <div className='col-lg-4 col-12 mb-5 mx-auto'>
                             <label htmlFor='exampleInputEmail1' className='form-label'>Email address</label>
-                            <input type='email' className='form-control' id='exampleInputEmail1' aria-describedby='emailHelp' name='email' required/>
+                            <input type='email' className='form-control' id='exampleInputEmail1' aria-describedby='emailHelp' name='email' />
                             <div id='emailHelp' className='form-text'>We'll never share your email with anyone else.</div>
                         </div>
                         <div className='col-lg-4 col-12 mb-5 mx-auto'>
                             <label htmlFor='exampleInputPassword1' className='form-label'>Password</label>
-                            <input type='password' className='form-control' id='exampleInputPassword1' name='password' required/>
+                            <input type='password' className='form-control' id='exampleInputPassword1' name='password' />
                         </div>
                         <div className='col-lg-3 col-12 mx-auto'>
                             <label htmlFor='exampleInputEmail1' className='form-label'>Language</label>
-                            <select className='form-select mb-3' aria-label='.form-select-lg example' name='languages' required>
+                            <select className='form-select mb-3' aria-label='.form-select-lg example' name='languages'>
                                 <option value='English' >English</option>
                                 <option value='Arabic'>Arabic</option>
                                 <option value='Bengali'>Bengali</option>
@@ -210,7 +210,7 @@ const Account1 = () => {
                         </div>
                         <div className='col-lg-4 col-12 mb-5 mx-auto'>
                             <label className='form-label'> Country of Residence</label>
-                            <select className='form-select' aria-label='select country of residence' required name='countryofresidence' required>
+                            <select className='form-select' aria-label='select country of residence' required name='countryofresidence'>
                                 {countries.sort((a, b) => a.name.common > b.name.common ? 1 : -1).map((country, index) => {
                                     return <option key={index} value={country?.name?.common}>{country?.name?.common}</option>
                                 })}
@@ -237,7 +237,6 @@ const Account1 = () => {
                                             value={userface}
                                             onChange={(e) => setUserFace(e.target.value)}
                                             name='facebook'
-                                            required
                                         />
 
                                     </div>
@@ -257,7 +256,6 @@ const Account1 = () => {
                                             value={userinsta}
                                             onChange={(e) => setUserInsta(e.target.value)}
                                             name='instagram'
-                                            required
                                         />
 
                                     </div>
@@ -277,7 +275,6 @@ const Account1 = () => {
                                             value={usertweet}
                                             onChange={(e) => setUserTweet(e.target.value)}
                                             name='twitter'
-                                            required
                                         />
 
                                     </div>

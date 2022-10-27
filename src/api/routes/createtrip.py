@@ -96,7 +96,6 @@ def store_mytrip_by_user_id(id):
     gender_specific = request.json.get('gender_specific') # type: ignore
     stay = request.json.get('stay') # type: ignore
     budget = request.json.get('budget') # type: ignore
-    activities = request.json.get('activities') # type: ignore
     partner_age = request.json.get('partner_age') # type: ignore
     users_id = request.json.get('users_id') # type: ignore
 
@@ -114,28 +113,28 @@ def store_mytrip_by_user_id(id):
     return jsonify(user.serialize_with_trips()), 200
 
 #POST NEW ACTIVITY BY USER ID AND TRIP ID
-# @bpUser.route('/users/<int:id>/mytrips/<int:mytrips_id>/activities', methods=['POST'])  # type: ignore
-# def store_activities_by_trip_by_user_id(id, mytrips_id):
-#     mytrips = Trips.query.filter_by(users_id=id, id=mytrips_id).first()
+@bpUser.route('/users/<int:id>/mytrips/<int:mytrips_id>/activities', methods=['POST'])  # type: ignore
+def store_activities_by_trip_by_user_id(id, mytrips_id):
+    mytrips = Trips.query.filter_by(users_id=id, id=mytrips_id).first()
 
-#     trekking = request.json.get('trekking') # type: ignore
-#     gastronomy = request.json.get('gastronomy') # type: ignore
-#     cultural = request.json.get('cultural') # type: ignore
-#     nightlife = request.json.get('nightlife') # type: ignore
-#     shopping = request.json.get('shopping') # type: ignore
-#     trips_id = request.json.get('trips_id') # type: ignore
+    trekking = request.json.get('trekking') # type: ignore
+    gastronomy = request.json.get('gastronomy') # type: ignore
+    cultural = request.json.get('cultural') # type: ignore
+    nightlife = request.json.get('nightlife') # type: ignore
+    shopping = request.json.get('shopping') # type: ignore
+    trips_id = request.json.get('trips_id') # type: ignore
 
-#     activities = Activities()
-#     activities.trekking = trekking
-#     activities.gastronomy = gastronomy
-#     activities.cultural = cultural
-#     activities.nightlife = nightlife
-#     activities.shopping = shopping
-#     activities.trips_id = trips_id
-#     mytrips.activities.append(activities)
-#     mytrips.update()
+    activities = Activities()
+    activities.trekking = trekking
+    activities.gastronomy = gastronomy
+    activities.cultural = cultural
+    activities.nightlife = nightlife
+    activities.shopping = shopping
+    activities.trips_id = trips_id
+    mytrips.activities.append(activities)
+    mytrips.update()
 
-#     return jsonify(mytrips.serialize_with_activities()), 200
+    return jsonify(mytrips.serialize_with_activities()), 200
 
 #PUT ENDPOINTS
 

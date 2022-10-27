@@ -4,52 +4,68 @@ import cloudinary.uploader
 
 bpUP = Blueprint('bpUP', __name__)
 
-@bpUP.route('/userpictures', methods=['GET', 'POST'])
-def userpictures():
+
+@bpUP.route('/userpictures/<int:user_id>', methods=['GET', 'PUT'])
+def getuserpictures(user_id):
 
     if request.method == 'GET':
 
-        # active =  request.args.get('active')
-        # if active is not None:
-        #   status = True if active == 'true' else False
-        userpictures = UserPicture.query.all()
-        #   userpictures = Gallery.query.filter_by(active=status)
-        userpictures = list(map(lambda imagen: imagen.serialize(), userpictures()))
-        return jsonify(userpictures()), 200
+        userpictures = UserPicture.query.filter_by(user_id = user_id).first()
         
-    else:
-        userpictures = list(map(lambda imagen: imagen.serialize(), userpictures()))
-        return jsonify(userpictures), 400
-        #   userpictures = Gallery.query.all()
-        #   userpictures = list(map(lambda imagen: imagen.serialize(), userpictures))
+        return jsonify(userpictures.serialize()), 200 
+          
+    if request.method == 'PUT':
+        
+        user_id = request.form['user_id']
+        images = request.files.getlist("images")
 
-    if request.method == 'POST':
-        
-        # title = request.form['title']
-        # active = request.form['active']
-        image = request.files['image']
+        print(images)
+        data = []
+
+        for image in images:
+
+          print(image)
 
         resp = cloudinary.uploader.upload(image, folder="picture")
 
-        if not resp: return jsonify({ "msg": "error uploading image"}), 400
+          if not resp: return jsonify({ "msg": "error uploading image"}), 400
+            
+          user_picture_image = UserPicture.query.get(id)
+          user_picture_image.filename = resp['secure_url']
+          user_picture_image.update()
 
-        gallery_image = Gallery()
-        # gallery_image.title = title
-        # gallery_image.active = True if active == 'true' else False
-        gallery_image.filename = resp['secure_url']
-        gallery_image.save()
+          data.append(user_picture_image.serialize())
 
-        return jsonify(gallery_image.serialize()), 200 
+        return jsonify(data), 200
 
+
+@bpUP.route('/userpictures', methods=['POST'])
+def userpictures():
+        
+        user_id = request.form['user_id']
+        imagen = request.files.getlist("images")
+
+        print(imagen)
+        data = []
+
+        for image in images:
+
+          print(image)
+
+          resp = cloudinary.uploader.upload(image, folder="picture")
+
+          if not resp: return jsonify({ "msg": "error uploading image"}), 400
+
+          user_picture_image = UserPicture()
+          user_picture_image.filename = resp['secure_url']
+          user_picture_image.user_id =user_id
+          user_picture_image.save()
 
 @bpUP.route('/userpictures/<int:id>', methods=['PUT'])
 def user_picture_update_(id):
 
         file = request.json.get('file')
 
-        user_picture_image = Gallery.query.get(id)
-        user_picture_image.active = active
-        gallery_image.update()
-
-        return jsonify(gallery_image.serialize()), 200
+      
+    
 
