@@ -5,7 +5,7 @@ import { Context } from "../store/appContext";
 const PhotosAccount = () => {
   const [gallery, setGallery] = useState(null);
   const [photoUser, setPhotoUser] = useState(null);
-  const { store, actions } = useContext(Context);
+  const {store, actions } = useContext(Context);
 
   const [image, setImage] = useState(null);
   const [imageUser, setImageUser] = useState(null);

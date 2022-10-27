@@ -61,8 +61,8 @@ const CreateTrips = () => {
               >
 
               {countries.length > 0 && countries
-                // .filter((country)=>{
-                //   return ["Argentina","Brazil","Chile","Colombia", "Mexico", "Greece", "Italy", "Spain", "United Kingdom", "France"].indexOf(country?.name?.common)!=-1})
+                .filter((country)=>{
+                  return ["Argentina","Brazil","Chile","Colombia", "Mexico", "Greece", "Italy", "Spain", "United Kingdom", "France"].indexOf(country?.name?.common)!=-1})
                 .sort((a, b) => (a.name.common > b.name.common ? 1 : -1))
                 .map((elem) => {
                   return (
