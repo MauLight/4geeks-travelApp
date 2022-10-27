@@ -14,10 +14,10 @@ h4{
 
 .bigcontainer{
     text-align: center;
-    padding-top: 80px;
+    padding-top: 30px;
     background-color: rgba(255, 255, 255, 0.834);
     width: 100vw;
-    height: 100vh;
+    height: 100%;
     font-family: 'IM Fell Double Pica';
 }
 
@@ -58,7 +58,7 @@ h4{
     margin-top: 30px;
     background-color: #336b87;
     border: 1px solid #336b87;
-    font-size: 2rem;
+    font-size: 2rem ;
     box-shadow: 5px 5px 5px rgb(179, 177, 177);
     text-shadow: 5px 5px 5px rgb(179, 177, 177);
     border-radius: 10px;

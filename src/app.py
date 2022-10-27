@@ -9,7 +9,7 @@ from flask_swagger import swagger
 from flask_cors import CORS
 from api.utils import APIException, generate_sitemap
 from api.models import db
-
+from flask_jwt_extended import JWTManager
 import cloudinary
 
 from api.routes.main import bpMain
@@ -42,7 +42,7 @@ else:
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 MIGRATE = Migrate(app, db, compare_type = True)
 db.init_app(app)
-
+jwt = JWTManager(app)
 # Allow CORS requests to this API
 CORS(app)
 
