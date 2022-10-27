@@ -5,7 +5,6 @@ from api.models import User, Trips, Rating
 from werkzeug.security import generate_password_hash, check_password_hash # libreria para encriptar las contraseñas
 from flask_jwt_extended import create_access_token, create_refresh_token
 
-
 bpUser = Blueprint('bpUser', __name__)
 
 # GET ENDPOINTS
@@ -245,10 +244,6 @@ def update_mytrip_by_user_id_and_trip_id(id, mytrips_id):
     mytrips.save()
     return jsonify(mytrips.serialize_with_activities()), 200
 
-# UPDATE ACTIVITY BY USER ID, TRIP ID AND ACTIVITY ID
-# @bpUser.route('/users/<int:id>/mytrips/<int:mytrips_id>/activities/<int:act_id>/update', methods=['PUT'])  # type: ignore
-# def update_activity_by_user_id_trip_id_and_activity_id(mytrips_id, act_id, id):
-#     activity = Activities.query.filter_by(trips_id= mytrips_id, id= act_id).first()
 
 #     trekking = request.json.get('trekking') # type: ignore
 #     gastronomy = request.json.get('gastronomy') # type: ignore
