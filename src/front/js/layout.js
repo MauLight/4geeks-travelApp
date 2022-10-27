@@ -10,6 +10,7 @@ import Mytrips from "./views/AdmTrips";
 import CreateTrips from "./views/CreateTrips";
 import SetPreferences from "./views/SetPreferences";
 import Poll from "./views/Poll";
+import Save from "./views/Save";
 import RecommendationCard from "./views/Recommendations";
 import MatchCard from "./views/Matches";
 
@@ -41,7 +42,8 @@ const Layout = () => {
                         <Route path="/mytrips" element={<Mytrips />}/>
                         <Route path="/createtrip" element={<CreateTrips />}/>
                         <Route path="users/:id/setpreferences/" element={<SetPreferences />}/>
-                        <Route path="/poll" element={<Poll />}/>
+                        <Route path="/users/:id/poll" element={<Poll />}/>
+                        <Route path="/save" element={<Save />}/>
                         <Route path="/recommendations" element={<RecommendationCard />}/>
                         <Route path="/matches" element={<MatchCard />}/>
                     </Routes>

@@ -19,7 +19,7 @@ class User(db.Model):  # type: ignore
     twitter=db.Column(db.String(20), unique = True)
     verified = db.Column(db.Boolean(), default = True)
     mytrips = db.relationship('Trips', cascade = 'all, delete', backref= 'user')
-    myrating = db.relationship('Rating', cascade = 'all, delete', backref= 'rating')
+    rating = db.relationship('Rating', cascade = 'all, delete', backref= 'user')
 
     def serialize(self):
         return {
@@ -71,7 +71,7 @@ class User(db.Model):  # type: ignore
             'facebook': self.facebook,
             'twitter': self.twitter,
             'verified': self.verified,
-            'myrating' : [rating.serialize() for rating in self.myrating]}
+            'rating' : [rating.serialize() for rating in self.rating]}
 
     
     # def serialize_with_trips_with_activities(self):
@@ -137,10 +137,10 @@ class CreateTrip(db.Model):  # creacion del viaje
 class Trips(db.Model):  # type: ignore
     __tablename__ = 'mytrips'
     id = db.Column(db.Integer, primary_key= True)
-    travelling = db.Column(db.Integer, nullable= False)
-    with_children = db.Column(db.Boolean(), nullable= False)
-    gender_specific = db.Column(db.Integer, nullable= False)
-    stay = db.Column(db.Integer, nullable= False)
+    travelling = db.Column(db.String(10), nullable= False)
+    with_children = db.Column(db.String(10), nullable= False)
+    gender_specific = db.Column(db.String(15), nullable= False)
+    stay = db.Column(db.String(50), nullable= False)
     budget = db.Column(db.Integer, nullable= False)
     partner_age = db.Column(db.Integer, nullable= False)
     activities = db.Column(db.String(40))

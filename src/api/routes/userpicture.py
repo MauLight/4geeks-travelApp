@@ -28,13 +28,13 @@ def getuserpictures(user_id):
 
         resp = cloudinary.uploader.upload(image, folder="picture")
 
-          if not resp: return jsonify({ "msg": "error uploading image"}), 400
+        if not resp: return jsonify({ "msg": "error uploading image"}), 400
             
-          user_picture_image = UserPicture.query.get(id)
-          user_picture_image.filename = resp['secure_url']
-          user_picture_image.update()
+        user_picture_image = UserPicture.query.get(id)
+        user_picture_image.filename = resp['secure_url']
+        user_picture_image.update()
 
-          data.append(user_picture_image.serialize())
+        data.append(user_picture_image.serialize())
 
         return jsonify(data), 200
 
