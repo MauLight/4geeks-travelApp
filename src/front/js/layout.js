@@ -17,7 +17,8 @@ import MatchCard from "./views/Matches";
 import injectContext from "./store/appContext";
 
 import { Navbar } from "./component/navbar";
-import { Footer } from "./component/footer";
+import Footer  from "./component/footer";
+import Jumbo from "./component/jumbo";
 
 //create your first component
 const Layout = () => {
@@ -30,6 +31,7 @@ const Layout = () => {
             <BrowserRouter basename={basename}>
                 <ScrollToTop>
                     <Navbar />
+                    <Jumbo />
                     <Routes>
                         <Route path="/login" element={<Login />}/>      
                         <Route path="/profile" element={<Profile />}/>

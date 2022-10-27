@@ -1,9 +1,11 @@
+
 .messageLogin{
     font-family: 'Lobster', cursive;
     /* font-family: 'Roboto', sans-serif; */
-        font-size: calc(1.5em + 1.5vw)
+    font-size: 3rem;
+    color: #336b87;
 }
-#toAccount{
+h3{
     position: relative;
     top:2vh;
     right: 2vw;
@@ -11,11 +13,20 @@
     margin-left: 2rem;
     font-size: calc(0.5rem + 1vw);
     font-family: sans-serif;
+    /* color:rgb(15, 147, 123)!important; */
     color: rgb(red, green, rgba(12, 12, 102, 0.89));
 
 }
-.container{
-    position: relative;
-    align-items: center;
-    margin: auto;
+
+.container-main{
+    background-color: rgba(255, 255, 255, 0.834);
+    border: 6px solid #336b87;
+    border-radius: 10px;
+    /* margin-top: 10px !important; */
+   
+}
+
+.navbar{
+    padding-bottom: 15px;
+    
 }

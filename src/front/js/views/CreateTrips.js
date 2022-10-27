@@ -10,43 +10,63 @@ const CreateTrips = () => {
   const [state, setState]=useState([]);
   // const [selectedState, setSelectedState] =useState("")
 
-  useEffect(() => {
-
-    const getcountry = async () => {
+  const getCountry = async () => {
       const response = await fetch(url);
       console.log(response);
-      const gettrip = await response.json();
-      console.log(gettrip);
-      setCountries(gettrip);
+      const res = await response.json();
+      console.log(res);
+      setCountries(res);
     }
-
-    getcountry();
-    }, []);
-
+  const mostrar_capital = async () => {
+    console.log(selected);
+    try {
+      const resCapital = await fetch(`https://restcountries.com/v3.1/name/${selected}?fullText=true`);
+      console.log(resCapital);
+      const getinfo = await resCapital.json();
+      const infoPais = getinfo[0];
+      console.log(infoPais);
+      const y = infoPais.capital;
+      console.log(y);
+      setState(y);
+    }
+    catch (error) {
+      console.log(error.message)
+    }
+  }
   const handleChange=(event)=> {
-    const getcountryid = event.target.value;
-    console.log(getcountryid)
-    setSelected(getcountryid);
+    const paisseleccionado = event.target.value;
+    console.log(paisseleccionado);
+    setSelected(paisseleccionado);
+    mostrar_capital();
   }
 
-  useEffect(()=>{
-    const getstate=async () => {
-    const res = await fetch(`https://restcountries.com/v2/name/${selected}?fullText=true`);
-    console.log(res);
-    const getst= await res.json();
-    console.log(getst);
-    setState(getst);
-  }
   
-  getstate();
-    }, []);
+    // const mostrar_capital = async () => {
+    //   const resCapital = await fetch(`https://restcountries.com/v3.1/name/${selected}?fullText=true`);
+    //   console.log(resCapital);
+    
 
-  // const handleChangetwo=(event)=> {
-  //     const getstateid = event.target.value;
-  //     console.log(getstateid)
-  //     setSelectedState(getstateid);
-  //   }
-        
+
+  // const mostrar_capital = async (selected) => {
+  //   const resCapital = await fetch(`https://restcountries.eu/rest/v2/${selected}/eesti`);
+  //   console.log(resCapital);
+  //   const getCapital= await resCapital.json();
+  //   console.log(getCapital);
+  //   setState(getCapital);
+  // }
+  
+
+
+
+  
+  useEffect(() => {
+
+    getCountry(); 
+    }, []);
+    useEffect(() => {
+
+      mostrar_capital(); 
+      }, [selected]);
   return (
     <>
       {/* <Navbar /> */}
@@ -59,13 +79,13 @@ const CreateTrips = () => {
               >
 
               {countries.length > 0 && countries
-                .filter((country)=>{
-                  return ["Argentina","Brazil","Chile","Colombia", "Mexico", "Greece", "Italy", "Spain", "United Kingdom", "France"].indexOf(country?.name?.common)!=-1})
+                // .filter((country)=>{
+                //   return ["Argentina","Brazil","Chile","Colombia", "Mexico", "Greece", "Italy", "Spain", "United Kingdom", "France"].indexOf(country?.name?.common)!=-1})
                 .sort((a, b) => (a.name.common > b.name.common ? 1 : -1))
-                .map((getcountry) => {
+                .map((elem) => {
                   return (
-                    <option key={getcountry.id} value={getcountry.id}>
-                      {getcountry?.name?.common} 
+                    <option key={elem.id} value={elem.id}>
+                      {elem?.name?.common} 
                     </option>
                   );
                 })}
@@ -75,10 +95,10 @@ const CreateTrips = () => {
             <select className="custom-select " >
             {state 
                 // .sort((a, b) => (a.capital > b.capital ? 1 : -1))
-                .map((getstate) => {
+                .map((ele) => {
                   return (
-                    <option key={getstate.id} value={getstate.id}>
-                      {getstate.capital}
+                    <option key={ele.id} value={ele.id}>
+                      {state}
                     </option>
                    );
                 })} 
