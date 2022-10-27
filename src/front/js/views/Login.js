@@ -13,31 +13,33 @@ const Login = () => {
     backgroundSize: "cover",
     backgroundPosition: "center center",
     width: "100%",
-    height: "100vh",
+    height: "75vh",
   };
 
   const { store, actions } = useContext(Context);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
+
   return (
     <>
-      <section id="login" style={style}>
+      <section id="login" style={style} >
+      {/* <img className="w-100 img-fluid trip" src={trip}/> */}
         <div className="contenedorPrincipal" id="contenedorPrincipal">
-          {/* <div className="" id="toAccount"> */}
+          <div className="" id="toAccount">
             {/* agregar link Account 1*/}
-            {/* <Link to="/account/page/1">
+            <Link to="/account/page/1">
               <h3>Don't have an Account? Create an Account!</h3>
-            </Link> */}
-          {/* </div> */}
+            </Link>
+          </div>
           <div className="container-main col-5 m-auto">
             {/* <div className="row justify-content-center "> */}
             {/* <div className="col-5 m-auto"> */}
-              <row className="text">
+              <div className=" row text">
                 <div className="mx-5  mt-5  mb-5 messageLogin text-center">
                   Log in to your Account
                 </div>
-              </row>
+              </div>
               <form
               // onSubmit={(e) => {
               //   e.preventDefault();

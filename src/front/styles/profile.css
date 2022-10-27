@@ -1,0 +1,57 @@
+.contain1{
+    padding: 25px 5px 25px 30px;
+}
+
+.contain2{
+    padding: 25px 5px 25px 30px;
+}
+
+.main-container{
+    background-color: rgb(243, 246, 247);
+    border: 4px solid #336b87;
+    border-radius: 10px;
+    margin: 30px;
+    box-shadow: 5px 10px 5px rgb(164, 163, 163);
+    margin:auto;
+}
+
+.trips{
+    text-align: center;
+    padding: 20px;
+    color: #336b87;
+}
+
+.gen{
+    padding: 20px;
+    border: 1px solid #336b87;
+    border-radius: 10px;
+}
+
+.card-link{
+    padding-right:30px;
+}
+
+.tags{
+    padding: 15px;
+    text-align: center;
+}
+
+.card{
+    margin: auto;
+    margin-bottom: 20px;
+}
+
+.card-text{
+    font-size: 1rem;
+    text-align: center;
+}
+
+.link{
+    padding:5px 10px 5px 10px;
+    border-radius: 10px;
+    border: 3px solid #336b87;
+    color: white;
+    text-align: center;
+    align-content: center;
+
+}

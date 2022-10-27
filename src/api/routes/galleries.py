@@ -63,7 +63,7 @@ from flask import Blueprint, request, jsonify
 from api.models import Gallery, UserPicture
 import cloudinary.uploader
 
-bpGI = Blueprint('bpGI', _name_)
+bpGI = Blueprint('bpGI', __name__)
 
 
 @bpGI.route('/galleries', methods=['POST'])
