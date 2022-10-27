@@ -42,8 +42,8 @@ def login():
     user = User.query.filter_by(email=email, active=True).first()
 
     if not user: return jsonify({ "status": "error", "code": 401, "message": "E-mail/Password are incorrects"}), 401
-    if not check_password_hash(user.password, password): return jsonify({ "status": "error", "code": 401, "message": "E-mail/Password are incorrects"}), 401
-
+    if (user.password != password): return jsonify({ "status": "error", "code": 401, "message": "E-mail/Password are incorrects"}), 401
+# check_password_hash
     expires = datetime.timedelta(hours=3)
     access_token = create_access_token(identity=user.id, expires_delta=expires)
 
