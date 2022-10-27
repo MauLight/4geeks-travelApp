@@ -34,6 +34,31 @@ def user_with_trips_with_id(id):
     user= User.query.get(id)
     return jsonify(user.serialize_with_trips()), 200
 
+#GET USER RATES
+@bpUser.route('/users/<int:id>/rating', methods=['GET'])  # type: ignore
+def user_rating_with_id(id):
+    user= User.query.get(id)
+    return jsonify(user.serialize_with_rating()), 200
+
+#GET ALL USERS WITH TRIPS AND ACTIVITIES
+# @bpUser.route('/users/mytrips/activities', methods=['GET'])  # type: ignore
+# def all_users_with_trips_with_activities():
+#     users= User.query.all()
+#     users= list(map(lambda user: user.serialize_with_trips_with_activities(), users))
+#     return jsonify(users), 200
+
+#GET USER WITH TRIPS AND ACTIVITIES BY USER ID
+# @bpUser.route('/users/<int:id>/mytrips/activities', methods=['GET'])  # type: ignore
+# def user_with_trips_with_activities_with_id(id):
+#     user= User.query.get(id)
+#     return jsonify(user.serialize_with_trips_with_activities()), 200
+
+#GET TRIP AND ACTIVITIES BY USER ID AND TRIP ID
+# @bpUser.route('/users/<int:id>/mytrips/<int:mytrips_id>/activities', methods=['GET'])
+# def get_trips_with_activities_by_user_id_and_trip_id(id, mytrips_id):
+#     mytrips = Trips.query.filter_by(users_id=id, id=mytrips_id).first()
+#     return jsonify(mytrips.serialize_with_activities()), 200
+
 #POST ENDPOINTS
 
 #POST NEW USER
@@ -100,6 +125,52 @@ def store_mytrip_by_user_id(id):
 
     return jsonify(user.serialize_with_trips()), 200
 
+#POST USER RATING BY USER ID
+@bpUser.route('/users/<int:id>/rating', methods=['POST'])
+def store_rating_by_user_id(id):
+    user = User.query.get(id)
+   
+    good_match =  request.json.get('good_match') 
+    recommend = request.json.get('recommend')
+    reason_good = request.json.get('reason_good')
+    reason_bad = request.json.get('reason_bad')
+    experience = request.json.get('experience')
+
+    rating = Rating()
+    rating.good_match = good_match
+    rating.recommend = recommend
+    rating.reason_good = reason_good
+    rating.reason_bad = reason_bad
+    rating.experience = experience
+    user.rating.append(rating)
+    user.update()
+
+    return jsonify(user.serialize_with_rating()), 200
+  
+
+#POST NEW ACTIVITY BY USER ID AND TRIP ID
+# @bpUser.route('/users/<int:id>/mytrips/<int:mytrips_id>/activities', methods=['POST'])  # type: ignore
+# def store_activities_by_trip_by_user_id(id, mytrips_id):
+#     mytrips = Trips.query.filter_by(users_id=id, id=mytrips_id).first()
+
+#     trekking = request.json.get('trekking') # type: ignore
+#     gastronomy = request.json.get('gastronomy') # type: ignore
+#     cultural = request.json.get('cultural') # type: ignore
+#     nightlife = request.json.get('nightlife') # type: ignore
+#     shopping = request.json.get('shopping') # type: ignore
+#     trips_id = request.json.get('trips_id') # type: ignore
+
+#     activities = Activities()
+#     activities.trekking = trekking
+#     activities.gastronomy = gastronomy
+#     activities.cultural = cultural
+#     activities.nightlife = nightlife
+#     activities.shopping = shopping
+#     activities.trips_id = trips_id
+#     mytrips.activities.append(activities)
+#     mytrips.update()
+
+#     return jsonify(mytrips.serialize_with_activities()), 200
 
 #PUT ENDPOINTS
 
@@ -152,4 +223,19 @@ def update_mytrip_by_user_id_and_trip_id(id, mytrips_id):
     mytrips.save()
     return jsonify(mytrips.serialize_with_activities()), 200
 
+
+#     trekking = request.json.get('trekking') # type: ignore
+#     gastronomy = request.json.get('gastronomy') # type: ignore
+#     cultural = request.json.get('cultural') # type: ignore
+#     nightlife = request.json.get('nightlife') # type: ignore
+#     shopping = request.json.get('shopping') # type: ignore
+#     trips_id = request.json.get('trips_id') # type: ignore
+
+#     activity = Activities.query.get(act_id)
+#     activity.trekking = trekking
+#     activity.gastronomy = gastronomy
+#     activity.cultural = cultural
+#     activity.nightlife = nightlife
+#     activity.shopping = shopping
+#     activity.trips_id = trips_id
 

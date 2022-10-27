@@ -2,31 +2,43 @@
 .messageLogin{
     font-family: 'Lobster', cursive;
     /* font-family: 'Roboto', sans-serif; */
-    font-size: 3rem;
+    /* font-size: 3rem; */
     color: #336b87;
-}
-h3{
-    position: relative;
-    top:2vh;
-    right: 2vw;
-    text-align: end;
-    margin-left: 2rem;
-    font-size: calc(0.5rem + 1vw);
-    font-family: sans-serif;
-    /* color:rgb(15, 147, 123)!important; */
-    color: rgb(red, green, rgba(12, 12, 102, 0.89));
-
+    font-size: calc(1em + 2vw);
+    
 }
 
 .container-main{
     background-color: rgba(255, 255, 255, 0.834);
     border: 6px solid #336b87;
     border-radius: 10px;
-    /* margin-top: 10px !important; */
+    margin-top: 15px !important;
    
 }
 
-.navbar{
+/* .navbar{
     padding-bottom: 15px;
     
+} */
+
+/* #toAccount{
+    padding:5px 10px 5px 10px;
+    border-radius: 10px;
+    color: white;
+    text-align: center;
+    justify-content: center;
+
 }
+
+#toAccount:#toAccount, a:visited, a:focus {
+    background: #336b87;
+  }
+  
+#toAccount:hover {
+    background: rgb(98, 174, 100);
+  }
+  
+#toAccount:active {
+    background: rgb(96, 168, 223);
+    color: white;
+  } */

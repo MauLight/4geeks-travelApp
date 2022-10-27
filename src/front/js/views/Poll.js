@@ -26,7 +26,7 @@ const Nombre = () => {
                             <img src='https://www.pngall.com/wp-content/uploads/5/User-Profile-PNG-High-Quality-Image.png' alt='user image' className='w-50' />
                             <div className='mt-3 '>
 
-                                <textarea className='form-control w-75 mx-auto mb-3' id='validationTextarea' placeholder='Please tell us briefly about your experience' required></textarea>
+                                <textarea className='form-control w-75 mx-auto mb-3' id='validationTextarea' placeholder='Please tell us briefly about your experience' name='experience' required></textarea>
                                 <div className='invalid-feedback'>
                                     Please enter a message.
                                 </div>
@@ -45,58 +45,58 @@ const Nombre = () => {
                                 <input type='range' class='slider form-range w-50 mb-3' min='1' max='7' step='1' id='customRange2' onInput={handleSecondInput} />
                                 <p className='d-flex in-line ms-4' id='rangeValue'>{secondInput}</p>
                             </div>
-                            <div className='mb-3'>
-                                <p className='form-label'>If your score is above or equal to 5 tell us why do you recommend your partner (choose 3)</p>
+                            <div className={'mb-3' + (secondInput < 5 ? ' d-none': '') }>
+                                <p className='form-label'>Please tell us why do you recommend your partner (choose one)</p>
                                 <div className='form-check '>
-                                    <input className='form-check-input' type='checkbox' id='Checkbox1' value='Funny' />
+                                    <input className='form-check-input' type='radio' id='Checkbox1' value='Funny' />
                                     <label className='form-check-label' for='Checkbox1'>Funny</label>
                                 </div>
                                 <div className='form-check'>
-                                    <input className='form-check-input' type='checkbox' id='Checkbox4' value='Love Adventures' />
+                                    <input className='form-check-input' type='radio' id='Checkbox4' value='Love Adventures' />
                                     <label className='form-check-label' for='Checkbox4'>Love Adventures</label>
                                 </div>
                                 <div className='form-check'>
-                                    <input className='form-check-input' type='checkbox' id='Checkbox2' value='Relax' />
+                                    <input className='form-check-input' type='radio' id='Checkbox2' value='Relax' />
                                     <label className='form-check-label' for='Checkbox2'>Relax</label>
                                 </div>
                                 <div className='form-check'>
-                                    <input className='form-check-input' type='checkbox' id='Checkbox3' value='Good Talking' />
+                                    <input className='form-check-input' type='radio' id='Checkbox3' value='Good Talking' />
                                     <label className='form-check-label' for='Checkbox3'>Good Talking</label>
                                 </div>
 
                                 <div className='form-check'>
-                                    <input className='form-check-input' type='checkbox' id='Checkbox5' value='Good at History' />
+                                    <input className='form-check-input' type='radio' id='Checkbox5' value='Good at History' />
                                     <label className='form-check-label' for='Checkbox5'>Good at History</label>
                                 </div>
                                 <div className='form-check form-check-inline'>
-                                    <input className='form-check-input ' type='checkbox' id='Checkbox6' value='Great Dancer' />
+                                    <input className='form-check-input ' type='radio' id='Checkbox6' value='Great Dancer' />
                                     <label className='form-check-label' for='Checkbox6'>Great Dancer</label>
                                 </div>
                             </div>
-                            <div className='mb-3'>
-                                <label className='form-label'>If your score is under 5 tell us why do you not recommend your partner(choose 3)</label>
+                            <div className= {'mb-3' + (secondInput >= 5 ? ' d-none': '') }>
+                                <label className='form-label'>Please tell us why do you not recommend your partner (choose one)</label>
                                 <div className='form-check'>
-                                    <input className='form-check-input' type='checkbox' id='secondCheckbox1' value='Bored' />
+                                    <input className='form-check-input display-none' type='radio' id='secondCheckbox1' value='Bored'/>
                                     <label className='form-check-label' for='Checkbox1'>Bored</label>
                                 </div>
                                 <div className='form-check'>
-                                    <input className='form-check-input' type='checkbox' id='secondCheckbox2' value='Disrespectful' />
+                                    <input className='form-check-input' type='radio' id='secondCheckbox2' value='Disrespectful' />
                                     <label className='form-check-label' for='Checkbox2'>Disrespectful</label>
                                 </div>
                                 <div className='form-check'>
-                                    <input className='form-check-input' type='checkbox' id='secondCheckbox3' value='Obscene' />
+                                    <input className='form-check-input' type='radio' id='secondCheckbox3' value='Obscene' />
                                     <label className='form-check-label' for='Checkbox3'>Obscene</label>
                                 </div>
                                 <div className='form-check'>
-                                    <input className='form-check-input' type='checkbox' id='secondCheckbox4' value='Complaining person' />
+                                    <input className='form-check-input' type='radio' id='secondCheckbox4' value='Complaining person' />
                                     <label className='form-check-label' for='Checkbox4'>Complaining person</label>
                                 </div>
                                 <div className='form-check'>
-                                    <input className='form-check-input' type='checkbox' id='secondCheckbox5' value='Unpunctual' />
+                                    <input className='form-check-input' type='radio' id='secondCheckbox5' value='Unpunctual' />
                                     <label className='form-check-label' for='Checkbox5'>Unpunctual</label>
                                 </div>
                                 <div className='form-check'>
-                                    <input className='form-check-input' type='checkbox' id='secondCheckbox6' value='Messy' />
+                                    <input className='form-check-input' type='radio' id='secondCheckbox6' value='Messy' />
                                     <label className='form-check-label' for='Checkbox6'>Messy</label>
                                 </div>
                             </div>
