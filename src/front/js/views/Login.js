@@ -32,15 +32,15 @@ const Login = () => {
         <div className="contenedorPrincipal" id="contenedorPrincipal">
           <div className="" id="toAccount">
             {/* agregar link Account 1*/}
-            <Link to="/account/page/1">
-              <h3>Don't have an Account? Create an Account!</h3>
+            <Link className= "link" to="/account/page/1">
+              Don't have an Account? Create an Account!
             </Link>
           </div>
           <div className="container-main col-5 m-auto">
             {/* <div className="row justify-content-center "> */}
             {/* <div className="col-5 m-auto"> */}
-              <div className=" row text">
-                <div className="mx-5  mt-5  mb-5 messageLogin text-center">
+              <div className=" row text my-3">
+                <div className="messageLogin text-center">
                   Log in to your Account
                 </div>
               </div>

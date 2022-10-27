@@ -33,6 +33,8 @@ h4{
 .custom-select{
     text-align: center;
     margin: 0;
+    align-items: center;
+    margin:auto;
 }
 
 /* .start-trip{
@@ -56,6 +58,7 @@ h4{
 
 .btn-submit{
     margin-top: 30px;
+    margin-bottom: 15px;
     background-color: #336b87;
     border: 1px solid #336b87;
     font-size: 2rem ;

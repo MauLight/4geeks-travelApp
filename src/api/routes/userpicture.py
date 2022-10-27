@@ -22,32 +22,14 @@ def getuserpictures(user_id):
         data = []
         resp = cloudinary.uploader.upload(image, folder="picture")
 
-        for image in images:
+    if not resp: return jsonify({ "msg": "error uploading image"}), 400
+            
+    user_picture_image = UserPicture.query.filter_by(user_id = user_id)
+    user_picture_image.filename = resp['secure_url']
+    user_picture_image.update()
+    data.append(user_picture_image.serialize())
 
-            print(image)
-
-        resp = cloudinary.uploader.upload(image, folder="picture")
-
-        if not resp:
-            return jsonify({"msg": "error uploading image"}), 400
-
-        user_picture_image = UserPicture.query.get(id)
-        user_picture_image.filename = resp['secure_url']
-        user_picture_image.update()
-
-        data.append(user_picture_image.serialize())
-
-        return jsonify(data), 200
-
-        if not resp:
-            return jsonify({"msg": "error uploading image"}), 400
-
-        user_picture_image = UserPicture.query.filter_by(user_id=user_id)
-        user_picture_image.filename = resp['secure_url']
-        user_picture_image.update()
-        data.append(user_picture_image.serialize())
-
-        return jsonify(data), 200
+    return jsonify(data), 200
 
 
 @bpUP.route('/userpictures', methods=['POST'])

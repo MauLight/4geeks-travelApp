@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 import "../../styles/createtrips.css";
+
 // import { Context } from "../store/appContext";
 
 const CreateTrips = () => {
@@ -51,7 +52,6 @@ const CreateTrips = () => {
       }, [selected]);
   return (
     <>
-      {/* <Navbar /> */}
       <div className="bigcontainer">
         <h1>CREATE YOUR TRIP</h1>
         <div className="container-trip col-10">
@@ -61,8 +61,8 @@ const CreateTrips = () => {
               >
 
               {countries.length > 0 && countries
-                // .filter((country)=>{
-                //   return ["Argentina","Brazil","Chile","Colombia", "Mexico", "Greece", "Italy", "Spain", "United Kingdom", "France"].indexOf(country?.name?.common)!=-1})
+                .filter((country)=>{
+                  return ["Argentina","Brazil","Chile","Colombia", "Mexico", "Greece", "Italy", "Spain", "United Kingdom", "France"].indexOf(country?.name?.common)!=-1})
                 .sort((a, b) => (a.name.common > b.name.common ? 1 : -1))
                 .map((elem) => {
                   return (

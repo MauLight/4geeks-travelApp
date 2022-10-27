@@ -17,7 +17,7 @@ import MatchCard from "./views/Matches";
 
 import injectContext from "./store/appContext";
 
-import { Navbar } from "./component/navbar";
+import Navbar  from "./component/navbar";
 import Footer  from "./component/footer";
 import Jumbo from "./component/jumbo";
 
