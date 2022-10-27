@@ -16,6 +16,10 @@ const Login = () => {
     height: "100vh",
   };
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    actions.login(email, password, navigate);
+  };
   const { store, actions } = useContext(Context);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -25,59 +29,54 @@ const Login = () => {
       <section id="login" style={style}>
         <div className="contenedorPrincipal" id="contenedorPrincipal">
           {/* <div className="" id="toAccount"> */}
-            {/* agregar link Account 1*/}
-            {/* <Link to="/account/page/1">
+          {/* agregar link Account 1*/}
+          {/* <Link to="/account/page/1">
               <h3>Don't have an Account? Create an Account!</h3>
             </Link> */}
           {/* </div> */}
           <div className="container-main col-5 m-auto">
             {/* <div className="row justify-content-center "> */}
             {/* <div className="col-5 m-auto"> */}
-              <row className="text">
-                <div className="mx-5  mt-5  mb-5 messageLogin text-center">
-                  Log in to your Account
-                </div>
-              </row>
-              <form
-              // onSubmit={(e) => {
-              //   e.preventDefault();
-              //   console.log(e.target.value);
-              // }}
-              >
-                <div className="mx-5 mb-4">
-                  <input
-                    className="form-control"
-                    type="text" //  cambiar type a text estaba en email
-                    value={email}
-                    name="email"
-                    id="emailLogin"
-                    placeholder="Enter your Email..."
-                    autoComplete="off"
-                    onChange={(e) => setEmail(e.target.value)}
-                  />
-                </div>
-                <div className="mx-5 mb-5">
-                  <input
-                    type="password"
-                    name="password"
-                    value={password}
-                    className="form-control"
-                    id="passwordLogin"
-                    placeholder="Enter your Password..."
-                    autoComplete="off"
-                    onChange={(e) => setPassword(e.target.value)}
-                  />
-                </div>
-                <div className="m-5 text-center">
-                  <button
-                    type="submit"
-                    className="btn" style={{backgroundColor:'#336b87', color:'white'}}
-                    onClick={() => actions.login(email, password, navigate)}
-                  >
-                    Login
-                  </button>
-                </div>
-              </form>
+            <div className="text">
+              <div className="mx-5  mt-5  mb-5 messageLogin text-center">
+                Log in to your Account
+              </div>
+            </div>
+            <form onSubmit={handleSubmit}>
+              <div className="mx-5 mb-4">
+                <input
+                  className="form-control"
+                  type="text" //  cambiar type a text estaba en email
+                  value={email}
+                  name="email"
+                  id="emailLogin"
+                  placeholder="Enter your Email..."
+                  autoComplete="off"
+                  onChange={(e) => setEmail(e.target.value)}
+                />
+              </div>
+              <div className="mx-5 mb-5">
+                <input
+                  type="password"
+                  name="password"
+                  value={password}
+                  className="form-control"
+                  id="passwordLogin"
+                  placeholder="Enter your Password..."
+                  autoComplete="off"
+                  onChange={(e) => setPassword(e.target.value)}
+                />
+              </div>
+              <div className="m-5 text-center">
+                <button
+                  // type="submit"
+                  className="btn"
+                  style={{ backgroundColor: "#336b87", color: "white" }}
+                >
+                  Login
+                </button>
+              </div>
+            </form>
             {/* </div> */}
             {/* </div> */}
           </div>

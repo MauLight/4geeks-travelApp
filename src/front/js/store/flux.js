@@ -61,9 +61,10 @@ const getState = ({ getStore, getActions, setStore }) => {
         
       },
 	  login : async (email,password,navigate) => {
+    
 		console.warn(email, password);
 		let item = { email, password };
-		let result = await fetch(`${process.env.BACKEND_URL}/aoi/login`, {
+		let result = await fetch(`${process.env.BACKEND_URL}/api/login`, {
 		  method: "POST",
 		  headers: {
 			"Content-Type": "application/json",
@@ -71,7 +72,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 		  },
 		  body: JSON.stringify(item),
 		});
-		resultFinal = await result.json();
+		const resultFinal = await result.json();
 		console.log(resultFinal);
 		setStore({currentUser: resultFinal});
 		sessionStorage.setItem("currentUser", JSON.stringify(resultFinal));
