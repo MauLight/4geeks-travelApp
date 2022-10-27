@@ -23,7 +23,7 @@ const Profile = () => {
   const getImageUser = async () => {
     try {
       const response = await fetch(
-        `${process.env.REACT_APP_API_URL}/userpictures/${id}`
+        `${process.env.REACT_APP_API_URL}/api/userpictures/${id}`
       );
       const data = await response.json();
 

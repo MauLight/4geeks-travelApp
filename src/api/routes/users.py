@@ -1,5 +1,7 @@
 from flask import Blueprint, jsonify, request
 from api.models import User, Trips, Activities
+from werkzeug.security import generate_password_hash, check_password_hash # libreria para encriptar las contraseñas
+from flask_jwt_extended import create_access_token, create_refresh_token
 
 
 bpUser = Blueprint('bpUser', __name__)
@@ -69,6 +71,11 @@ def store_user():
     facebook = request.json.get('facebook') # type: ignore
     twitter = request.json.get('twitter') # type: ignore
     verified = request.json.get('verified') # type: ignore
+
+    if not username: return jsonify({ "status": "error", "code": 400, "message": "Username is required!"}), 400
+    if not password: return jsonify({ "status": "error", "code": 400, "message": "Password is required!"}), 400
+
+
 ##### 
     user = User()
     user.id = id
@@ -76,7 +83,7 @@ def store_user():
     user.lastname = lastname
     user.birthdate = birthdate
     user.email = email
-    user.password = password
+    user.password = generate_password_hash(password)
     user.languages = languages
     user.gender = gender
     user.countryofresidence = countryofresidence
@@ -85,6 +92,12 @@ def store_user():
     user.twitter = twitter
     user.verified = verified
     user.save()
+
+    # data = {
+    #     "user": user.serialize()
+    # }
+
+    # return jsonify({ "status": "success", "code": 201, "message": "User registered successfully!", "data": data}), 201
     return jsonify(user.serialize()), 201
 
 #POST NEW TRIP BY USER ID
