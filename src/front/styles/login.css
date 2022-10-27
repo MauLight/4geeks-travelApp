@@ -16,29 +16,25 @@
    
 }
 
-/* .navbar{
-    padding-bottom: 15px;
-    
-} */
-
-/* #toAccount{
-    padding:5px 10px 5px 10px;
+.link{
+    padding:15px 10px 5px 10px;
     border-radius: 10px;
+    border: 3px solid #336b87;
     color: white;
+    justify-content: space-between;
     text-align: center;
-    justify-content: center;
-
+    font-size: smaller;
 }
 
-#toAccount:#toAccount, a:visited, a:focus {
+.link:link, a:visited, a:focus {
     background: #336b87;
   }
   
-#toAccount:hover {
+.link:hover {
     background: rgb(98, 174, 100);
   }
   
-#toAccount:active {
+.link:active {
     background: rgb(96, 168, 223);
     color: white;
-  } */
+  }
