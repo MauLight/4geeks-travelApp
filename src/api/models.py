@@ -19,6 +19,7 @@ class User(db.Model):  # type: ignore
     twitter=db.Column(db.String(20), unique = True)
     verified = db.Column(db.Boolean(), default = True)
     mytrips = db.relationship('Trips', cascade = 'all, delete', backref= 'user')
+    myrating = db.relationship('Rating', cascade = 'all, delete', backref= 'rating')
 
     def serialize(self):
         return {
@@ -54,6 +55,24 @@ class User(db.Model):  # type: ignore
             'verified': self.verified,
             'mytrips' : [trip.serialize() for trip in self.mytrips]
         }
+
+    def serialize_with_rating(self):
+        return {
+            'id': self.id,
+            'firstname': self.firstname,
+            'lastname': self.lastname,
+            'email': self.email,
+            'password' : self.password,
+            'birthdate': self.birthdate,
+            'gender': self.gender,
+            'languages': self.languages,
+            'countryofresidence': self.countryofresidence,
+            'instagram': self.instagram,
+            'facebook': self.facebook,
+            'twitter': self.twitter,
+            'verified': self.verified,
+            'myrating' : [rating.serialize() for rating in self.myrating]}
+
     
     # def serialize_with_trips_with_activities(self):
     #     return {
@@ -124,7 +143,7 @@ class Trips(db.Model):  # type: ignore
     stay = db.Column(db.Integer, nullable= False)
     budget = db.Column(db.Integer, nullable= False)
     partner_age = db.Column(db.Integer, nullable= False)
-    # activities = db.relationship('Activities', cascade = 'all, delete', backref= 'trip')
+    activities = db.Column(db.String(40))
     users_id = db.Column(db.Integer, db.ForeignKey('users.id', ondelete= 'CASCADE'), nullable= False)
 
     def serialize(self):
@@ -136,6 +155,7 @@ class Trips(db.Model):  # type: ignore
             'stay': self.stay,
             'budget' : self.budget,
             'partner_age': self.partner_age,
+            'activities': self.activities,
             'users_id': self.users_id
         }
 
@@ -234,6 +254,38 @@ class UserPicture(db.Model): #usar para formulario con foto de usuario
             "id": self.id,
             "user_id": self.user_id,
             "filename": self.filename,
+        }
+
+    def save(self):
+        db.session.add(self)
+        db.session.commit()
+
+    def update(self):
+        db.session.commit()
+
+    def delete(self):
+        db.session.delete(self)
+        db.session
+
+class Rating(db.Model): #calificacion match post-viaje
+    __tablename__='rating'
+    id = db.Column(db.Integer, primary_key=True)
+    good_match = db.Column(db.Integer, nullable=False)
+    recommend = db.Column(db.Integer, nullable=False)
+    reason_good = db.Column(db.String(30))
+    reason_bad = db.Column(db.String(30))
+    experience = db.Column(db.String(1000), nullable=False)
+    users_id = db.Column(db.Integer, db.ForeignKey('users.id', ondelete= 'CASCADE'), nullable= False)
+    
+    def serialize(self):
+        return {
+            "id": self.id,
+            "good_match": self.good_match,
+            "recommend": self.recommend,
+            "reason_good": self.reason_good,
+            "reason_bad": self.reason_bad,
+            "experience": self.experience,
+            "users_id": self.users_id
         }
 
     def save(self):

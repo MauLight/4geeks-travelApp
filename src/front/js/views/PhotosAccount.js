@@ -431,7 +431,3 @@ const PhotosAccount =() => {
 };
 
 export default PhotosAccount;
-
-        </>
-    )
-}

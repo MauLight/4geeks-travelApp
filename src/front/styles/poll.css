@@ -6,12 +6,13 @@
 
 .container{
   margin-top: 10px;
-  background: rgba(255, 255, 255, 0.834);
-  border-radius: 50px;
+  background: rgba(255, 255, 255, 0.9);
+  border: 3px solid #336b87;;
+  border-radius:50px
 }
 
 textarea{
-  height: 320px;
+  height: 100px;
 
 }
 .instructions{

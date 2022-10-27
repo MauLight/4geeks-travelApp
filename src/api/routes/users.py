@@ -32,6 +32,12 @@ def user_with_trips_with_id(id):
     user= User.query.get(id)
     return jsonify(user.serialize_with_trips()), 200
 
+#GET USER RATES
+@bpUser.route('/users/<int:id>/rating', methods=['GET'])  # type: ignore
+def user_rating_with_id(id):
+    user= User.query.get(id)
+    return jsonify(user.serialize_with_rating()), 200
+
 #GET ALL USERS WITH TRIPS AND ACTIVITIES
 # @bpUser.route('/users/mytrips/activities', methods=['GET'])  # type: ignore
 # def all_users_with_trips_with_activities():
@@ -116,6 +122,29 @@ def store_mytrip_by_user_id(id):
     user.update()
 
     return jsonify(user.serialize_with_trips()), 200
+
+#POST USER RATING BY USER ID
+@bpUser.route('/users/<int:id>/rating', methods=['POST'])
+def store_rating_by_user_id(id):
+    user = User.query.get(id)
+   
+    good_match =  request.json.get('good_match') 
+    recommend = request.json.get('recommend')
+    reason_good = request.json.get('reason_good')
+    reason_bad = request.json.get('reason_bad')
+    experience = request.json.get('experience')
+
+    rating = Rating()
+    rating.good_match = good_match
+    rating.recommend = recommend
+    rating.reason_good = reason_good
+    rating.reason_bad = reason_bad
+    rating.experience = experience
+    user.rating.append(rating)
+    user.update()
+
+    return jsonify(user.serialize_with_rating()), 200
+  
 
 #POST NEW ACTIVITY BY USER ID AND TRIP ID
 # @bpUser.route('/users/<int:id>/mytrips/<int:mytrips_id>/activities', methods=['POST'])  # type: ignore

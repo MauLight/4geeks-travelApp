@@ -96,7 +96,7 @@ const SetPreferences = () => {
             <form onSubmit={handleSubmitPreferences} id='preferences'>
                 <div className='container'>
                     <h1 className='mt-3 text-center'>We're almost ready!</h1>
-                    <h3 className='my-3 text-center'>We just need to know some things to find the perfect match htmlFor your trip</h3>
+                    <h3 className='my-3 text-center'>We just need to know some things to find the perfect match for your trip</h3>
                     <div className='row mx-5'>
                         <div className='col-lg-6 col-12 my-4'>
                             <p>Traveling...</p>
