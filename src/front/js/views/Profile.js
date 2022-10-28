@@ -11,26 +11,29 @@ const Profile = () => {
   const [profileImage, setProfileImage] = useState(null);
   const [image, setImage] = useState(null);
   const [error, setError] = useState(null);
-  const [filter, setFilter] = useState(null);
-  const { store, actions } = useContext(Context);
-  const user_id = store.id;
+  const { store , actions } = useContext(Context);
+  const user_id = store.currentUser.id;
 
+  
   useEffect(() => {
-    getImageUser(filter);
+    console.log(store.currentUser)
+    console.log(user_id)
+    getImageUser();
   }, []);
 
   useEffect(() => {
-    getImageUser(filter);
-  }, []);
+    getImageUser();
+  
+  }, [handleSubmit]);
 
   const getImageUser = async () => {
     try {
       const response = await fetch(
-        `${process.env.BACKEND_URL}/userpictures/${id}`
-      );
+        `${process.env.BACKEND_URL}/api/userpictures/${user_id}`);
       const data = await response.json();
-
+      console.log(data)
       setProfileImage(data);
+      console.log(profileImage);
     } catch (error) {
       console.log(error.message);
     }
@@ -42,12 +45,9 @@ const Profile = () => {
     if (image !== null) {
       const formData = new FormData();
 
-      formData.append("user_id", id);
-      for (let i = 0; i < image.length; i++) {
-        formData.append("images", image[i]);
-      }
-
-      console.log(formData);
+      formData.append("user_id", user_id);
+      formData.append("image", image)
+       console.log(formData);
 
       uploadImage(formData);
 
@@ -58,10 +58,10 @@ const Profile = () => {
     }
   };
 
-  const uploadImage = async (formData) => {
+  const uploadImage = async (user_id,formData) => {
     try {
       const response = await fetch(
-        `${process.env.BACKEND_URL}/userpictures/${id}`,
+        `${process.env.BACKEND_URL}/userpictures/${user_id}`,
         {
           method: "PUT",
           body: formData,
@@ -87,20 +87,21 @@ const Profile = () => {
           <div className="contain1 col-lg-6">
             {/* <div className="row pic"> */}
               <div className="row pic">
-                <div className="col-userphoto">
+               <div className="col-userphoto">
                   <div className="card" style={{ width: "10rem" }}>
                     <img
                       className="card-img-top"
-                      src={user_profile}
+                      src = "https://res.cloudinary.com/dcdt9yvc2/image/upload/v1666928278/picture/bfpbyvrihchgdkarvoh7.jpg"
                       alt="Card image cap"
                     />
                     <div className="card-body">
                       <p className="card-text">
-                        <strong>Username</strong>
-                        <p>
+                        <strong>{store?.currentUser?.firstname}</strong>
+                        <br />
+                        <span>
                           <FaStar />
                             Qualified
-                        </p>
+                        </span>
                       </p>
                     </div>
                   </div>
@@ -110,12 +111,12 @@ const Profile = () => {
               {/* <div className="row gen"> */}
                 <div className="col gen">
                   <ul>
-                    <li>`Gender: ${store.gender}` </li>
-                    <li>`Native Language: ${store.languaje}` </li>
-                    <li>`Country of residence: {store.countryOfResidence}`</li>
-                    <li>`Instagram: {store.instagram}`</li>
-                    <li>`Facebook: {store.facebook}`</li>
-                    <li>`Twitter: {store.twitter}`</li>
+                    <li>Gender: {store?.currentUser?.gender}</li>
+                    <li>Native Language: {store?.currentUser?.languages} </li>
+                    <li>Country of residence: {store?.currentUser?.countryofresidence}</li>
+                    <li>Instagram: {store?.currentUser?.instagram}</li>
+                    <li>Facebook: {store?.currentUser?.facebook}</li>
+                    <li>Twitter: {store?.currentUser?.twitter}</li>
                   </ul>
                 </div>
               {/* </div> */}
@@ -154,7 +155,7 @@ const Profile = () => {
                         /> Name match</div>
                     <div className="card-body">
                       <blockquote className="blockquote mb-0">
-                        <p>
+                        <p >
                           A well-known quote, contained in a blockquote element.
                         </p>
                         <footer className="blockquote-footer">

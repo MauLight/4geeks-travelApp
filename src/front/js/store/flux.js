@@ -3,7 +3,9 @@ import { Navigate } from "react-router-dom";
 const getState = ({ getStore, getActions, setStore }) => {
   return {
     store: {
-		currentUser: null,
+		  currentUser: null,
+      photos:{},
+      matches:{},
 
       demo: [
         {
@@ -54,31 +56,32 @@ const getState = ({ getStore, getActions, setStore }) => {
    
 
 
-       value= null
-	   setStore({currentUser: value});
-		sessionStorage.setItem("currentUser", JSON.stringify(value));
+        value= null
+	      setStore({currentUser: value});
+		    sessionStorage.setItem("currentUser", JSON.stringify(value));
 
         
       },
-	  login : async (email,password,navigate) => {
-    
-		console.warn(email, password);
-		let item = { email, password };
-		let result = await fetch(`${process.env.BACKEND_URL}/api/login`, {
-		  method: "POST",
-		  headers: {
-			"Content-Type": "application/json",
-			Accept: "application/json",
-		  },
-		  body: JSON.stringify(item),
-		});
-		const resultFinal = await result.json();
-		console.log(resultFinal);
-		setStore({currentUser: resultFinal});
-		sessionStorage.setItem("currentUser", JSON.stringify(resultFinal));
-    navigate("/profile");
-		},
-	  
+        login : async (email,password,navigate) => {
+          console.warn(email, password);
+          let item = { email, password };
+          let result = await fetch(`${process.env.BACKEND_URL}/api/login`, {
+            method: "POST",
+            headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+            },
+            body: JSON.stringify(item),
+          });
+          const resultFinal = await result.json();
+          console.log(resultFinal);
+          // const y = JSON.stringify(resultFinal);
+          const currUser= resultFinal.data.user         
+          setStore({currentUser:currUser});
+          sessionStorage.setItem("currentUser", JSON.stringify(resultFinal));
+          navigate("/profile");
+      },
+      
     },
   };
 };

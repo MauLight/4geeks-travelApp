@@ -20,7 +20,7 @@ const Login = () => {
     e.preventDefault();
     actions.login(email, password, navigate);
   };
-  const { store, actions } = useContext(Context);
+  const { store , actions } = useContext(Context);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
