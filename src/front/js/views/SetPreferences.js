@@ -57,7 +57,7 @@ const SetPreferences = () => {
         <div className='full-setpreferences py-2'>
             <form onSubmit={handleSubmitPreferences} id='preferences'>
                 <div className='container'>
-                    <h1 className='mt-3 text-center'>We're almost ready!</h1>
+                    <h1 className='mt-3 text-center'>WE'RE ALMOST READY!</h1>
                     <h4 className='my-3 text-center'>We just need to know some things to find the perfect match for your trip</h4>
                     <div className='row mx-5'>
                         <div className='col-lg-6 col-12 my-4'>
@@ -96,7 +96,7 @@ const SetPreferences = () => {
                                 <label className='form-label in-line ms-4' id='rangeValue'>$ {budget}</label>
                             </div>
                         </div>
-                        <div className='col-lg-6 col-12 mb-4'>
+                        <div className='col-lg-6 col-12 mb-4 py-3'>
                             <p className='w-75'>Do you have any places or activities of interest? Choose the one you prefer the most</p>
                             <div className='row'>
                                 <div className='col col-md-12'>
@@ -186,7 +186,7 @@ const SetPreferences = () => {
                         </div>
                     </div>
                     <div className='row mx-5'>
-                        <div className='col-lg-6 col-12 mb-4'>
+                        <div className='col-lg-6 col-12 mb-5'>
                             <p>Where are you planning to stay?</p>
                             <div className='form-check'>
                                 <input className='form-check-input' type='radio' name='stay' id='Radio1' value='Hotel' />
@@ -206,7 +206,7 @@ const SetPreferences = () => {
                             </div>
                         </div>
                     </div>
-                    <button type='submit' className='btn btn-success d-flex mx-auto mb-3'>Submit</button>
+                    <button type='submit' className='btn d-flex mx-auto mb-3' style={{backgroundColor:'#336b87', color:'white'}}>Submit</button>
                 </div>
             </form >
 

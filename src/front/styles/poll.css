@@ -1,21 +1,26 @@
-.full-poll{
-  background:  url(https://wallpapers.com/images/hd/travel-wallpaper-group-cf4dc850xhw9rto5.jpg) no-repeat;
-  position: absolute;
-  width: 100%;
+.full-poll {
+  background: url(https://wallpapers.com/images/hd/travel-wallpaper-group-cf4dc850xhw9rto5.jpg) no-repeat;
+  padding-top: 30px;
+  background-color: rgba(255, 255, 255, 0.834);
+  width: 100vw;
+  height: 100%;
+  font-family: 'IM Fell Double Pica';
 }
 
-.container{
-  margin-top: 10px;
-  background: rgba(255, 255, 255, 0.9);
-  border: 3px solid #336b87;;
-  border-radius:50px
+.container {
+  background: rgb(243, 246, 247) !important;
+  border: 6px solid #336b87 !important;
+  border-radius: 10px !important;
+  padding: 30px !important;
+  box-shadow: 5px 10px 5px rgb(164, 163, 163) !important;
 }
 
-textarea{
+textarea {
   height: 100px;
 
 }
-.instructions{
+
+.instructions {
   font-size: 0.8rem;
 }
 
@@ -23,17 +28,16 @@ textarea{
   width: 50%;
   height: 20px;
   padding: 5px;
- 
+
   background: rgba(24, 176, 151, 0.362);
   border-radius: 10px;
   display: flex;
   align-items: center;
 
-  }
+}
 
 .slider p {
-  
+
   font-family: Open Sans;
   color: rgb(0, 0, 0);
-  }
-
+}

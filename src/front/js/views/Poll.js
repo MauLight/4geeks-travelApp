@@ -61,7 +61,7 @@ const Poll = () => {
         <div className='full-poll'>
             <form onSubmit={handleSubmitPoll} id='rating'>
                 <div className='container'>
-                    <h1 className='text-center pt-3'>Your trip has been completed...</h1>
+                    <h1 className='text-center pt-3'>YOUR TRIP HAS BEEN COMPLETED</h1>
                     <h5 className='text-center'>Please give us your feedback on the partner you chose</h5>
                     <div className='row mt-5 d-flex '>
                         <div className='col-lg-5 col-12 text-center'>

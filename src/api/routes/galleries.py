@@ -103,5 +103,5 @@ def galleries_get(user_id):
             galleries = Gallery.query.filter_by(user_id = user_id)
             galleries = Gallery.query.filter_by(user_id=users_id)
             galleries = list(map(lambda imagen: imagen.serialize(), galleries))
-            return jsonify(user_picture_image, galleries), 200
+            return jsonify(galleries), 200
 

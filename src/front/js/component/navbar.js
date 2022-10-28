@@ -14,7 +14,7 @@ const Navbar = () => {
           <Link className="item" to="/profile">Profile</Link>
         </div>
         <div className="nav-item ps-3">
-          <Link className="item" to="/createtrip">Create trip</Link>
+          <Link className="item" to="/users/:id/createtrip">Create trip</Link>
         </div>
         <div className="nav-item ps-3">
           <Link className="item" to="/mytrips">Trips</Link>
