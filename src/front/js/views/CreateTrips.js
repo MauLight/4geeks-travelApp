@@ -50,6 +50,11 @@ const CreateTrips = () => {
 
       mostrar_capital(); 
       }, [selected]);
+      
+      const handleClick = () => { 
+
+      }
+
   return (
     <>
       <div className="bigcontainer">
@@ -113,11 +118,10 @@ const CreateTrips = () => {
             </form>
           </div>
         </div>
-        <input
+        <button
           className="btn-submit btn-primary"
-          type="submit"
-          value="Save"
-        ></input>
+          type="submit" onClick={handleClick}
+        >Submit</button>
       </div>
     </>
   );
