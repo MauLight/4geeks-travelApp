@@ -129,9 +129,9 @@ const Account1 = () => {
     return (
 
         <form onSubmit={handleSubmitAccount1} id='account'>
-            <div className='full-account1 py-2'>
-                <div className='d-flex justify-content-end me-2'>
-                    <Link to="/login" className='text-success'>
+            <div className='full-account1 '>
+                <div className='d-flex justify-content-end '>
+                    <Link to="/login" className='link'>
                         <strong >Already have an account? Log in</strong>
                     </Link>
                 </div>
@@ -210,7 +210,7 @@ const Account1 = () => {
                         </div>
                         <div className='col-lg-4 col-12 mb-5 mx-auto'>
                             <label className='form-label'> Country of Residence</label>
-                            <select className='form-select' aria-label='select country of residence' required name='countryofresidence' required>
+                            <select className='form-select' aria-label='select country of residence' name='countryofresidence' required>
                                 {countries.sort((a, b) => a.name.common > b.name.common ? 1 : -1).map((country, index) => {
                                     return <option key={index} value={country?.name?.common}>{country?.name?.common}</option>
                                 })}

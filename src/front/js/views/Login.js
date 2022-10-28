@@ -36,7 +36,7 @@ const Login = () => {
               Don't have an Account? Create an Account!
             </Link>
           </div>
-          <div className="container-main col-5 m-auto">
+          <div className="container-main col-md-5 col-12 m-auto">
             {/* <div className="row justify-content-center "> */}
             {/* <div className="col-5 m-auto"> */}
               <div className=" row text my-3">

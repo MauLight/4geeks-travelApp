@@ -142,6 +142,7 @@ class Trips(db.Model):  # type: ignore
     stay = db.Column(db.String(50), nullable= False)
     budget = db.Column(db.Integer, nullable= False)
     partner_age = db.Column(db.Integer, nullable= False)
+    activities = db.Column(db.String(50), nullable= False)
     users_id = db.Column(db.Integer, db.ForeignKey('users.id', ondelete= 'CASCADE'), nullable= False)
 
     def serialize(self):
