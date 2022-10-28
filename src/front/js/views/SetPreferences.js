@@ -6,7 +6,7 @@ import { useParams } from 'react-router-dom';
 
 const SetPreferences = () => {
     const { id } = useParams();
-    const [budget, setBudget] = useState()
+    const [budget, setBudget] = useState(10000)
     const handleBudget = (e) => {
         setBudget(e.target.value)
     }
@@ -58,7 +58,7 @@ const SetPreferences = () => {
             <form onSubmit={handleSubmitPreferences} id='preferences'>
                 <div className='container'>
                     <h1 className='mt-3 text-center'>We're almost ready!</h1>
-                    <h3 className='my-3 text-center'>We just need to know some things to find the perfect match for your trip</h3>
+                    <h4 className='my-3 text-center'>We just need to know some things to find the perfect match for your trip</h4>
                     <div className='row mx-5'>
                         <div className='col-lg-6 col-12 my-4'>
                             <p>Traveling...</p>
@@ -93,7 +93,7 @@ const SetPreferences = () => {
                             <label for='customRange1' class='form-label'>Approximate budget (in US dollars)</label>
                             <div className='d-flex'>
                                 <input type='range' class='slider form-range w-75 mb-3 in-line' min='50' max='20000' step="50" id='customRange1' onInput={handleBudget} name='budget' value={budget} />
-                                <label className='form-label in-line ms-4' id='rangeValue'>{budget}</label>
+                                <label className='form-label in-line ms-4' id='rangeValue'>$ {budget}</label>
                             </div>
                         </div>
                         <div className='col-lg-6 col-12 mb-4'>
