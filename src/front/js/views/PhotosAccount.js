@@ -73,7 +73,7 @@ const PhotosAccount = () => {
     try {
       const response = await fetch(`${process.env.BACKEND_URL}/api/galleries`, {
         method: "POST",
-        body: formData1,
+        body: formData,
       });
 
       const data = await response.json();
@@ -93,11 +93,11 @@ const PhotosAccount = () => {
   const handleSubmit2 = (e) => {
     e.preventDefault();
     if (imageUser !== null) {
-      const formData2 = new FormData();
-      formData2.append("user_id", user_id);
-      formData.append("imageUser", imageUser);
-      console.log(formData2);
-      uploadImage2(formData2);
+      const formData = new FormData();
+      formData.append("user_id", user_id);
+      formData.append("image", imageUser);
+      console.log(formData);
+      uploadImage2(formData);
       setError(null);
       e.target.reset();
     } else {
@@ -105,13 +105,13 @@ const PhotosAccount = () => {
     }
   };
 
-  const uploadImage2 = async (formData2) => {
+  const uploadImage2 = async (formData) => {
     try {
       const response = await fetch(
         `${process.env.BACKEND_URL}/api/userpictures`,
         {
           method: "POST",
-          body: formData2,
+          body: formData,
         }
       );
 

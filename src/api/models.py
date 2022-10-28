@@ -203,7 +203,7 @@ class UserPicture(db.Model): #usar para formulario con foto de usuario
     def serialize(self):
         return {
             "id": self.id,
-            "user_id": self.user_id,
+            "users_id": self.users_id,
             "filename": self.filename,
         }
 
