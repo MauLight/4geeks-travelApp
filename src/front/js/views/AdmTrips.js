@@ -4,6 +4,7 @@ import ReactDOM from "react-dom";
 import "../../styles/mytrip.css";
 import { BsFillPeopleFill } from "react-icons/bs";
 import { MdDeleteForever } from "react-icons/md";
+import { GrConfigure  } from "react-icons/gr";
 
 const Mytrips = () => {
   return (
@@ -39,6 +40,9 @@ const Mytrips = () => {
                 </button>
                 <button class="btn-delete btn-danger">
                   <MdDeleteForever /> Delete trip
+                </button>
+                <button class="btn-delete btn-warning">
+                <Link className="text-decoration-none text-dark" to="/users/:id/setpreferences" ><GrConfigure /> Preferences</Link>
                 </button>
               </div>
             </div>

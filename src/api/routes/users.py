@@ -1,8 +1,9 @@
 from flask import Blueprint, jsonify, request
 
-from api.models import User, Trips, Rating
+from api.models import User, Trips, Rating, CreateTrip
 # libreria para encriptar las contraseñas
-from werkzeug.security import generate_password_hash, check_password_hash # libreria para encriptar las contraseñas
+# libreria para encriptar las contraseñas
+from werkzeug.security import generate_password_hash, check_password_hash
 from flask_jwt_extended import create_access_token, create_refresh_token
 
 bpUser = Blueprint('bpUser', __name__)
@@ -42,6 +43,14 @@ def all_users_with_trips():
 def user_with_trips_with_id(id):
     user = User.query.get(id)
     return jsonify(user.serialize_with_trips()), 200
+
+# GET USER AND TRIPS BY USER ID
+
+
+@bpUser.route('/users/<int:id>/createtrips', methods=['GET'])  # type: ignore
+def user_with_createdtrips_with_id(id):
+    user = User.query.get(id)
+    return jsonify(user.serialize_with_createdtrips()), 200
 
 # GET USER RATES
 
@@ -139,6 +148,30 @@ def store_mytrip_by_user_id(id):
     user.update()
 
     return jsonify(user.serialize_with_trips()), 200
+
+    # POST NEW TRIP DATES AND PLACE BY USER ID
+
+
+@bpUser.route('/users/<int:id>/create', methods=['POST'])
+def create_trip_by_user_id(id):
+    user = User.query.get(id)
+
+    country_trip = request.json.get('country_trip')
+    capital_trip = request.json.get('capital_trip')
+    start_date = request.json.get('start_date')
+    end_date = request.json.get('end_date')
+    users_id = request.json.get('users_id')
+
+    createtrips = CreateTrip()
+    createtrips.country_trip = country_trip
+    createtrips.capital_trip = capital_trip
+    createtrips.start_date = start_date
+    createtrips.end_date = end_date
+    createtrips.users_id = users_id
+    user.createtrips.append(createtrips)
+    user.update()
+
+    return jsonify(user.serialize_with_createdtrips()), 200
 
 # POST USER RATING BY USER ID
 
@@ -259,4 +292,3 @@ def update_mytrip_by_user_id_and_trip_id(id, mytrips_id):
 #     activity.nightlife = nightlife
 #     activity.shopping = shopping
 #     activity.trips_id = trips_id
-

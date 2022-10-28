@@ -15,14 +15,14 @@ h4{
 .bigcontainer{
     text-align: center;
     padding-top: 30px;
-    background-color: rgba(255, 255, 255, 0.834);
+    background-color: rgba(226, 234, 244, 0.834);
     width: 100vw;
     height: 100%;
     font-family: 'IM Fell Double Pica';
 }
 
 .container-trip{
-    background-color: rgb(243, 246, 247);
+    background-color: rgba(255, 255, 255, 0.834);
     border: 6px solid #336b87;
     border-radius: 10px;
     padding: 30px;
@@ -58,6 +58,7 @@ h4{
 
 .btn-submit{
     margin-top: 30px;
+    margin-bottom: 15px;
     background-color: #336b87;
     border: 1px solid #336b87;
     font-size: 2rem ;

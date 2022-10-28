@@ -37,7 +37,7 @@ const Account1 = () => {
         //console.log(responseJSON)
         setCountry(responseJSON)
     }
-   
+
     const handleSubmitAccount1 = (e) => {
         e.preventDefault()
         const sampleForm = document.getElementById("account");
@@ -112,9 +112,9 @@ const Account1 = () => {
 
             //If the response is not ok throw an error (for debugging)
             if (!res.ok) {
-                
+
                 let error = await res.text();
-                throw new Error(error); 
+                throw new Error(error);
             }
             //If the response was OK, return the response body.
             window.location = '/account/page/2'
@@ -122,48 +122,48 @@ const Account1 = () => {
         }
     }
 
-    const handleClick = () => { 
+    const handleClick = () => {
 
     }
 
     return (
 
         <form onSubmit={handleSubmitAccount1} id='account'>
-            <div className='full-account1 py-2'>
-                <div className='d-flex justify-content-end me-2'>
-                    <Link to="/login" className='text-success'>
+            <div className='full-account1 '>
+                <div className='d-flex justify-content-end '>
+                    <Link to="/login" className='link'>
                         <strong >Already have an account? Log in</strong>
                     </Link>
                 </div>
-                <div className='container '>
+                <div className='container'>
 
-                    <h1 className='mt-3 mb-2 text-center'>Create your account</h1>
+                    <h1 className='mt-3 mb-2 text-center'>CREATE YOUR ACCOUNT</h1>
                     <h4 className='mt-3 mb-2 text-center'>So happy you are joining us! Your perfect match is closer to you now</h4>
                     <h4 className='mt-3 mb-5 text-center'>But first, tell us about yourself</h4>
 
                     <div className='row mt-3'>
                         <div className='col-lg-4 col-12 mb-5 mx-auto'>
                             <label htmlFor='exampleInputText' className='form-label'>First Name</label>
-                            <input type='text' className='form-control' id='exampleInputText' name='firstname' required/>
+                            <input type='text' className='form-control' id='exampleInputText' name='firstname' required />
                         </div>
                         <div className='col-lg-4 col-12 mb-5 mx-auto'>
                             <label htmlFor='exampleInputText' className='form-label'>Last Name</label>
-                            <input type='text' className='form-control' id='exampleInputText' name='lastname' required/>
+                            <input type='text' className='form-control' id='exampleInputText' name='lastname' required />
                         </div>
                         <div className='col-lg-3 col-12 mx-auto'>
                             <p className='exampleInputDate' htmlFor='exampleDate'>Birth Date</p>
-                            <input type='date' className='form-label w-100' id='exampleDate' name='birthdate' required/>
+                            <input type='date' className='form-label w-100' id='exampleDate' name='birthdate' required />
                         </div>
                     </div>
                     <div className='row'>
                         <div className='col-lg-4 col-12 mb-5 mx-auto'>
                             <label htmlFor='exampleInputEmail1' className='form-label'>Email address</label>
-                            <input type='email' className='form-control' id='exampleInputEmail1' aria-describedby='emailHelp' name='email' required/>
+                            <input type='email' className='form-control' id='exampleInputEmail1' aria-describedby='emailHelp' name='email' placeholder='alguien@example.com' required />
                             <div id='emailHelp' className='form-text'>We'll never share your email with anyone else.</div>
                         </div>
                         <div className='col-lg-4 col-12 mb-5 mx-auto'>
                             <label htmlFor='exampleInputPassword1' className='form-label'>Password</label>
-                            <input type='password' className='form-control' id='exampleInputPassword1' name='password' required/>
+                            <input type='password' className='form-control' id='exampleInputPassword1' name='password' required />
                         </div>
                         <div className='col-lg-3 col-12 mx-auto'>
                             <label htmlFor='exampleInputEmail1' className='form-label'>Language</label>
@@ -210,7 +210,7 @@ const Account1 = () => {
                         </div>
                         <div className='col-lg-4 col-12 mb-5 mx-auto'>
                             <label className='form-label'> Country of Residence</label>
-                            <select className='form-select' aria-label='select country of residence' required name='countryofresidence' required>
+                            <select className='form-select' aria-label='select country of residence' name='countryofresidence' required>
                                 {countries.sort((a, b) => a.name.common > b.name.common ? 1 : -1).map((country, index) => {
                                     return <option key={index} value={country?.name?.common}>{country?.name?.common}</option>
                                 })}
@@ -285,7 +285,7 @@ const Account1 = () => {
                             </div>
                         </div>
                     </div>
-                    <button type='submit' onClick={handleClick} className='btn btn-success mb-3 d-flex mx-auto'>Submit</button>
+                    <button type='submit' style={{ backgroundColor: '#336b87', color: 'white' }} onClick={handleClick} className='btn mb-3 d-flex mx-auto'>Submit</button>
                 </div >
             </div >
         </form >

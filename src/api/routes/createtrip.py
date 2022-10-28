@@ -1,5 +1,5 @@
 from flask import Blueprint, jsonify, request
-from api.models import CreateTrip
+from api.models import CreateTrip, User
 
 
 bpCtrip = Blueprint('bpCtrip', __name__)
@@ -31,6 +31,12 @@ def all_users_with_trips():
 def user_with_trips_with_id(id):
     user= User.query.get(id)
     return jsonify(user.serialize_with_trips()), 200
+
+#GET USER AND TRIPS BY USER ID
+@bpUser.route('/users/<int:id>/createtrips', methods=['GET'])  # type: ignore
+def user_with_createdtrips_with_id(id):
+    user= User.query.get(id)
+    return jsonify(user.serialize_with_createdtrips()), 200
 
 #GET ALL USERS WITH TRIPS AND ACTIVITIES
 @bpUser.route('/users/mytrips/activities', methods=['GET'])  # type: ignore
@@ -85,6 +91,28 @@ def store_user():
     user.verified = verified
     user.save()
     return jsonify(user.serialize()), 201
+
+#POST NEW TRIP DATES AND PLACE BY USER ID
+@bpUser.route('/users/<int:id>/create', methods=['POST'])
+def create_trip_by_user_id(id):
+    user = User.query.get(id)
+
+    country_trip=request.json.get('country_trip') 
+    capital_trip = request.json.get('capital_trip') 
+    start_date= request.json.get('start_date') 
+    end_date = request.json.get('end_date') 
+    users_id = request.json.get('users_id')
+
+    createtrips= CreateTrip()
+    createtrips.country_trip = country_trip
+    createtrips.capital_trip = capital_trip
+    createtrips.start_date = start_date
+    createtrips.end_date = end_date
+    createtrips.users_id = users_id
+    user.createtrips.append(createtrips)
+    user.update()
+
+    return jsonify(user.serialize_with_createdtrips()), 200
 
 #POST NEW TRIP BY USER ID
 @bpUser.route('/users/<int:id>/mytrips', methods=['POST'])

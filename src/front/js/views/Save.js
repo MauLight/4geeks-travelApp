@@ -8,7 +8,6 @@ const Save = () => {
         <div className='container-fluid d-flex justify-content-center'>
             <div className='alert '>
                 <h2>Your data has been changed</h2>
-                <Link to='/profile'>Back to my profile</Link>
             </div>
 
 

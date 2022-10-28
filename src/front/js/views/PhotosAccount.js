@@ -1,73 +1,66 @@
 import React, { useContext, useEffect, useState } from "react";
-
 import { Context } from "../store/appContext";
 
 const PhotosAccount = () => {
-  const [gallery, setGallery] = useState(null);
-  const [photoUser, setPhotoUser] = useState(null);
+  const [gallery, setGallery] = useState("");
+  const [photoUser, setPhotoUser] = useState("");
   const {store, actions } = useContext(Context);
 
-  const [image, setImage] = useState(null);
-  const [imageUser, setImageUser] = useState(null);
+  const [image, setImage] = useState("");
+  const [imageUser, setImageUser] = useState("");
 
-  const [error, setError] = useState(null);
-  const user_id = store.currentUser.id;
+    const [error, setError] = useState(null);
+    const user_id = store.currentUser.id ;
 
-  useEffect(() => {
-    getImagesGallery();
-    getImagesUser();
-  }, []);
+    // const [filter, setFilter] = useState(null);
 
-  useEffect(() => {
-    getImagesGallery();
-    getImagesUser();
-  }, []);
+    useEffect(() => {
+        getImagesGallery();
+    }, [])
 
-  const getImagesGallery = async () => {
-    try {
-      const response = await fetch(
-        `${process.env.BACKEND_URL}/api/galleries/${user_id}`
-      );
-      const data1 = await response.json();
+    useEffect(() => {
+        getImagesGallery();
+    }, [filter])
 
-      setGallery(data1);
-    } catch (error) {
-      console.log(error.message);
+    const getImagesGallery = async () => {
+        try {
+
+            // let query = (filter === null ? "" : filter === true ? "?active=true" : "?active=false") // validando si filtramos o no el resultado 
+
+            const response = await fetch(`${process.env.BACKEND_URL}/api/galleries/${user_id}`)
+            const data = await response.json()
+
+            setGallery(data);
+
+        } catch (error) {
+            console.log(error.message)
+        }
     }
-  };
-  const getImagesUser = async () => {
-    try {
-      const response = await fetch(
-        `${process.env.BACKEND_URL}/api/userpictures/${user_id}`
-      );
-      const data2 = await response.json();
 
-      setPhotoUser(data2);
-    } catch (error) {
-      console.log(error.message);
+    const handleSubmit = e => {
+        e.preventDefault();
+
+        if (image !== null && imageUser !== null) {
+
+
+            const formData = new FormData()
+
+           formData.append('user_id', user_id);
+            for(let i = 0; i < image.length; i++){
+                formData.append('images', image[i]);
+            } 
+            formData.append('imageUser', imageUser);
+
+            console.log(formData);
+
+            uploadImage(formData);
+
+            setError(null);
+            e.target.reset();
+        } else {
+            setError("Please, complete the form");
+        }
     }
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-
-    if (image !== null) {
-      const formData1 = new FormData();
-
-      formData1.append("user_id", user_id);
-      for (let i = 0; i < image.length; i++) {
-        formData1.append("images", image[i]);
-      }
-      console.log(formData1);
-
-      uploadImage(formData1);
-
-      setError(null);
-      e.target.reset();
-    } else {
-      setError("Please, complete the form");
-    }
-  };
 
   const uploadImage = async (formData1) => {
     try {
@@ -103,7 +96,10 @@ const PhotosAccount = () => {
     } else {
       setError("Please, complete the form");
     }
-  };
+
+    // const handleChangeActive = async (id, status) => {
+    //     console.log(status);
+    //     try {
 
   const uploadImage2 = async (formData) => {
     try {
@@ -115,7 +111,10 @@ const PhotosAccount = () => {
         }
       );
 
-      const data = await response.json();
+    //     } catch (error) {
+    //         console.log(error.message)
+    //     }
+    // }
 
       if (data.length > 0) {
         getImagesUser();
@@ -211,86 +210,30 @@ const PhotosAccount = () => {
             </div>
           )}
 
-          <div className="py-3">Please fill form to upload images.</div>
-          <form onSubmit={handleSubmit}>
-            <div className="mb-3">
-              <label htmlFor="image" className="form-label">
-                Travel's Photos
-              </label>
-              <input
-                type="file"
-                className="form-control"
-                id="image"
-                name="image"
-                onChange={(e) => setImage(e.target.files)}
-                multiple
-              />
+                    <div className='py-3'>
+                        Please fill form to upload images.
+                    </div>
+                    <form onSubmit={handleSubmit}>
+                        <div className="mb-3">
+                            <label htmlFor="image" className="form-label">Travel's Photos</label>
+                            <input type="file" className="form-control" id="image" name="image" onChange={e => setImage(e.target.files)} multiple />
+                        </div>
+                        <div className="mb-3">
+                            <label htmlFor="imageUser" className="form-label">User's Photo</label>
+                            <input type="file" className="form-control" id="imageUser" name="imageUser" onChange={e => setImageUser(e.target.files)} multiple  />
+                        </div>
+                        <div className="d-grid">
+                            <button className="btn btn-primary btn-sm gap-2">
+                                Upload
+                            </button>
+                        </div>
+                    </form>
+                </div>
             </div>
-            <div className="mb-3">
-              <label htmlFor="imageUser" className="form-label">
-                User's Photo
-              </label>
-              <input
-                type="file"
-                className="form-control"
-                id="imageUser"
-                name="imageUser"
-                onChange={(e) => setImageUser(e.target.files)}
-                multiple
-              />
-            </div>
-            <div className="d-grid">
-              <button className="btn btn-primary btn-sm gap-2">Upload</button>
-            </div>
-          </form>
-        </div>
-      </div>
-      <div
-        className="offcanvas offcanvas-start"
-        tabIndex="-1"
-        id="offcanvasExample2"
-        aria-labelledby="offcanvasExampleLabel2"
-      >
-        <div className="offcanvas-header">
-          <h5 className="offcanvas-title" id="offcanvasExampleLabel2">
-            Upload Images File
-          </h5>
-          <button
-            type="button"
-            className="btn-close"
-            data-bs-dismiss="offcanvas"
-            aria-label="Close"
-          ></button>
-        </div>
-        <div className="offcanvas-body">
-          {!!error && (
-            <div className="alert alert-danger" role="alert">
-              {error}
-            </div>
-          )}
 
-          <div className="py-3">Please fill form to upload images.</div>
-          <form onSubmit={handleSubmit2}>
-            <div className="mb-3">
-              <label htmlFor="imageUser" className="form-label">
-                User's Photo
-              </label>
-              <input
-                type="file"
-                className="form-control"
-                id="imageUser"
-                name="imageUser"
-                onChange={(e) => setImageUser(e.target.files)}
-                multiple
-              />
-            </div>
-            <div className="d-grid">
-              <button className="btn btn-primary btn-sm gap-2">Upload</button>
-            </div>
-          </form>
-        </div>
-      </div>
-    </>
-  );
+        </>
+    )
 };
+}
+
 export default PhotosAccount;

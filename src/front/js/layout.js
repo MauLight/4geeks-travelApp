@@ -17,7 +17,7 @@ import MatchCard from "./views/Matches";
 
 import injectContext from "./store/appContext";
 
-import { Navbar } from "./component/navbar";
+import Navbar  from "./component/navbar";
 import Footer  from "./component/footer";
 import Jumbo from "./component/jumbo";
 
@@ -35,12 +35,11 @@ const Layout = () => {
                     <Jumbo />
                     <Routes>
                         <Route path="/login" element={<Login />}/>      
-                        <Route path="/profile" element={<Profile />}/>
                         <Route path="/account/page/1" element={<Account1 />}/>
                         <Route path="/account/page/2" element={<PhotosAccount />}/>
                         <Route path="/profile" element={<Profile />}/>
                         <Route path="/mytrips" element={<Mytrips />}/>
-                        <Route path="/createtrip" element={<CreateTrips />}/>
+                        <Route path="/users/:id/createtrip" element={<CreateTrips />}/>
                         <Route path="users/:id/setpreferences/" element={<SetPreferences />}/>
                         <Route path="/users/:id/poll" element={<Poll />}/>
                         <Route path="/save" element={<Save />}/>
