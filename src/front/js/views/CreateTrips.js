@@ -80,15 +80,9 @@ const CreateTrips = () => {
 
             <h4>Choose the city</h4>
             <select className="custom-select " >
-            {state 
-                // .sort((a, b) => (a.capital > b.capital ? 1 : -1))
-                .map((ele) => {
-                  return (
-                    <option key={ele.id} value={ele.id}>
+                    <option key={state} value={state}>
                       {state}
                     </option>
-                   );
-                })} 
             </select>
           </div>
           <div className="trip-date">

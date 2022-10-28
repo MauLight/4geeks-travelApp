@@ -35,7 +35,6 @@ const Layout = () => {
                     <Jumbo />
                     <Routes>
                         <Route path="/login" element={<Login />}/>      
-                        <Route path="/profile" element={<Profile />}/>
                         <Route path="/account/page/1" element={<Account1 />}/>
                         <Route path="/account/page/2" element={<PhotosAccount />}/>
                         <Route path="/profile" element={<Profile />}/>
