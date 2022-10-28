@@ -19,7 +19,8 @@ class User(db.Model):  # type: ignore
     facebook = db.Column(db.String(20), unique=True)
     twitter = db.Column(db.String(20), unique=True)
     verified = db.Column(db.Boolean(), default=True)
-    createtrips = db.relationship('CreateTrip', cascade='all, delete', backref='user')
+    createtrips = db.relationship(
+        'CreateTrip', cascade='all, delete', backref='user')
     mytrips = db.relationship('Trips', cascade='all, delete', backref='user')
     rating = db.relationship('Rating', cascade='all, delete', backref='user')
 
@@ -130,7 +131,8 @@ class CreateTrip(db.Model):  # creacion del viaje
     capital_trip = db.Column(db.String(50), nullable=False)
     start_date = db.Column(db.String(50))
     end_date = db.Column(db.String(50))
-    users_id = db.Column(db.Integer, db.ForeignKey('users.id', ondelete='CASCADE'), nullable= False)
+    users_id = db.Column(db.Integer, db.ForeignKey(
+        'users.id', ondelete='CASCADE'), nullable=False)
 
     def serialize(self):
         return {
@@ -163,7 +165,8 @@ class Trips(db.Model):  # type: ignore
     budget = db.Column(db.Integer, nullable=False)
     partner_age = db.Column(db.Integer, nullable=False)
     activities = db.Column(db.String(50), nullable=False)
-    users_id = db.Column(db.Integer, db.ForeignKey('users.id', ondelete='CASCADE'), nullable= False)
+    users_id = db.Column(db.Integer, db.ForeignKey(
+        'users.id', ondelete='CASCADE'), nullable=False)
 
     def serialize(self):
         return {
@@ -190,12 +193,12 @@ class Trips(db.Model):  # type: ignore
         db.session.commit()
 
 
-
 class Gallery(db.Model):  # usar para formulario con fotos DE VIAJES
     __tablename__ = 'galleries'
     id = db.Column(db.Integer, primary_key=True)
     filename = db.Column(db.String(200), nullable=False)
-    users_id = db.Column(db.Integer, db.ForeignKey('users.id', ondelete='CASCADE'), nullable= False)
+    users_id = db.Column(db.Integer, db.ForeignKey(
+        'users.id', ondelete='CASCADE'), nullable=False)
 
     def serialize(self):
         return {
@@ -214,12 +217,14 @@ class Gallery(db.Model):  # usar para formulario con fotos DE VIAJES
     def delete(self):
         db.session.delete(self)
         db.session
+
 
 class UserPicture(db.Model):  # usar para formulario con foto de usuario
     __tablename__ = 'userpictures'
     id = db.Column(db.Integer, primary_key=True)
     filename = db.Column(db.String(200), nullable=False)
-    users_id = db.Column(db.Integer, db.ForeignKey('users.id', ondelete='CASCADE'), nullable= False)
+    users_id = db.Column(db.Integer, db.ForeignKey(
+        'users.id', ondelete='CASCADE'), nullable=False)
 
     def serialize(self):
         return {
@@ -238,6 +243,7 @@ class UserPicture(db.Model):  # usar para formulario con foto de usuario
     def delete(self):
         db.session.delete(self)
         db.session
+
 
 class Rating(db.Model):  # calificacion match post-viaje
     __tablename__ = 'rating'
@@ -247,7 +253,8 @@ class Rating(db.Model):  # calificacion match post-viaje
     reason_good = db.Column(db.String(30))
     reason_bad = db.Column(db.String(30))
     experience = db.Column(db.String(1000), nullable=False)
-    users_id = db.Column(db.Integer, db.ForeignKey('users.id', ondelete='CASCADE'), nullable= False)
+    users_id = db.Column(db.Integer, db.ForeignKey(
+        'users.id', ondelete='CASCADE'), nullable=False)
 
     def serialize(self):
         return {
@@ -258,6 +265,223 @@ class Rating(db.Model):  # calificacion match post-viaje
             "reason_bad": self.reason_bad,
             "experience": self.experience,
             "users_id": self.users_id
+        }
+
+    def save(self):
+        db.session.add(self)
+        db.session.commit()
+
+    def update(self):
+        db.session.commit()
+
+    def delete(self):
+        db.session.delete(self)
+        db.session
+
+
+class Country(db.Model):
+    __tablename__ = 'country'
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(50))
+    cities = db.relationship('City', cascade='all, delete', backref='country')
+
+    def serialize(self):
+        return {
+            "id": self.id,
+            "name": self.name,
+        }
+
+    def serialize_with_cities(self):
+        return {
+            "id": self.id,
+            "name": self.name,
+            'cities': [city.serialize() for city in self.cities]
+        }
+
+    def save(self):
+        db.session.add(self)
+        db.session.commit()
+
+    def update(self):
+        db.session.commit()
+
+    def delete(self):
+        db.session.delete(self)
+        db.session
+
+
+class City(db.Model):
+    __tablename__ = 'city'
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(50))
+    trekking = db.relationship(
+        'Trekking', cascade='all, delete', backref='city')
+    country_id = db.Column(db.Integer, db.ForeignKey(
+        'country.id', ondelete='CASCADE'), nullable=False)
+
+    def serialize(self):
+        return {
+            "id": self.id,
+            "name": self.name,
+            "country_id": self.country_id,
+        }
+
+    def serialize_with_trekking(self):
+        return {
+            "id": self.id,
+            "name": self.name,
+            "country_id": self.country_id,
+            'trekking': [trek.serialize() for trek in self.trekking]
+        }
+
+    def save(self):
+        db.session.add(self)
+        db.session.commit()
+
+    def update(self):
+        db.session.commit()
+
+    def delete(self):
+        db.session.delete(self)
+        db.session
+
+
+class Trekking(db.Model):
+    __tablename__ = 'trekking'
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(200))
+    url_img = db.Column(db.String(200))
+    description = db.Column(db.String(200))
+    city_id = db.Column(db.Integer, db.ForeignKey(
+        'city.id', ondelete='CASCADE'), nullable=False)
+
+    def serialize(self):
+        return {
+            "id": self.id,
+            "name": self.name,
+            "url_img": self.url_img,
+            "description": self.description,
+            "city_id": self.city_id,
+        }
+
+    def save(self):
+        db.session.add(self)
+        db.session.commit()
+
+    def update(self):
+        db.session.commit()
+
+    def delete(self):
+        db.session.delete(self)
+        db.session
+
+
+class Gastronomy(db.Model):
+    __tablename__ = 'gastronomy'
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(200))
+    url_img = db.Column(db.String(200))
+    description = db.Column(db.String(200))
+    city_id = db.Column(db.Integer, db.ForeignKey(
+        'city.id', ondelete='CASCADE'), nullable=False)
+
+    def serialize(self):
+        return {
+            "id": self.id,
+            "name": self.name,
+            "url_img": self.url_img,
+            "description": self.description,
+            "city_id": self.city_id,
+        }
+
+    def save(self):
+        db.session.add(self)
+        db.session.commit()
+
+    def update(self):
+        db.session.commit()
+
+    def delete(self):
+        db.session.delete(self)
+        db.session
+
+
+class Cultural(db.Model):
+    __tablename__ = 'cultural'
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(200))
+    url_img = db.Column(db.String(200))
+    description = db.Column(db.String(200))
+    city_id = db.Column(db.Integer, db.ForeignKey(
+        'city.id', ondelete='CASCADE'), nullable=False)
+
+    def serialize(self):
+        return {
+            "id": self.id,
+            "name": self.name,
+            "url_img": self.url_img,
+            "description": self.description,
+            "city_id": self.city_id,
+        }
+
+    def save(self):
+        db.session.add(self)
+        db.session.commit()
+
+    def update(self):
+        db.session.commit()
+
+    def delete(self):
+        db.session.delete(self)
+        db.session
+
+
+class Nightlife(db.Model):
+    __tablename__ = 'nightlife'
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(200))
+    url_img = db.Column(db.String(200))
+    description = db.Column(db.String(200))
+    city_id = db.Column(db.Integer, db.ForeignKey(
+        'city.id', ondelete='CASCADE'), nullable=False)
+
+    def serialize(self):
+        return {
+            "id": self.id,
+            "name": self.name,
+            "url_img": self.url_img,
+            "description": self.description,
+            "city_id": self.city_id,
+        }
+
+    def save(self):
+        db.session.add(self)
+        db.session.commit()
+
+    def update(self):
+        db.session.commit()
+
+    def delete(self):
+        db.session.delete(self)
+        db.session
+
+
+class Shopping(db.Model):
+    __tablename__ = 'shopping'
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(200))
+    url_img = db.Column(db.String(200))
+    description = db.Column(db.String(200))
+    city_id = db.Column(db.Integer, db.ForeignKey(
+        'city.id', ondelete='CASCADE'), nullable=False)
+
+    def serialize(self):
+        return {
+            "id": self.id,
+            "name": self.name,
+            "url_img": self.url_img,
+            "description": self.description,
+            "city_id": self.city_id,
         }
 
     def save(self):
