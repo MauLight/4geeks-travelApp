@@ -10,7 +10,12 @@ const Account1 = () => {
     const [userinsta, setUserInsta] = useState("");
     const [usertweet, setUserTweet] = useState("");
     const [countries, setCountry] = useState([])
+    const [formData, setFormData] = useState(null);
     const [user, setUser] = useState(null)
+    const [selectedCountry, setSelectedCountry] = useState(false)
+    const [selectedLanguage, setSelectedLanguage] = useState(false)
+    const [countryAlert, setCountryAlert] = useState(false)
+    const [languageAlert, setLanguageAlert] = useState(false)
     // const [formData, setFormData] = useState({
     //     firstName: '',
     //     lastName: '',
@@ -38,104 +43,61 @@ const Account1 = () => {
         setCountry(responseJSON)
     }
 
-    const handleSubmitAccount1 = (e) => {
-        e.preventDefault()
-        const sampleForm = document.getElementById("account");
-
-        //Add an event listener to the form element and handler for the submit an event.
-        sampleForm.addEventListener("submit", async (e) => {
-            /**
-             * Prevent the default browser behaviour of submitting
-             * the form so that you can handle this instead.
-             */
-            e.preventDefault();
-
-            /**
-             * Get the element attached to the event handler.
-             */
-            let form = e.currentTarget;
-
-            /**
-             * Take the URL from the form's `action` attribute.
-             */
-            let url = `${process.env.BACKEND_URL}/users`;
-
-            try {
-                /**
-                 * Takes all the form fields and make the field values
-                 * available through a `FormData` instance.
-                 */
-                let formData = new FormData(form);
-
-                /**
-                 * The `postFormFieldsAsJson()` function in the next step.
-                 */
-                let responseData = await postFormFieldsAsJson({ url, formData });
-
-                //Destructure the response data
-                let { serverDataResponse } = responseData;
-
-                //Display the response data in the console (for debugging)
-                console.log(serverDataResponse);
-            } catch (error) {
-                //If an error occurs display it in the console (for debugging)
-                console.error(error);
-            }
+    const handleChange = (e) => {
+        setFormData({
+            ...formData,
+            [e.target.name]: e.target.value
         });
 
-        /**
-         * Helper function to POST data as JSON with Fetch.
-         */
-        async function postFormFieldsAsJson({ url, formData }) {
-            //Create an object from the form data entries
-            let formDataObject = Object.fromEntries(formData.entries());
-            // Format the plain form data as JSON
-            let formDataJsonString = JSON.stringify(formDataObject);
+        console.log(formData)
 
-            //Set the fetch options (headers, body)
-            let fetchOptions = {
-                //HTTP method set to POST.
-                method: "POST",
-                //Set the headers that specify you're sending a JSON body request and accepting JSON response
-                headers: {
-                    "Content-Type": "application/json",
-                    "Accept": "application/json",
-                    "Access-Control-Allow-Origin": "*"
-                },
-                // POST request body as JSON string.
-                body: formDataJsonString,
-            };
+    };
 
-            //Get the response body as JSON.
-            //If the response was not OK, throw an error.
-            let res = await fetch(url, fetchOptions);
+    const createUser = async (e) => {
+        e.preventDefault()
+        if (!selectedCountry) {
+            setCountryAlert(true)
 
-            //If the response is not ok throw an error (for debugging)
-            if (!res.ok) {
-
-                let error = await res.text();
-                throw new Error(error);
-            }
-            //If the response was OK, return the response body.
-            window.location = '/account/page/2'
-            return res.json();
         }
-    }
+        else if (!selectedLanguage) {
+            setLanguageAlert(true)
 
-    const handleClick = () => {
+        }
+        else {
+            try {
+                console.log("attempt to fetch")
+                //const info = formData
+                console.log(formData)
 
+                const response = await fetch(`${process.env.BACKEND_URL}/users`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Access-Control-Allow-Origin': '*'
+                    },
+                    body: JSON.stringify(formData)
+
+                });
+                const data = await response.json()
+
+                console.log(data);
+
+            } catch (error) {
+                console.log(error)
+            }
+        }
     }
 
     return (
 
-        <form onSubmit={handleSubmitAccount1} id='account'>
+        <form onSubmit={(e) => createUser(e)} >
             <div className='full-account1 '>
                 <div className='d-flex justify-content-end '>
                     <Link to="/login" className='link'>
                         <strong >Already have an account? Log in</strong>
                     </Link>
                 </div>
-                <div className='container'>
+                <div className='container my-4'>
 
                     <h1 className='mt-3 mb-2 text-center'>CREATE YOUR ACCOUNT</h1>
                     <h4 className='mt-3 mb-2 text-center'>So happy you are joining us! Your perfect match is closer to you now</h4>
@@ -144,62 +106,67 @@ const Account1 = () => {
                     <div className='row mt-3'>
                         <div className='col-lg-4 col-12 mb-5 mx-auto'>
                             <label htmlFor='exampleInputText' className='form-label'>First Name</label>
-                            <input type='text' className='form-control' id='exampleInputText' name='firstname' required />
+                            <input type='text' className='form-control' id='exampleInputText' name='firstname' required onChange={(e) => handleChange(e)} />
                         </div>
                         <div className='col-lg-4 col-12 mb-5 mx-auto'>
                             <label htmlFor='exampleInputText' className='form-label'>Last Name</label>
-                            <input type='text' className='form-control' id='exampleInputText' name='lastname' required />
+                            <input type='text' className='form-control' id='exampleInputText' name='lastname' required onChange={(e) => handleChange(e)} />
                         </div>
                         <div className='col-lg-3 col-12 mx-auto'>
                             <p className='exampleInputDate' htmlFor='exampleDate'>Birth Date</p>
-                            <input type='date' className='form-label w-100' id='exampleDate' name='birthdate' required />
+                            <input type='date' className='form-label w-100' id='exampleDate' name='birthdate' required onChange={(e) => handleChange(e)} />
                         </div>
                     </div>
                     <div className='row'>
                         <div className='col-lg-4 col-12 mb-5 mx-auto'>
                             <label htmlFor='exampleInputEmail1' className='form-label'>Email address</label>
-                            <input type='email' className='form-control' id='exampleInputEmail1' aria-describedby='emailHelp' name='email' placeholder='alguien@example.com' required />
+                            <input type='email' className='form-control' id='exampleInputEmail1' aria-describedby='emailHelp' name='email' placeholder='alguien@example.com' required onChange={(e) => handleChange(e)} />
                             <div id='emailHelp' className='form-text'>We'll never share your email with anyone else.</div>
                         </div>
                         <div className='col-lg-4 col-12 mb-5 mx-auto'>
                             <label htmlFor='exampleInputPassword1' className='form-label'>Password</label>
-                            <input type='password' className='form-control' id='exampleInputPassword1' name='password' required />
+                            <input type='password' className='form-control' id='exampleInputPassword1' name='password' required onChange={(e) => handleChange(e)} />
                         </div>
                         <div className='col-lg-3 col-12 mx-auto'>
                             <label htmlFor='exampleInputEmail1' className='form-label'>Language</label>
-                            <select className='form-select mb-3' aria-label='.form-select-lg example' name='languages' required>
-                                <option value='English' >English</option>
-                                <option value='Arabic'>Arabic</option>
-                                <option value='Bengali'>Bengali</option>
-                                <option value='French'>French</option>
-                                <option value='German'>German</option>
-                                <option value='Hindi'>Hindi</option>
-                                <option value='Indonesian'>Indonesian</option>
-                                <option value='Japanese'>Japanese</option>
-                                <option value='Mandarin'>Mandarin</option>
-                                <option value='Portuguese'>Portuguese</option>
-                                <option value='Russian'>Russian</option>
-                                <option value='Spanish'>Spanish</option>
+                            <select className='form-select mb-3' aria-label='.form-select-lg example' name='languages' onChange={(e) => handleChange(e)}>
+                                <option value='null' selected>--- Select a language ---</option>
+                                <option value='English' onClick={() => setSelectedLanguage(true)}>English</option>
+                                <option value='Arabic' onClick={() => setSelectedLanguage(true)}>Arabic</option>
+                                <option value='Bengali' onClick={() => setSelectedLanguage(true)}>Bengali</option>
+                                <option value='French' onClick={() => setSelectedLanguage(true)}>French</option>
+                                <option value='German' onClick={() => setSelectedLanguage(true)}>German</option>
+                                <option value='Hindi' onClick={() => setSelectedLanguage(true)}>Hindi</option>
+                                <option value='Indonesian' onClick={() => setSelectedLanguage(true)}>Indonesian</option>
+                                <option value='Japanese' onClick={() => setSelectedLanguage(true)}>Japanese</option>
+                                <option value='Mandarin' onClick={() => setSelectedLanguage(true)}>Mandarin</option>
+                                <option value='Portuguese' onClick={() => setSelectedLanguage(true)}>Portuguese</option>
+                                <option value='Russian' onClick={() => setSelectedLanguage(true)}>Russian</option>
+                                <option value='Spanish' onClick={() => setSelectedLanguage(true)}>Spanish</option>
                             </select>
+                            {(languageAlert) ?
+                            (<div className='message text-danger'>
+                                Please select a language
+                            </div>) : ''}
                         </div>
                     </div>
                     <div className='row'>
                         <div className='col-lg-4 col-12 mb-5 mx-auto'>
                             <label className='form-label'>Gender</label>
                             <div className='form-check' >
-                                <input className='form-check-input' type='radio' name='gender' id='flexRadioDefault1' value='Female' />
+                                <input className='form-check-input' type='radio' name='gender' id='flexRadioDefault1' value='Female' onChange={(e) => handleChange(e)} />
                                 <label className='form-check-label' htmlFor='flexRadioDefault1'>
                                     Female
                                 </label>
                             </div>
                             <div className='form-check'>
-                                <input className='form-check-input' type='radio' name='gender' id='flexRadioDefault2' value='Male' />
+                                <input className='form-check-input' type='radio' name='gender' id='flexRadioDefault2' value='Male' onChange={(e) => handleChange(e)} />
                                 <label className='form-check-label' htmlFor='flexRadioDefault1'>
                                     Male
                                 </label>
                             </div>
                             <div className='form-check'>
-                                <input className='form-check-input' type='radio' name='gender' id='flexRadioDefault3' value='NonBinary' />
+                                <input className='form-check-input' type='radio' name='gender' id='flexRadioDefault3' value='NonBinary' onChange={(e) => handleChange(e)} />
                                 <label className='form-check-label' htmlFor='flexRadioDefault1'>
                                     Non Binary
                                 </label>
@@ -210,11 +177,17 @@ const Account1 = () => {
                         </div>
                         <div className='col-lg-4 col-12 mb-5 mx-auto'>
                             <label className='form-label'> Country of Residence</label>
-                            <select className='form-select' aria-label='select country of residence' name='countryofresidence' required>
+                            <select className='form-select' aria-label='select country of residence' name='countryofresidence' onChange={(e) => handleChange(e)}>
+                                <option value='null' selected>--- Select a country ---</option>
                                 {countries.sort((a, b) => a.name.common > b.name.common ? 1 : -1).map((country, index) => {
-                                    return <option key={index} value={country?.name?.common}>{country?.name?.common}</option>
+                                    return <option key={index} value={country?.name?.common} onClick={() => setSelectedCountry(true)}>{country?.name?.common}</option>
                                 })}
                             </select>
+                            {(countryAlert) ?
+                            (<div className='message text-danger'>
+                                Please select a country
+                            </div>) : ''}
+
                         </div>
                         <div className='col-lg-3 col-12 mb-5 mx-auto'>
                             {/* REDES SOCIALES */}
@@ -234,8 +207,8 @@ const Account1 = () => {
                                             className="form-control"
                                             id="facebook"
                                             placeholder="user"
-                                            value={userface}
-                                            onChange={(e) => setUserFace(e.target.value)}
+                                            //value={userface}
+                                            onChange={(e) => handleChange(e)}
                                             name='facebook'
                                             required
                                         />
@@ -254,10 +227,11 @@ const Account1 = () => {
                                             className="form-control"
                                             id="instagram"
                                             placeholder="user"
-                                            value={userinsta}
-                                            onChange={(e) => setUserInsta(e.target.value)}
+                                            //value={userinsta}
+                                            onChange={(e) => handleChange(e)}
                                             name='instagram'
                                             required
+
                                         />
 
                                     </div>
@@ -274,10 +248,12 @@ const Account1 = () => {
                                             className="form-control"
                                             id="twitter"
                                             placeholder="user"
-                                            value={usertweet}
-                                            onChange={(e) => setUserTweet(e.target.value)}
+                                            //value={usertweet}
+
+                                            onChange={(e) => handleChange(e)}
                                             name='twitter'
                                             required
+
                                         />
 
                                     </div>
@@ -285,7 +261,7 @@ const Account1 = () => {
                             </div>
                         </div>
                     </div>
-                    <button type='submit' style={{ backgroundColor: '#336b87', color: 'white' }} onClick={handleClick} className='btn mb-3 d-flex mx-auto'>Submit</button>
+                    <button type='submit' style={{ backgroundColor: '#336b87', color: 'white' }} className='btn mb-3 d-flex mx-auto'>Submit</button>
                 </div >
             </div >
         </form >
