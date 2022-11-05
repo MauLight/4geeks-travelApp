@@ -7,6 +7,9 @@ import { MdDeleteForever } from "react-icons/md";
 import { GrConfigure  } from "react-icons/gr";
 
 const Mytrips = () => {
+
+// Agregar fetch GET
+
   return (
     <>
       <div className="maincontainer col-10 ">

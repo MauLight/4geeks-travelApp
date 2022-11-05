@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import "../../styles/createtrips.css";
-
+import { Context } from "../store/appContext"
 // import { Context } from "../store/appContext";
 
 const CreateTrips = () => {
@@ -10,6 +10,7 @@ const CreateTrips = () => {
   const [countries, setCountries] = useState([]);
   const [selected, setSelected] = useState("");
   const [state, setState] = useState([]);
+
   // const [selectedState, setSelectedState] =useState("")
 
   const getCountry = async () => {

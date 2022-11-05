@@ -13,7 +13,7 @@ const Profile = () => {
   const [error, setError] = useState(null);
   const { store , actions } = useContext(Context);
   const user_id = store.currentUser.id;
-
+ 
   
   useEffect(() => {
     console.log(store.currentUser)
@@ -91,7 +91,7 @@ const Profile = () => {
                   <div className="card" style={{ width: "10rem" }}>
                     <img
                       className="card-img-top"
-                      src = "https://res.cloudinary.com/dcdt9yvc2/image/upload/v1666928278/picture/bfpbyvrihchgdkarvoh7.jpg"
+                      src = "https://res.cloudinary.com/dcdt9yvc2/image/upload/v1666963928/picture/rizdywqkuwis9thyytff.jpg"
                       alt="Card image cap"
                     />
                     <div className="card-body">
@@ -171,7 +171,7 @@ const Profile = () => {
           </div>
           <div className="contain2 col-lg-6">
             {/* <div className="row btn"> */}
-                <Link className="link" to="/createtrip">
+                <Link className="link" to="/users/1/createtrip">
                   Create my trips
                 </Link>
             {/* </div> */}
