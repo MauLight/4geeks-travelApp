@@ -7,7 +7,7 @@ const Save = () => {
     return (
         <div className='container-fluid d-flex justify-content-center'>
             <div className='alert '>
-                <h2>Your data has been changed</h2>
+                <h2>Your data has been saved</h2>
             </div>
 
 

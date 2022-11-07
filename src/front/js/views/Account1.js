@@ -6,31 +6,16 @@ import "../../styles/formmedia.css";
 
 const Account1 = () => {
     const url = 'https://restcountries.com/v3.1/all'
-    const [userface, setUserFace] = useState("");
-    const [userinsta, setUserInsta] = useState("");
-    const [usertweet, setUserTweet] = useState("");
+    const languagesOptions = ['Arabic', 'Bengali', 'English', 'French', 'German', 'Hindi', 'Indonesian', 'Japanese', 'Mandarin', 'Portuguese', 'Russian', 'Spanish']
     const [countries, setCountry] = useState([])
     const [formData, setFormData] = useState(null);
-    const [user, setUser] = useState(null)
     const [selectedCountry, setSelectedCountry] = useState(false)
     const [selectedLanguage, setSelectedLanguage] = useState(false)
+    const [selectedGender, setSelectedGender] = useState(false)
     const [countryAlert, setCountryAlert] = useState(false)
     const [languageAlert, setLanguageAlert] = useState(false)
-    // const [formData, setFormData] = useState({
-    //     firstName: '',
-    //     lastName: '',
-    //     birthdate: '',
-    //     email: '',
-    //     password: '',
-    //     languages: '',
-    //     gender: '',
-    //     countryofresidence: '',
-    //     instagram: '',
-    //     facebook: '',
-    //     twitter: '',
-    //     verified: '',
+    const [genderAlert, setGenderAlert] = useState(false)
 
-    // })
     useEffect(() => {
         fetchCountries()
     }, [])
@@ -49,43 +34,83 @@ const Account1 = () => {
             [e.target.name]: e.target.value
         });
 
-        console.log(formData)
+        //console.log(formData)
 
     };
 
+    // useEffect(() => {
+    //     if (!selectedCountry) {
+    //         setCountryAlert(true)
+    //     }
+    //     else {
+    //         setCountryAlert(false)
+    //     }
+    // }, [selectedCountry])
+
+    // useEffect(() => {
+    //     if (!selectedLanguage) {
+    //         setLanguageAlert(true)
+    //     }
+    //     else {
+    //         setLanguageAlert(false)
+    //     }
+    // }, [selectedLanguage])
+
+    // useEffect(() => {
+    //     if (!selectedGender) {
+    //         setGenderAlert(true)
+    //     }
+    //     else {
+    //         setGenderAlert(false)
+    //     }
+    // }, [selectedGender])
+
     const createUser = async (e) => {
         e.preventDefault()
-        if (!selectedCountry) {
-            setCountryAlert(true)
-
-        }
-        else if (!selectedLanguage) {
-            setLanguageAlert(true)
-
-        }
-        else {
-            try {
-                console.log("attempt to fetch")
-                //const info = formData
-                console.log(formData)
-
-                const response = await fetch(`${process.env.BACKEND_URL}/users`, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Access-Control-Allow-Origin': '*'
-                    },
-                    body: JSON.stringify(formData)
-
-                });
-                const data = await response.json()
-
-                console.log(data);
-
-            } catch (error) {
-                console.log(error)
+        if (!selectedGender || !selectedCountry || !selectedLanguage){
+            if (!selectedCountry) {
+                setCountryAlert(true)
+            }
+            else {
+                setCountryAlert(false)
+            }
+            if (!selectedLanguage) {
+                setLanguageAlert(true)
+            }
+            else {
+                setLanguageAlert(false)
+            }
+            if (!selectedGender) {
+                setGenderAlert(true)
+            }
+            else {
+                setGenderAlert(false)
             }
         }
+
+        if (selectedGender && selectedCountry && selectedLanguage) {
+                try {
+                    //console.log("attempt to fetch")
+                    //const info = formData
+                    console.log(formData)
+
+                    const response = await fetch(`${process.env.BACKEND_URL}/users`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Access-Control-Allow-Origin': '*'
+                        },
+                        body: JSON.stringify(formData)
+
+                    });
+                    const data = await response.json()
+                    window.location = '/save'
+                    console.log(data);
+
+                } catch (error) {
+                    console.log(error)
+                }
+            }
     }
 
     return (
@@ -121,7 +146,6 @@ const Account1 = () => {
                         <div className='col-lg-4 col-12 mb-5 mx-auto'>
                             <label htmlFor='exampleInputEmail1' className='form-label'>Email address</label>
                             <input type='email' className='form-control' id='exampleInputEmail1' aria-describedby='emailHelp' name='email' placeholder='alguien@example.com' required onChange={(e) => handleChange(e)} />
-                            <div id='emailHelp' className='form-text'>We'll never share your email with anyone else.</div>
                         </div>
                         <div className='col-lg-4 col-12 mb-5 mx-auto'>
                             <label htmlFor='exampleInputPassword1' className='form-label'>Password</label>
@@ -129,71 +153,65 @@ const Account1 = () => {
                         </div>
                         <div className='col-lg-3 col-12 mx-auto'>
                             <label htmlFor='exampleInputEmail1' className='form-label'>Language</label>
-                            <select className='form-select mb-3' aria-label='.form-select-lg example' name='languages' onChange={(e) => handleChange(e)}>
-                                <option value='null' selected>--- Select a language ---</option>
-                                <option value='English' onClick={() => setSelectedLanguage(true)}>English</option>
-                                <option value='Arabic' onClick={() => setSelectedLanguage(true)}>Arabic</option>
-                                <option value='Bengali' onClick={() => setSelectedLanguage(true)}>Bengali</option>
-                                <option value='French' onClick={() => setSelectedLanguage(true)}>French</option>
-                                <option value='German' onClick={() => setSelectedLanguage(true)}>German</option>
-                                <option value='Hindi' onClick={() => setSelectedLanguage(true)}>Hindi</option>
-                                <option value='Indonesian' onClick={() => setSelectedLanguage(true)}>Indonesian</option>
-                                <option value='Japanese' onClick={() => setSelectedLanguage(true)}>Japanese</option>
-                                <option value='Mandarin' onClick={() => setSelectedLanguage(true)}>Mandarin</option>
-                                <option value='Portuguese' onClick={() => setSelectedLanguage(true)}>Portuguese</option>
-                                <option value='Russian' onClick={() => setSelectedLanguage(true)}>Russian</option>
-                                <option value='Spanish' onClick={() => setSelectedLanguage(true)}>Spanish</option>
+                            <select className='form-select ' aria-label='.form-select-lg example' name='languages' onChange={(e) => handleChange(e)}>
+                                <option onClick={() => setSelectedLanguage(false)}>--- Select a language ---</option>
+                                {languagesOptions.map((languageOption, index) => {
+                                    return <option key={index} value={languageOption} onClick={() => setSelectedLanguage(true)}>{languageOption}</option>
+                                })}
                             </select>
                             {(languageAlert) ?
-                            (<div className='message text-danger'>
-                                Please select a language
-                            </div>) : ''}
+                                (<div className='message text-danger'>
+                                    Please select a language
+                                </div>) : ''}
+
                         </div>
                     </div>
                     <div className='row'>
                         <div className='col-lg-4 col-12 mb-5 mx-auto'>
                             <label className='form-label'>Gender</label>
                             <div className='form-check' >
-                                <input className='form-check-input' type='radio' name='gender' id='flexRadioDefault1' value='Female' onChange={(e) => handleChange(e)} />
+                                <input className='form-check-input' type='radio' name='gender' id='flexRadioDefault1' value='Female' onClick={() => setSelectedGender(true)} onChange={(e) => handleChange(e)} />
                                 <label className='form-check-label' htmlFor='flexRadioDefault1'>
                                     Female
                                 </label>
                             </div>
                             <div className='form-check'>
-                                <input className='form-check-input' type='radio' name='gender' id='flexRadioDefault2' value='Male' onChange={(e) => handleChange(e)} />
+                                <input className='form-check-input' type='radio' name='gender' id='flexRadioDefault2' value='Male' onClick={() => setSelectedGender(true)} onChange={(e) => handleChange(e)} />
                                 <label className='form-check-label' htmlFor='flexRadioDefault1'>
                                     Male
                                 </label>
                             </div>
                             <div className='form-check'>
-                                <input className='form-check-input' type='radio' name='gender' id='flexRadioDefault3' value='NonBinary' onChange={(e) => handleChange(e)} />
+                                <input className='form-check-input' type='radio' name='gender' id='flexRadioDefault3' value='NonBinary' onClick={() => setSelectedGender(true)} onChange={(e) => handleChange(e)} />
                                 <label className='form-check-label' htmlFor='flexRadioDefault1'>
                                     Non Binary
                                 </label>
                             </div>
-                            <div className='invalid-feedback'>
-                                Please enter a message.
-                            </div>
+                            {(genderAlert) ?
+                                (<div className='message text-danger'>
+                                    Please select a gender
+                                </div>) : ''}
                         </div>
                         <div className='col-lg-4 col-12 mb-5 mx-auto'>
                             <label className='form-label'> Country of Residence</label>
                             <select className='form-select' aria-label='select country of residence' name='countryofresidence' onChange={(e) => handleChange(e)}>
-                                <option value='null' selected>--- Select a country ---</option>
+                                <option selected onClick={() => setSelectedCountry(false)}>--- Select a country ---</option>
                                 {countries.sort((a, b) => a.name.common > b.name.common ? 1 : -1).map((country, index) => {
                                     return <option key={index} value={country?.name?.common} onClick={() => setSelectedCountry(true)}>{country?.name?.common}</option>
                                 })}
                             </select>
                             {(countryAlert) ?
-                            (<div className='message text-danger'>
-                                Please select a country
-                            </div>) : ''}
+                                (<div className='message text-danger'>
+                                    Please select a country
+                                </div>) : ''}
+
 
                         </div>
                         <div className='col-lg-3 col-12 mb-5 mx-auto'>
                             {/* REDES SOCIALES */}
                             <div className="social-media">
-
-                                <label className='form-label'>Social Media</label>
+                                <label className='form-label' data-toggle="tooltip" title="Why do we ask this? It's because you are going to contact your match through these external social media">Social Media
+                                </label>
 
                                 {/* FACEBOOK */}
                                 <div className="row">
