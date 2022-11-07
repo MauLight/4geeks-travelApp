@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import ImageUrl from "../../img/3.png";
+import ImageUrl from "../../img/footer.png";
 
 const Footer = () => {
 	  return(

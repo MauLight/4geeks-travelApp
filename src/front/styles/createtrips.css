@@ -4,12 +4,13 @@ h1{
     color: #336b87;
     text-shadow: 3px 3px 3px rgb(179, 177, 177);
     margin-bottom: 30px;
-    font-size: 2rem;
+    font-size: calc(1em + 2vw);
 }
 
 h4{
     color: #336b87;
     margin-top:20px;
+    font-size: calc(1em + 1vw);
 }
 
 .bigcontainer{
@@ -61,7 +62,7 @@ h4{
     margin-bottom: 15px;
     background-color: #336b87;
     border: 1px solid #336b87;
-    font-size: 2rem ;
+    font-size: calc(1em + 1vw) ;
     box-shadow: 5px 5px 5px rgb(179, 177, 177);
     text-shadow: 5px 5px 5px rgb(179, 177, 177);
     border-radius: 10px;
