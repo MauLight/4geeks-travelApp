@@ -1,11 +1,23 @@
+.container-fluid{
+    background-color: #f8f9fa;
+}
+
 .item{
     color: #336b87;
     text-align: center;
-    font-size: large;
-    text-decoration: none;
+    font-size: calc(1em + 1vw);
 }
 
-.logo{
-    font-size: x-large;
+.navbar-toggler{
+    border: 2px solid #336b87;
+
+}
+
+.nav-link{
     color: #336b87;
+    font-size: calc(3px + 2vh);
+}
+
+.img-logo{
+    object-fit: fill;
 }
