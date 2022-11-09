@@ -38,9 +38,14 @@ const CreateTrips = () => {
   }
   const handleChange = (event) => {
     const paisseleccionado = event.target.value;
-    console.log(paisseleccionado);
-    setSelected(paisseleccionado);
-    mostrar_capital();
+    if (paisseleccionado != "-1") {
+      console.log(paisseleccionado);
+      setSelected(paisseleccionado);
+      mostrar_capital();
+    } else { 
+    setSelected("") 
+    setState([])
+    }
   }
 
 
@@ -54,7 +59,19 @@ const CreateTrips = () => {
   }, [selected]);
 
   const handleCreateTrip = (e) => {
-    e.preventDefault()
+
+    const formData = new FormData(e.currentTarget);
+    e.preventDefault();
+    
+    //validate date
+    const start_date = formData.get('start_date');
+    const end_date = formData.get('end_date');
+    if (start_date >= end_date) {  
+      console.log("error")
+      alert("The end date must be greater than the start date")
+      return 
+    }
+
         const sampleForm = document.getElementById("create");
 
         //Add an event listener to the form element and handler for the submit an event.
@@ -147,7 +164,7 @@ const CreateTrips = () => {
           <div className="destination">
             <h4>Amazing! Which country do you want to travel?</h4>
             <select className="custom-select " onChange={event => handleChange(event) } name='country_trip'>
-
+            <option value="-1">Selecciona...</option>
               {countries.length > 0 && countries
                 .filter((country) => {
                   return ["Argentina", "Brazil", "Chile", "Colombia", "Mexico", "Greece", "Italy", "Spain", "United Kingdom", "France"].indexOf(country?.name?.common) != -1

@@ -24,27 +24,27 @@ const Mytrips = () => {
           </div>
         </div>
 
-        <div class="card">
+        <div className="card">
           <div className="row">
             <div className="col header">
-              <h4 class="card-header">Pais 1</h4>
+              <h4 className="card-header">Pais 1</h4>
             </div>
 
             <div className="row d-flex justify-content-between my-auto">
               
                 <div className="col-lg-3 capital ">
-                  <h5 class="card-title my-auto">Capital</h5>
-                  <p class="card-text">date start / date final</p>
+                  <h5 className="card-title my-auto">Capital</h5>
+                  <p className="card-text">date start / date final</p>
                 </div>
               
               <div className="col-lg-4 btn my-auto">
-                <button class="btn-find btn-success mx-1">
+                <button className="btn-find btn-success mx-1">
                   <BsFillPeopleFill /> Find Matches
                 </button>
-                <button class="btn-delete btn-danger">
+                <button className="btn-delete btn-danger">
                   <MdDeleteForever /> Delete trip
                 </button>
-                <button class="btn-delete btn-warning">
+                <button className="btn-delete btn-warning">
                 <Link className="text-decoration-none text-dark" to="/users/:id/setpreferences" ><GrConfigure /> Preferences</Link>
                 </button>
               </div>
