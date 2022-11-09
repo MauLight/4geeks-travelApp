@@ -9,9 +9,9 @@ const Account1 = () => {
     const languagesOptions = ['Arabic', 'Bengali', 'English', 'French', 'German', 'Hindi', 'Indonesian', 'Japanese', 'Mandarin', 'Portuguese', 'Russian', 'Spanish']
     const [countries, setCountry] = useState([])
     const [formData, setFormData] = useState(null);
-    const [selectedCountry, setSelectedCountry] = useState(false)
-    const [selectedLanguage, setSelectedLanguage] = useState(false)
-    const [selectedGender, setSelectedGender] = useState(false)
+    // const [selectedCountry, setSelectedCountry] = useState(false)
+    // const [selectedLanguage, setSelectedLanguage] = useState(false)
+    // const [selectedGender, setSelectedGender] = useState(false)
     const [countryAlert, setCountryAlert] = useState(false)
     const [languageAlert, setLanguageAlert] = useState(false)
     const [genderAlert, setGenderAlert] = useState(false)
@@ -34,83 +34,43 @@ const Account1 = () => {
             [e.target.name]: e.target.value
         });
 
-        //console.log(formData)
-
+        console.log(formData)
     };
 
-    // useEffect(() => {
-    //     if (!selectedCountry) {
-    //         setCountryAlert(true)
-    //     }
-    //     else {
-    //         setCountryAlert(false)
-    //     }
-    // }, [selectedCountry])
 
-    // useEffect(() => {
-    //     if (!selectedLanguage) {
-    //         setLanguageAlert(true)
-    //     }
-    //     else {
-    //         setLanguageAlert(false)
-    //     }
-    // }, [selectedLanguage])
-
-    // useEffect(() => {
-    //     if (!selectedGender) {
-    //         setGenderAlert(true)
-    //     }
-    //     else {
-    //         setGenderAlert(false)
-    //     }
-    // }, [selectedGender])
 
     const createUser = async (e) => {
         e.preventDefault()
-        if (!selectedGender || !selectedCountry || !selectedLanguage){
-            if (!selectedCountry) {
-                setCountryAlert(true)
-            }
-            else {
-                setCountryAlert(false)
-            }
-            if (!selectedLanguage) {
-                setLanguageAlert(true)
-            }
-            else {
-                setLanguageAlert(false)
-            }
-            if (!selectedGender) {
-                setGenderAlert(true)
-            }
-            else {
-                setGenderAlert(false)
+        if (!formData.languages || formData.languages == '--- Select a language ---') {
+            setLanguageAlert(true)
+        }
+        else if (!formData.countryofresidence || formData.countryofresidence == '--- Select a country ---') {
+            setCountryAlert(true)
+        }
+        else if (!formData.gender) {
+            setGenderAlert(true)
+        }
+        else {
+            try {
+                //console.log("attempt to fetch")
+            
+                const response = await fetch(`${process.env.BACKEND_URL}/users`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Access-Control-Allow-Origin': '*'
+                    },
+                    body: JSON.stringify(formData)
+
+                });
+                const data = await response.json()
+                window.location = '/save'
+                console.log(data);
+
+            } catch (error) {
+                console.log(error)
             }
         }
-
-        if (selectedGender && selectedCountry && selectedLanguage) {
-                try {
-                    //console.log("attempt to fetch")
-                    //const info = formData
-                    console.log(formData)
-
-                    const response = await fetch(`${process.env.BACKEND_URL}/users`, {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'Access-Control-Allow-Origin': '*'
-                        },
-                        body: JSON.stringify(formData)
-
-                    });
-                    const data = await response.json()
-                    window.location = '/save'
-                    console.log(data);
-
-                } catch (error) {
-                    console.log(error)
-                }
-            }
     }
 
     return (
@@ -130,33 +90,33 @@ const Account1 = () => {
 
                     <div className='row mt-3'>
                         <div className='col-lg-4 col-12 mb-5 mx-auto'>
-                            <label htmlFor='exampleInputText' className='form-label'>First Name</label>
-                            <input type='text' className='form-control' id='exampleInputText' name='firstname' required onChange={(e) => handleChange(e)} />
+                            <label htmlFor='firstname' className='form-label'>First Name</label>
+                            <input type='text' className='form-control' id='firstname' name='firstname' required onChange={(e) => handleChange(e)} />
                         </div>
                         <div className='col-lg-4 col-12 mb-5 mx-auto'>
-                            <label htmlFor='exampleInputText' className='form-label'>Last Name</label>
-                            <input type='text' className='form-control' id='exampleInputText' name='lastname' required onChange={(e) => handleChange(e)} />
+                            <label htmlFor='lastname' className='form-label'>Last Name</label>
+                            <input type='text' className='form-control' id='lastname' name='lastname' required onChange={(e) => handleChange(e)} />
                         </div>
                         <div className='col-lg-3 col-12 mx-auto'>
                             <p className='exampleInputDate' htmlFor='exampleDate'>Birth Date</p>
-                            <input type='date' className='form-label w-100' id='exampleDate' name='birthdate' required onChange={(e) => handleChange(e)} />
+                            <input type='date' className='form-label w-100' id='birthate' name='birthdate' required onChange={(e) => handleChange(e)} />
                         </div>
                     </div>
                     <div className='row'>
                         <div className='col-lg-4 col-12 mb-5 mx-auto'>
-                            <label htmlFor='exampleInputEmail1' className='form-label'>Email address</label>
-                            <input type='email' className='form-control' id='exampleInputEmail1' aria-describedby='emailHelp' name='email' placeholder='alguien@example.com' required onChange={(e) => handleChange(e)} />
+                            <label htmlFor='email' className='form-label'>Email address</label>
+                            <input type='email' className='form-control' id='email' aria-describedby='emailHelp' name='email' placeholder='alguien@example.com' required onChange={(e) => handleChange(e)} />
                         </div>
                         <div className='col-lg-4 col-12 mb-5 mx-auto'>
-                            <label htmlFor='exampleInputPassword1' className='form-label'>Password</label>
-                            <input type='password' className='form-control' id='exampleInputPassword1' name='password' required onChange={(e) => handleChange(e)} />
+                            <label htmlFor='password' className='form-label'>Password</label>
+                            <input type='password' className='form-control' id='password' name='password' required onChange={(e) => handleChange(e)} />
                         </div>
                         <div className='col-lg-3 col-12 mx-auto'>
-                            <label htmlFor='exampleInputEmail1' className='form-label'>Language</label>
-                            <select className='form-select ' aria-label='.form-select-lg example' name='languages' onChange={(e) => handleChange(e)}>
-                                <option onClick={() => setSelectedLanguage(false)}>--- Select a language ---</option>
+                            <label htmlFor='languages' className='form-label'>Language</label>
+                            <select className='form-select ' name='languages' onChange={(e) => handleChange(e)}>
+                                <option>--- Select a language ---</option>
                                 {languagesOptions.map((languageOption, index) => {
-                                    return <option key={index} value={languageOption} onClick={() => setSelectedLanguage(true)}>{languageOption}</option>
+                                    return <option key={index} value={languageOption}>{languageOption}</option>
                                 })}
                             </select>
                             {(languageAlert) ?
@@ -170,19 +130,19 @@ const Account1 = () => {
                         <div className='col-lg-4 col-12 mb-5 mx-auto'>
                             <label className='form-label'>Gender</label>
                             <div className='form-check' >
-                                <input className='form-check-input' type='radio' name='gender' id='flexRadioDefault1' value='Female' onClick={() => setSelectedGender(true)} onChange={(e) => handleChange(e)} />
+                                <input className='form-check-input' type='radio' name='gender' id='femalegender' value='Female' onChange={(e) => handleChange(e)} />
                                 <label className='form-check-label' htmlFor='flexRadioDefault1'>
                                     Female
                                 </label>
                             </div>
                             <div className='form-check'>
-                                <input className='form-check-input' type='radio' name='gender' id='flexRadioDefault2' value='Male' onClick={() => setSelectedGender(true)} onChange={(e) => handleChange(e)} />
+                                <input className='form-check-input' type='radio' name='gender' id='malegender' value='Male' onChange={(e) => handleChange(e)} />
                                 <label className='form-check-label' htmlFor='flexRadioDefault1'>
                                     Male
                                 </label>
                             </div>
                             <div className='form-check'>
-                                <input className='form-check-input' type='radio' name='gender' id='flexRadioDefault3' value='NonBinary' onClick={() => setSelectedGender(true)} onChange={(e) => handleChange(e)} />
+                                <input className='form-check-input' type='radio' name='gender' id='nonbinary' value='NonBinary' onChange={(e) => handleChange(e)} />
                                 <label className='form-check-label' htmlFor='flexRadioDefault1'>
                                     Non Binary
                                 </label>
@@ -195,9 +155,9 @@ const Account1 = () => {
                         <div className='col-lg-4 col-12 mb-5 mx-auto'>
                             <label className='form-label'> Country of Residence</label>
                             <select className='form-select' aria-label='select country of residence' name='countryofresidence' onChange={(e) => handleChange(e)}>
-                                <option selected onClick={() => setSelectedCountry(false)}>--- Select a country ---</option>
+                                <option defaultValue>--- Select a country ---</option>
                                 {countries.sort((a, b) => a.name.common > b.name.common ? 1 : -1).map((country, index) => {
-                                    return <option key={index} value={country?.name?.common} onClick={() => setSelectedCountry(true)}>{country?.name?.common}</option>
+                                    return <option key={index} value={country?.name?.common}>{country?.name?.common}</option>
                                 })}
                             </select>
                             {(countryAlert) ?
@@ -210,7 +170,7 @@ const Account1 = () => {
                         <div className='col-lg-3 col-12 mb-5 mx-auto'>
                             {/* REDES SOCIALES */}
                             <div className="social-media">
-                                <label className='form-label' data-toggle="tooltip" title="Why do we ask this? It's because you are going to contact your match through these external social media">Social Media
+                                <label className='form-label'>Social Media
                                 </label>
 
                                 {/* FACEBOOK */}
