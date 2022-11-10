@@ -9,24 +9,27 @@ const PhotosAccount = () => {
   const [image, setImage] = useState("");
   const [imageUser, setImageUser] = useState("");
 
-    const [error, setError] = useState(null);
-    const user_id = 1; //store.currentUser.id ;
+  const [error, setError] = useState(null);
+    // localStorage.setItem('user_id', respuesta.id)
+    const user_id = store?.currentUser?.user?.id ;
+    console.log("user", user_id)
 
     // const [filter, setFilter] = useState(null);
 
     useEffect(() => {
-        getImagesGallery();
-    }, [])
-
-    useEffect(() => {
+      if(typeof user_id !== "undefined" ||  user_id != null)
+      {
       getImagesGallery();
+      // getImageUser();
+    } 
    // }, [filter])
-  }, [])
+  }, [user_id])
 
   const getImagesGallery = async () => {
       try {
 
           // let query = (filter === null ? "" : filter === true ? "?active=true" : "?active=false") // validando si filtramos o no el resultado 
+          
 
           const response = await fetch(`${process.env.BACKEND_URL}/api/galleries/${user_id}`)
           const data = await response.json()
@@ -42,6 +45,7 @@ const PhotosAccount = () => {
       e.preventDefault();
 
       if (image !== null && imageUser !== null) {
+        console.log(image)
 
 
           const formData = new FormData()
@@ -50,11 +54,18 @@ const PhotosAccount = () => {
           for(let i = 0; i < image.length; i++){
               formData.append('images', image[i]);
           } 
-          formData.append('imageUser', imageUser);
+          // formData.append('imageUser', imageUser);
 
           console.log(formData);
 
           uploadImage(formData);
+
+          const formData2 = new FormData();
+          console.log("tired",imageUser)
+          formData2.append("user_id", user_id);
+          formData2.append("image", imageUser);
+          console.log(formData2);
+          uploadImage2(formData2);
 
           setError(null);
           e.target.reset();
@@ -63,7 +74,8 @@ const PhotosAccount = () => {
       }
   }
 
-const uploadImage = async (formData1) => {
+const uploadImage = async (formData) => {
+  console.log("test")
   try {
     const response = await fetch(`${process.env.BACKEND_URL}/api/galleries`, {
       method: "POST",
@@ -71,15 +83,18 @@ const uploadImage = async (formData1) => {
     });
 
     const data = await response.json();
+    console.log("hola", data)
 
     if (data.length > 0) {
       getImagesGallery();
       setImage(null);
       setError(null);
     } else {
+      console.log("hi")
       setError("Error uploading image");
     }
   } catch (error) {
+    console.log("bye")
     console.log(error.message);
   }
 };
@@ -87,11 +102,11 @@ const uploadImage = async (formData1) => {
 const handleSubmit2 = (e) => {
   e.preventDefault();
   if (imageUser !== null) {
-    const formData = new FormData();
-    formData.append("user_id", user_id);
-    formData.append("image", imageUser);
-    console.log(formData);
-    uploadImage2(formData);
+    const formData2 = new FormData2();
+    formData2.append("user_id", user_id);
+    formData2.append("image", imageUser);
+    console.log(formData2);
+    uploadImage2(formData2);
     setError(null);
     e.target.reset();
   } else {
@@ -102,13 +117,13 @@ const handleSubmit2 = (e) => {
   //     console.log(status);
   //     try {
   }
-const uploadImage2 = async (formData) => {
+const uploadImage2 = async (formData2) => {
   try {
     const response = await fetch(
       `${process.env.BACKEND_URL}/api/userpictures`,
       {
         method: "POST",
-        body: formData,
+        body: formData2,
       }
     );
 
@@ -119,9 +134,7 @@ const uploadImage2 = async (formData) => {
 
     if (data.length > 0) {
       getImagesUser();
-      setTitle("");
-      setActive(true);
-      setImage(null);
+      setImageUser(null);
       setError(null);
     } else {
       setError("Error uploading image");
