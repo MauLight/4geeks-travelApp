@@ -23,6 +23,7 @@ class User(db.Model):  # type: ignore
         'CreateTrip', cascade='all, delete', backref='user')
     mytrips = db.relationship('Trips', cascade='all, delete', backref='user')
     rating = db.relationship('Rating', cascade='all, delete', backref='user')
+    galleries = db.relationship('Gallery', cascade='all, delete', backref='user')
 
     def serialize(self):
         return {

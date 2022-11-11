@@ -8,9 +8,11 @@ bpUP = Blueprint('bpUP', __name__)
 def userpictures():
 
     user_id = request.form['user_id']
-    imagen = request.files["image"]
-  
-    resp = cloudinary.uploader.upload(imagen, folder="picture")
+    # image = request.files["image"]
+    print(request.files.getlist("image"))
+    return jsonify({"msg": "error uploading image"}), 400
+
+    resp = cloudinary.uploader.upload(image, folder="picture")
     if not resp: return jsonify({"msg": "error uploading image"}), 400
     user_picture_image = UserPicture()
     user_picture_image.filename = resp['secure_url']
