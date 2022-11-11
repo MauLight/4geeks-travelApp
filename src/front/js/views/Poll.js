@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
-import ReactDOM from 'react-dom';
+//import ReactDOM from 'react-dom';
 import '../../styles/poll.css'
 const Poll = () => {
     const { id } = useParams();
+    const [formData, setFormData] = useState(null);
     const [firstInput, setFirstInput] = useState('7');
     const [secondInput, setSecondInput] = useState('7');
     const handleFirstInput = (e) => {
@@ -13,49 +14,37 @@ const Poll = () => {
         setSecondInput(e.target.value)
     }
 
-    const handleSubmitPoll = (e) => {
-        e.preventDefault()
-        const sampleForm = document.getElementById("rating");
-        //Add an event listener to the form element and handler for the submit an event.
-        sampleForm.addEventListener("submit", async (e) => {
-            e.preventDefault();
-            let form = e.currentTarget;
-            let url = `${process.env.BACKEND_URL}/users/${id}/rating`;
-            try {
-                /**
-                 * Takes all the form fields and make the field values
-                 * available through a `FormData` instance.
-                 */
-                let formData = new FormData(form);
-                let responseData = await postFormFieldsAsJson({ url, formData });
-                let { serverDataResponse } = responseData;
-                console.log(serverDataResponse);
-            } catch (error) {
-                console.error(error);
-            }
+    const handleChange = (e) => {
+        setFormData({
+            ...formData,
+            [e.target.name]: e.target.value
         });
 
-        async function postFormFieldsAsJson({ url, formData }) {
-            let formDataObject = Object.fromEntries(formData.entries());
-            let formDataJsonString = JSON.stringify(formDataObject);
-            let fetchOptions = {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                    "Accept": "application/json",
-                    "Access-Control-Allow-Origin": "*"
-                },
-                body: formDataJsonString,
-            };
+        console.log(formData)
+    };
+    const handleSubmitPoll = async (e) => {
+        e.preventDefault()
 
-            let res = await fetch(url, fetchOptions);
-            if (!res.ok) {
-                let error = await res.text();
-                throw new Error(error);
-            }
+        try {
+            //console.log("attempt to fetch")
+
+            const response = await fetch(`${process.env.BACKEND_URL}/users/${id}/rating`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Access-Control-Allow-Origin': '*'
+                },
+                body: JSON.stringify(formData)
+
+            });
+            const data = await response.json()
             window.location = '/save'
-            return res.json();
+            console.log(data);
+
+        } catch (error) {
+            console.log(error)
         }
+
     }
     return (
         <div className='full-poll'>
@@ -68,7 +57,7 @@ const Poll = () => {
                             <img src='https://www.pngall.com/wp-content/uploads/5/User-Profile-PNG-High-Quality-Image.png' alt='user image' className='w-50' />
                             <div className='mt-3 '>
 
-                                <textarea className='form-control w-75 mx-auto mb-3' id='validationTextarea' placeholder='Please tell us briefly about your experience' name='experience' required></textarea>
+                                <textarea className='form-control w-75 mx-auto mb-3' id='validationTextarea' placeholder='Please tell us briefly about your experience' name='experience' required onChange={(e) => handleChange(e)}></textarea>
                                 <div className='invalid-feedback'>
                                     Please enter a message.
                                 </div>
@@ -79,66 +68,66 @@ const Poll = () => {
                             <p class="instructions">(set sliders according to your preferences)</p>
                             <label for='customRange1' class='form-label'>Was your partner a good match according to what you were looking for?</label>
                             <div className='d-flex'>
-                                <input type='range' class='slider form-range w-50 mb-3  in-line' min='1' max='7' step='1' id='customRange1' onInput={handleFirstInput} name='good_match' value={firstInput} />
+                                <input type='range' class='slider form-range w-50 mb-3  in-line' min='1' max='7' step='1' id='customRange1' onInput={handleFirstInput} name='good_match' value={firstInput} onChange={(e) => handleChange(e)} />
                                 <label className='form-label in-line ms-4' id='rangeValue'>{firstInput}</label>
                             </div>
                             <p for='customRange2' class='form-label'>Would you recommend your partner to join other travellers?</p>
                             <div className='d-flex'>
-                                <input type='range' class='slider form-range w-50 mb-3' min='1' max='7' step='1' id='customRange2' onInput={handleSecondInput} name='recommend' value={secondInput} />
+                                <input type='range' class='slider form-range w-50 mb-3' min='1' max='7' step='1' id='customRange2' onInput={handleSecondInput} name='recommend' value={secondInput} onChange={(e) => handleChange(e)} />
                                 <p className='d-flex in-line ms-4' id='rangeValue'>{secondInput}</p>
                             </div>
                             <div className={'mb-3' + (secondInput < 5 ? ' d-none' : '')}>
                                 <p className='form-label'>Please tell us why do you recommend your partner (choose one)</p>
                                 <div className='form-check '>
-                                    <input className='form-check-input' type='radio' id='Checkbox1' name='reason_good' value='Funny' />
+                                    <input className='form-check-input' type='radio' id='Checkbox1' name='reason_good' value='Funny' onChange={(e) => handleChange(e)} />
                                     <label className='form-check-label' for='Checkbox1'>Funny</label>
                                 </div>
                                 <div className='form-check'>
-                                    <input className='form-check-input' type='radio' id='Checkbox4' name='reason_good' value='Love Adventures' />
+                                    <input className='form-check-input' type='radio' id='Checkbox4' name='reason_good' value='Love Adventures' onChange={(e) => handleChange(e)} />
                                     <label className='form-check-label' for='Checkbox4'>Love Adventures</label>
                                 </div>
                                 <div className='form-check'>
-                                    <input className='form-check-input' type='radio' id='Checkbox2' name='reason_good' value='Relax' />
+                                    <input className='form-check-input' type='radio' id='Checkbox2' name='reason_good' value='Relax' onChange={(e) => handleChange(e)} />
                                     <label className='form-check-label' for='Checkbox2'>Relax</label>
                                 </div>
                                 <div className='form-check'>
-                                    <input className='form-check-input' type='radio' id='Checkbox3' name='reason_good' value='Good Talking' />
+                                    <input className='form-check-input' type='radio' id='Checkbox3' name='reason_good' value='Good Talking' onChange={(e) => handleChange(e)} />
                                     <label className='form-check-label' for='Checkbox3'>Good Talking</label>
                                 </div>
 
                                 <div className='form-check'>
-                                    <input className='form-check-input' type='radio' id='Checkbox5' name='reason_good' value='Good at History' />
+                                    <input className='form-check-input' type='radio' id='Checkbox5' name='reason_good' value='Good at History' onChange={(e) => handleChange(e)} />
                                     <label className='form-check-label' for='Checkbox5'>Good at History</label>
                                 </div>
                                 <div className='form-check form-check-inline'>
-                                    <input className='form-check-input ' type='radio' id='Checkbox6' name='reason_good' value='Great Dancer' />
+                                    <input className='form-check-input ' type='radio' id='Checkbox6' name='reason_good' value='Great Dancer' onChange={(e) => handleChange(e)} />
                                     <label className='form-check-label' for='Checkbox6'>Great Dancer</label>
                                 </div>
                             </div>
                             <div className={'mb-3' + (secondInput >= 5 ? ' d-none' : '')}>
                                 <label className='form-label'>Please tell us why do you not recommend your partner (choose one)</label>
                                 <div className='form-check'>
-                                    <input className='form-check-input display-none' type='radio' id='secondCheckbox1' name='reason_bad' value='Bored' />
+                                    <input className='form-check-input display-none' type='radio' id='secondCheckbox1' name='reason_bad' value='Bored' onChange={(e) => handleChange(e)} />
                                     <label className='form-check-label' for='Checkbox1'>Bored</label>
                                 </div>
                                 <div className='form-check'>
-                                    <input className='form-check-input' type='radio' id='secondCheckbox2' name='reason_bad' value='Disrespectful' />
+                                    <input className='form-check-input' type='radio' id='secondCheckbox2' name='reason_bad' value='Disrespectful' onChange={(e) => handleChange(e)} />
                                     <label className='form-check-label' for='Checkbox2'>Disrespectful</label>
                                 </div>
                                 <div className='form-check'>
-                                    <input className='form-check-input' type='radio' id='secondCheckbox3' name='reason_bad' value='Obscene' />
+                                    <input className='form-check-input' type='radio' id='secondCheckbox3' name='reason_bad' value='Obscene' onChange={(e) => handleChange(e)} />
                                     <label className='form-check-label' for='Checkbox3'>Obscene</label>
                                 </div>
                                 <div className='form-check'>
-                                    <input className='form-check-input' type='radio' id='secondCheckbox4' name='reason_bad' value='Complaining person' />
+                                    <input className='form-check-input' type='radio' id='secondCheckbox4' name='reason_bad' value='Complaining person' onChange={(e) => handleChange(e)} />
                                     <label className='form-check-label' for='Checkbox4'>Complaining person</label>
                                 </div>
                                 <div className='form-check'>
-                                    <input className='form-check-input' type='radio' id='secondCheckbox5' name='reason_bad' value='Unpunctual' />
+                                    <input className='form-check-input' type='radio' id='secondCheckbox5' name='reason_bad' value='Unpunctual' onChange={(e) => handleChange(e)} />
                                     <label className='form-check-label' for='Checkbox5'>Unpunctual</label>
                                 </div>
                                 <div className='form-check'>
-                                    <input className='form-check-input' type='radio' id='secondCheckbox6' name='reason_bad' value='Messy' />
+                                    <input className='form-check-input' type='radio' id='secondCheckbox6' name='reason_bad' value='Messy' onChange={(e) => handleChange(e)} />
                                     <label className='form-check-label' for='Checkbox6'>Messy</label>
                                 </div>
                             </div>

@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useHistory } from 'react';
 import { Link } from 'react-router-dom';
 import { FaFacebookSquare, FaTwitter, FaInstagramSquare } from "react-icons/fa";
+
 import '../../styles/account1.css'
 import "../../styles/formmedia.css";
 
@@ -15,6 +16,7 @@ const Account1 = () => {
     const [countryAlert, setCountryAlert] = useState(false)
     const [languageAlert, setLanguageAlert] = useState(false)
     const [genderAlert, setGenderAlert] = useState(false)
+    
 
     useEffect(() => {
         fetchCountries()
@@ -64,9 +66,13 @@ const Account1 = () => {
 
                 });
                 const data = await response.json()
-                window.location = '/save'
+                
                 console.log(data);
-
+            
+                sessionStorage.setItem('id', data.id)
+                //sessionStorage.getItem('id')
+                
+                window.location = '/account/page/2'
             } catch (error) {
                 console.log(error)
             }
@@ -82,9 +88,10 @@ const Account1 = () => {
                         <strong >Already have an account? Log in</strong>
                     </Link>
                 </div>
+                <h1 className='mt-3 mb-2 text-center'>CREATE YOUR ACCOUNT</h1>
                 <div className='container my-4'>
 
-                    <h1 className='mt-3 mb-2 text-center'>CREATE YOUR ACCOUNT</h1>
+                    
                     <h4 className='mt-3 mb-2 text-center'>So happy you are joining us! Your perfect match is closer to you now</h4>
                     <h4 className='mt-3 mb-5 text-center'>But first, tell us about yourself</h4>
 
