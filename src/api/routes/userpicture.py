@@ -8,9 +8,9 @@ bpUP = Blueprint('bpUP', __name__)
 def userpictures():
 
     user_id = request.form['user_id']
-    # image = request.files["image"]
-    print(request.files.getlist("image"))
-    return jsonify({"msg": "error uploading image"}), 400
+    image = request.files["image"]
+    # print(request.files.getlist("image"))
+    # return jsonify({"msg": "error uploading image"}), 400
 
     resp = cloudinary.uploader.upload(image, folder="picture")
     if not resp: return jsonify({"msg": "error uploading image"}), 400
@@ -25,7 +25,7 @@ def userpictures():
 def getuserpictures(user_id):
 
     if request.method == 'GET':
-
+        
         if user_id is not None :
             userpictures = UserPicture.query.filter_by(users_id=user_id).first()
             if not userpictures : return jsonify({ "msg": "User without photo!"}), 400

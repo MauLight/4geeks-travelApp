@@ -8,7 +8,7 @@ bpGI = Blueprint('bpGI', __name__)
 @bpGI.route('/galleries', methods=['POST'])
 def galleries():
 
-    return jsonify({"msg": "error uploading image"}), 200
+    # return jsonify({"msg": "error uploading image"}), 200
     user_id = request.form['user_id']
     images = request.files.getlist('images')
 
