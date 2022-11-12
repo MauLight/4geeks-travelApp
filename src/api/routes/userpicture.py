@@ -28,7 +28,8 @@ def getuserpictures(user_id):
         
         if user_id is not None :
             userpictures = UserPicture.query.filter_by(users_id=user_id).first()
-            if not userpictures : return jsonify({ "msg": "User without photo!"}), 400
+            print(userpictures)
+            if not userpictures : return jsonify({ "msg": "User with no photo!"}), 400
             return jsonify(userpictures.serialize()), 200
         else: return jsonify({ "msg": "user_id not Exist!"}), 400
 

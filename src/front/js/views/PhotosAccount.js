@@ -23,6 +23,7 @@ const PhotosAccount = () => {
       const response = await fetch(
         `${process.env.BACKEND_URL}/api/userpictures/${user_id}`
       );
+      console.log("ahora hay img", response)
       const data = await response.json();
 
       setPhotoUser(data);
@@ -110,17 +111,19 @@ const PhotosAccount = () => {
         {
           method: "POST",
           body: formData2,
+          mode: 'cors',
+          cache: 'no-cache',
         }
       );
 
-      const data = await response.json();
-      console.log(data);
+      if (response.status == 200)
+        getImageUser()
 
-      if (data.length > 0) {
-        getImageUser();
-        setImageUser(null);
-        setError(null);
-      }
+      // if (data.length > 0) {
+      //   getImageUser();
+      //   setImageUser(null);
+      //   setError(null);
+      // }
     } catch (error) {
       setError("Error uploading image");
       console.log(error.message);
