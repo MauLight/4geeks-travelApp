@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 
-
 const PhotosAccount = () => {
   const [gallery, setGallery] = useState(null);
   const [photoUser, setPhotoUser] = useState(null);
@@ -8,51 +7,51 @@ const PhotosAccount = () => {
   const [imageUser, setImageUser] = useState(null);
 
   const [error, setError] = useState(null);
-  const user_id = sessionStorage.getItem('id');
-  console.log(user_id)
+  const user_id = sessionStorage.getItem("id");
+  console.log(user_id);
 
   useEffect(() => {
     if (typeof user_id !== "undefined" || user_id != null) {
       getImagesGallery();
       getImageUser();
     }
-  }, [])
+  }, []);
 
-  console.log(photoUser)
+  console.log(photoUser);
   const getImageUser = async () => {
     try {
-
-      const response = await fetch(`${process.env.BACKEND_URL}/api/userpictures/${user_id}`);
+      const response = await fetch(
+        `${process.env.BACKEND_URL}/api/userpictures/${user_id}`
+      );
       const data = await response.json();
 
       setPhotoUser(data);
-
     } catch (error) {
-      console.log(error.message)
+      console.log(error.message);
     }
-  }
+  };
   const getImagesGallery = async () => {
     try {
-
-      const response = await fetch(`${process.env.BACKEND_URL}/api/galleries/${user_id}`);
+      const response = await fetch(
+        `${process.env.BACKEND_URL}/api/galleries/${user_id}`
+      );
       const data = await response.json();
 
       setGallery(data);
-
     } catch (error) {
-      console.log(error.message)
+      console.log(error.message);
     }
-  }
+  };
 
-  const handleSubmit = e => {
+  const handleSubmit = (e) => {
     e.preventDefault();
 
     if (image !== null) {
       console.log(image);
       const formData = new FormData();
-      formData.append('user_id', user_id);
+      formData.append("user_id", user_id);
       for (let i = 0; i < image.length; i++) {
-        formData.append('images', image[i]);
+        formData.append("images", image[i]);
       }
       console.log(formData);
       uploadImage(formData);
@@ -64,7 +63,7 @@ const PhotosAccount = () => {
   };
 
   const uploadImage = async (formData) => {
-    console.log("uploadImage")
+    console.log("uploadImage");
     try {
       const response = await fetch(`${process.env.BACKEND_URL}/api/galleries`, {
         method: "POST",
@@ -72,21 +71,20 @@ const PhotosAccount = () => {
       });
 
       const data = await response.json();
-      console.log(data)
-      console.log("esperandorespuesta data")
+      console.log(data);
+      console.log("esperandorespuesta data");
 
       if (data.length > 0) {
         getImagesGallery();
         setImage(null);
         setError(null);
-
       }
     } catch (error) {
       console.log("catch error upload image");
       setError("Error uploading image");
       console.log(error.message);
     }
-  };  
+  };
   const handleSubmit2 = (e) => {
     e.preventDefault();
 
@@ -94,8 +92,8 @@ const PhotosAccount = () => {
       console.log("handlesubmit");
       const formData2 = new FormData();
       console.log(user_id);
-      formData2.append('user_id', user_id);
-      formData2.append('image', imageUser[0]);
+      formData2.append("user_id", user_id);
+      formData2.append("image", imageUser[0]);
       console.log(formData2);
       uploadImage2(formData2);
       setError(null);
@@ -107,10 +105,13 @@ const PhotosAccount = () => {
   const uploadImage2 = async (formData2) => {
     console.log("upload image");
     try {
-      const response = await fetch(`${process.env.BACKEND_URL}/api/userpictures`, {
-        method: "POST",
-        body: formData2,
-      });
+      const response = await fetch(
+        `${process.env.BACKEND_URL}/api/userpictures`,
+        {
+          method: "POST",
+          body: formData2,
+        }
+      );
 
       const data = await response.json();
       console.log(data);
@@ -130,55 +131,48 @@ const PhotosAccount = () => {
     <>
       <div className="container">
         <div className="row">
-          <div className="col-md-12 py-5">
+          <div className="col-md-12 pb-5 ">
             <h1 className="text-center">User's Picture</h1>
+            <div className="row-usuario">
+              {photoUser ? (
+                <div className="col-md-3 m-auto" key={photoUser.id}>
+                  <div className="card position-relative rounded-circle">
+                    <img
+                      src={photoUser.filename}
+                      className="card-user img-fluid img-thumbnail rounded-circle"
+                      alt="..."
+                    />
+                  </div>
+                </div>
+              ) : (
+                ""
+              )}
+            </div>
             <button
-              className="btn btn-primary"
+              className="btn-main btn-primary m-auto"
               type="button"
               data-bs-toggle="offcanvas"
               data-bs-target="#offcanvasExample2"
               aria-controls="offcanvasExample2"
             >
-              Upload Image
+              Upload Picture
             </button>
-            <div className="row-usuario">
-          { photoUser? 
-           <div className="col-md-4" key={photoUser.id}>
-              <div className="card position-relative my-3">
-                <img
-                  src={photoUser.filename}
-                  className="card-img-top"
-                  alt="..."
-                />
-              </div>
-            </div>
-          :""}
-        </div>
           </div>
         </div>
         <div className="row">
-          <div className="col-md-12 py-5">
-            <h1 className="text-center">Travel's photos</h1>
-            <button
-              className="btn btn-primary"
-              type="button"
-              data-bs-toggle="offcanvas"
-              data-bs-target="#offcanvasExample"
-              aria-controls="offcanvasExample"
-            >
-              Upload Image
-            </button>
+          <div className="col-md-12">
+            <h1 className="text-center">Travel's Photos</h1>
           </div>
         </div>
-        <div className="row-galeria">
+        <div className="row-galeria d-flex">
           {!!gallery &&
             gallery.map((image, index) => {
               return (
-                <div className="col-md-4" key={index}>
-                  <div className="card position-relative my-3">
+                <div className="col-lg-4 col-md-6" key={index}>
+                  <div className="card mx-2 rounded-3">
                     <img
                       src={image.filename}
-                      className="card-img-top"
+                      className="card-photos img-fluid img-thumbnail rounded-3"
                       alt="..."
                     />
                   </div>
@@ -186,6 +180,15 @@ const PhotosAccount = () => {
               );
             })}
         </div>
+        <button
+          className="btn-main btn-primary"
+          type="button"
+          data-bs-toggle="offcanvas"
+          data-bs-target="#offcanvasExample"
+          aria-controls="offcanvasExample"
+        >
+          Upload Photos
+        </button>
       </div>
       <div
         className="offcanvas offcanvas-start"
@@ -210,24 +213,31 @@ const PhotosAccount = () => {
               {error}
             </div>
           )}
-          <div className='py-3'>
-            Please fill form to upload images.
+          <div className="py-3">
+            Please select maximum 9 photos of your travels
           </div>
           <form onSubmit={handleSubmit}>
             <div className="mb-3">
-              <label htmlFor="image" className="form-label">Travel's Photos</label>
-              <input type="file" className="form-control" id="image" name="image" onChange={e => setImage(e.target.files)} multiple />
+              <label htmlFor="image" className="form-label">
+                Travel's Photos
+              </label>
+              <input
+                type="file"
+                className="form-control"
+                id="image"
+                name="image"
+                onChange={(e) => setImage(e.target.files)}
+                multiple
+              />
             </div>
             <div className="d-grid">
-              <button className="btn btn-primary btn-sm gap-2">
-                Upload
-              </button>
+              <button className="btn-main btn-primary btn-sm gap-2">Upload</button>
             </div>
           </form>
         </div>
       </div>
       <div
-        className="offcanvas offcanvas-start"
+        className="offcanvas offcanvas-end"
         tabIndex="-1"
         id="offcanvasExample2"
         aria-labelledby="offcanvasExampleLabel2"
@@ -250,27 +260,28 @@ const PhotosAccount = () => {
             </div>
           )}
 
-          <div className='py-3'>
-            Please fill form to upload images.
-          </div>
+          <div className="py-3">Please select 1 picture of you</div>
           <form onSubmit={handleSubmit2}>
             <div className="mb-3">
-              <label htmlFor="imageUser" className="form-label">User's Photo</label>
-              <input type="file" className="form-control" id="imageUser" name="imageUser" onChange={e => setImageUser(e.target.files)} />
+              <label htmlFor="imageUser" className="form-label">
+                User's Photo
+              </label>
+              <input
+                type="file"
+                className="form-control"
+                id="imageUser"
+                name="imageUser"
+                onChange={(e) => setImageUser(e.target.files)}
+              />
             </div>
             <div className="d-grid">
-              <button className="btn btn-primary btn-sm gap-2">
-                Upload
-              </button>
+              <button className="btn-main btn-primary btn-sm gap-2">Upload</button>
             </div>
           </form>
         </div>
       </div>
-
     </>
-  )
+  );
 };
-
-
 
 export default PhotosAccount;
