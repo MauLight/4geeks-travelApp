@@ -48,7 +48,7 @@ db.init_app(app)
 jwt = JWTManager(app)
 # Allow CORS requests to this API
 CORS(app)
-app.config['CORS_HEADERS'] = 'Content-Type'
+# app.config['CORS_HEADERS'] = 'Content-Type'
 # add the admin
 setup_admin(app)
 

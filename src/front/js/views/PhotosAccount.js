@@ -7,6 +7,7 @@ const PhotosAccount = () => {
   const [imageUser, setImageUser] = useState(null);
 
   const [error, setError] = useState(null);
+  const [photoAlert, setPhotoAlert] = useState(false);
   const user_id = sessionStorage.getItem("id");
   console.log(user_id);
 
@@ -23,7 +24,7 @@ const PhotosAccount = () => {
       const response = await fetch(
         `${process.env.BACKEND_URL}/api/userpictures/${user_id}`
       );
-      console.log("ahora hay img", response)
+      console.log("ahora hay img", response);
       const data = await response.json();
 
       setPhotoUser(data);
@@ -47,7 +48,7 @@ const PhotosAccount = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    if (image !== null) {
+    if (image.length>=1 && image.length + gallery.length <=12 && image !== null) {
       console.log(image);
       const formData = new FormData();
       formData.append("user_id", user_id);
@@ -72,8 +73,7 @@ const PhotosAccount = () => {
       });
 
       const data = await response.json();
-      console.log(data);
-      console.log("esperandorespuesta data");
+      console.log("esperandorespuesta data", data);
 
       if (data.length > 0) {
         getImagesGallery();
@@ -111,179 +111,218 @@ const PhotosAccount = () => {
         {
           method: "POST",
           body: formData2,
-          mode: 'cors',
-          cache: 'no-cache',
+          mode: "cors",
+          cache: "no-cache",
         }
       );
 
-      if (response.status == 200)
-        getImageUser()
+      if (response.status == 200) getImageUser();
 
-      // if (data.length > 0) {
-      //   getImageUser();
-      //   setImageUser(null);
-      //   setError(null);
-      // }
     } catch (error) {
       setError("Error uploading image");
       console.log(error.message);
     }
   };
 
+  const photosUploaded = (e) => {
+    e.preventDefault();
+    if (photoUser == null || gallery.length <8 || gallery.length > 12)  {
+      setPhotoAlert(true);
+    } 
+       else {
+      try {
+        window.location = "/login";
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  };
+
   return (
-    <>
-      <div className="container">
-        <div className="row">
-          <div className="col-md-12 pb-5 ">
-            <h1 className="text-center">User's Picture</h1>
-            <div className="row-usuario">
-              {photoUser ? (
-                <div className="col-md-3 m-auto" key={photoUser.id}>
-                  <div className="card position-relative rounded-circle">
+
+      <div className="full-account1 ">
+        <h1 className="text-center">CREATE YOUR ACCOUNT</h1>
+        <div className="container my-4">
+          {/* inicio row photos usuario y viajes */}
+          <div className="row mt-3">
+            {/* inicio col usuario */}
+            <div className="col-lg-4 col-12 mb-5 mx-auto">
+              <h1 className="text-center">User's Picture</h1>
+              <div className="" style={{textAlign:"center"}}>
+              <button onClick={()=>setPhotoAlert(false)}
+                className="btn-main"
+                type="button"
+                data-bs-toggle="offcanvas"
+                data-bs-target="#offcanvasExample2"
+                aria-controls="offcanvasExample2"
+              >
+                Upload 1
+              </button>
+              </div>
+              <div className="alert text-center">
+                Please select one profile photo
+              </div>
+              <div className="user-pic">
+                {photoUser ? (
+                  <div className="card rounded-circle m-auto">
                     <img
                       src={photoUser.filename}
-                      className="card-user img-fluid img-thumbnail rounded-circle"
+                      className="card-user img-fluid rounded-circle"
+                      key={photoUser.id}
                       alt="..."
                     />
                   </div>
+                ) : (
+                  ""
+                )}
+              </div>
+            </div>
+            {/* final de columna usuario e inicio col viajes */}
+            <div className="col-lg-6 col-12 mb-5 mx-auto">
+              <h1 className="text-center">Travel's Photos</h1>
+              <div className="" style={{textAlign:"center"}}>
+              <button onClick={()=>setPhotoAlert(false)}
+                className="btn-main"
+                type="button"
+                data-bs-toggle="offcanvas"
+                data-bs-target="#offcanvasExample"
+                aria-controls="offcanvasExample"
+              >
+                Upload
+              </button>
+              </div>
+              <div className="alert text-center">
+                Please select 12 travel's photos
+              </div>
+
+              <div className="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-2 g-lg-2">
+                {!!gallery &&
+                  gallery.map((image, index) => {
+                    return (
+                      <div className="card-ph" >
+                        <img
+                          src={image.filename}
+                          className="card-photos" 
+                          key={index}
+                          alt="..."
+                        />
+                      </div>
+                    );
+                  })}
+              </div>
+            </div>
+            {/* fin columna viajes */}
+          </div>
+          {/* fin row photos usuario y viajes */}
+          <div className="row mx-auto">
+            <div className="btn">
+              <button onClick={(e) => photosUploaded(e)} className="btn-submit btn-primary" type="submit" value="Save">
+                Submit
+              </button>
+              {photoAlert ? (
+                <div className="message text-danger">
+                  Please upload the photos required
                 </div>
               ) : (
                 ""
               )}
             </div>
-            <button
-              className="btn-main btn-primary m-auto"
-              type="button"
-              data-bs-toggle="offcanvas"
-              data-bs-target="#offcanvasExample2"
-              aria-controls="offcanvasExample2"
-            >
-              Upload Picture
-            </button>
           </div>
         </div>
-        <div className="row">
-          <div className="col-md-12">
-            <h1 className="text-center">Travel's Photos</h1>
-          </div>
-        </div>
-        <div className="row-galeria d-flex">
-          {!!gallery &&
-            gallery.map((image, index) => {
-              return (
-                <div className="col-lg-4 col-md-6" key={index}>
-                  <div className="card mx-2 rounded-3">
-                    <img
-                      src={image.filename}
-                      className="card-photos img-fluid img-thumbnail rounded-3"
-                      alt="..."
-                    />
-                  </div>
-                </div>
-              );
-            })}
-        </div>
-        <button
-          className="btn-main btn-primary"
-          type="button"
-          data-bs-toggle="offcanvas"
-          data-bs-target="#offcanvasExample"
-          aria-controls="offcanvasExample"
+        
+        {/* fin de container */}
+        <div
+          className="offcanvas offcanvas-start"
+          tabIndex="-1"
+          id="offcanvasExample"
+          aria-labelledby="offcanvasExampleLabel"
         >
-          Upload Photos
-        </button>
-      </div>
-      <div
-        className="offcanvas offcanvas-start"
-        tabIndex="-1"
-        id="offcanvasExample"
-        aria-labelledby="offcanvasExampleLabel"
-      >
-        <div className="offcanvas-header">
-          <h5 className="offcanvas-title" id="offcanvasExampleLabel">
-            Upload Images File
-          </h5>
-          <button
-            type="button"
-            className="btn-close"
-            data-bs-dismiss="offcanvas"
-            aria-label="Close"
-          ></button>
-        </div>
-        <div className="offcanvas-body">
-          {!!error && (
-            <div className="alert alert-danger" role="alert">
-              {error}
-            </div>
-          )}
-          <div className="py-3">
-            Please select maximum 9 photos of your travels
+          <div className="offcanvas-header">
+            <h5 className="offcanvas-title" id="offcanvasExampleLabel">
+              Upload Images File
+            </h5>
+            <button
+              type="button"
+              className="btn-close"
+              data-bs-dismiss="offcanvas"
+              aria-label="Close"
+            ></button>
           </div>
-          <form onSubmit={handleSubmit}>
-            <div className="mb-3">
-              <label htmlFor="image" className="form-label">
-                Travel's Photos
-              </label>
-              <input
-                type="file"
-                className="form-control"
-                id="image"
-                name="image"
-                onChange={(e) => setImage(e.target.files)}
-                multiple
-              />
+          <div className="offcanvas-body">
+            {!!error && (
+              <div className="alert alert-danger" role="alert">
+                {error}
+              </div>
+            )}
+            <div className="py-3">
+              Please select maximum 12 photos of your travels or a minimun of 8
             </div>
-            <div className="d-grid">
-              <button className="btn-main btn-primary btn-sm gap-2">Upload</button>
-            </div>
-          </form>
+            <form onSubmit={handleSubmit}>
+              <div className="mb-3">
+                <label htmlFor="image" className="form-label">
+                  Travel's Photos
+                </label>
+                <input
+                  type="file"
+                  className="form-control"
+                  id="image"
+                  name="image"
+                  onChange={(e) => setImage(e.target.files)}
+                  multiple 
+                />
+              </div>
+              <div className="d-grid">
+                <button className="btn-main  btn-sm gap-2">Upload</button>
+              </div>
+            </form>
+          </div>
         </div>
-      </div>
-      <div
-        className="offcanvas offcanvas-end"
-        tabIndex="-1"
-        id="offcanvasExample2"
-        aria-labelledby="offcanvasExampleLabel2"
-      >
-        <div className="offcanvas-header">
-          <h5 className="offcanvas-title" id="offcanvasExampleLabel">
-            Upload Images File
-          </h5>
-          <button
-            type="button"
-            className="btn-close"
-            data-bs-dismiss="offcanvas"
-            aria-label="Close"
-          ></button>
-        </div>
-        <div className="offcanvas-body">
-          {error && (
-            <div className="alert alert-danger" role="alert">
-              {error}
-            </div>
-          )}
+        <div
+          className="offcanvas offcanvas-end"
+          tabIndex="-1"
+          id="offcanvasExample2"
+          aria-labelledby="offcanvasExampleLabel2"
+        >
+          <div className="offcanvas-header">
+            <h5 className="offcanvas-title" id="offcanvasExampleLabel">
+              Upload Images File
+            </h5>
+            <button
+              type="button"
+              className="btn-close"
+              data-bs-dismiss="offcanvas"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div className="offcanvas-body">
+            {error && (
+              <div className="alert alert-danger" role="alert">
+                {error}
+              </div>
+            )}
 
-          <div className="py-3">Please select 1 picture of you</div>
-          <form onSubmit={handleSubmit2}>
-            <div className="mb-3">
-              <label htmlFor="imageUser" className="form-label">
-                User's Photo
-              </label>
-              <input
-                type="file"
-                className="form-control"
-                id="imageUser"
-                name="imageUser"
-                onChange={(e) => setImageUser(e.target.files)}
-              />
-            </div>
-            <div className="d-grid">
-              <button className="btn-main btn-primary btn-sm gap-2">Upload</button>
-            </div>
-          </form>
+            <div className="py-3">Please select a profile picture</div>
+            <form onSubmit={handleSubmit2}>
+              <div className="mb-3">
+                <label htmlFor="imageUser" className="form-label">
+                  User's Photo
+                </label>
+                <input
+                  type="file"
+                  className="form-control"
+                  id="imageUser"
+                  name="imageUser"
+                  onChange={(e) => setImageUser(e.target.files)}
+                />
+              </div>
+              <div className="d-grid">
+                <button className="btn-main btn-sm gap-2">Upload</button>
+              </div>
+            </form>
+          </div>
         </div>
       </div>
-    </>
+
   );
 };
 

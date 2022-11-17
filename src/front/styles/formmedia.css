@@ -1,6 +1,14 @@
 
+
+
 h1, h5{
     color:#336b87;
+}
+
+.alert{
+    font-style: oblique;
+    font-weight: lighter;
+    font-size: small;
 }
 
 .btn-main{
@@ -8,8 +16,34 @@ h1, h5{
     border: 1px solid #336b87;
     /* font-size: calc(1em + 60px) ; */
     box-shadow: 2px 2px 5px rgb(179, 177, 177);
-    text-shadow: 2px 2px 5px rgb(179, 177, 177);
+    color: whitesmoke;
     border-radius: 7px;
     padding: 5px 15px 5px 15px;
-    margin: auto !important;
+}
+
+.card-ph{
+    /* align-items: stretch; */
+    /* box-sizing: border-box; */
+    display: flex;
+    flex-direction: row;
+    /* flex-shrink: 0; */
+    /* position: relative; */
+}
+
+.card-photos{
+    /* display: block;
+    width: 100%;
+    bottom: 0;
+    left: 0;
+    position: absolute;
+    right: 0;
+    top: 0; */
+    max-width: 100% ;
+    object-fit: fill;
+}
+
+
+.user-pic{
+    max-height: auto;
+    max-width: 100%;
 }

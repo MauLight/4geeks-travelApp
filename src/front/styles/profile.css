@@ -36,10 +36,11 @@
     text-align: center;
 }
 
-.card{
-    margin: auto;
-    margin-bottom: 20px;
-}
+.card {
+    height: auto;
+    max-width: 50% ;
+    /* size: ; */
+    }
 
 .card-text{
     font-size: 1rem;

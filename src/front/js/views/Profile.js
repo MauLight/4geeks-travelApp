@@ -8,20 +8,22 @@ import user_profile from "../../img/user_profile.png";
 import "../../styles/profile.css";
 
 const Profile = () => {
-  const [profileImage, setProfileImage] = useState(null);
+  const [photoUser, setPhotoUser] = useState(null);
+  const [gallery, setGallery] = useState(null);
   const [image, setImage] = useState(null);
+  const [imageUser, setImageUser] = useState(null);
   const [error, setError] = useState(null);
   const { store, actions } = useContext(Context);
-  // const user_id = store.currentUser?.user?.id;
+  const user_id = store.currentUser?.user?.id;
 
   useEffect(() => {
     console.log(store.currentUser);
-    if (store.currentUser) getImageUser();
+    if (store.currentUser) getImageUser(); getImagesGallery();
   }, []);
 
   useEffect(() => {
     console.log(store.currentUser);
-    if (store.currentUser) getImageUser();
+    if (store.currentUser) getImageUser(); getImagesGallery();
   }, [store.currentUser]);
 
 
@@ -29,69 +31,152 @@ const Profile = () => {
   const getImageUser = async () => {
     try {
       const response = await fetch(
-        `${process.env.BACKEND_URL}/api/userpictures/${store.currentUser?.user?.id}`);
+        `${process.env.BACKEND_URL}/api/userpictures/${user_id}`
+      );
+      console.log("ahora hay img", response)
       const data = await response.json();
-      if (!data.msg) {
-        console.log(data);
-        setProfileImage(data);
-        console.log(profileImage);
-      }
-      else{
-        console.log(data.msg)
-      }
 
+      setPhotoUser(data);
     } catch (error) {
       console.log(error.message);
     }
   };
   // actualiza foto usuario
+ const handleSubmit2 = (e) => {
+  e.preventDefault();
+
+  if (imageUser !== null) {
+    const formData2 = new FormData();
+    console.log(user_id);
+    formData2.append("user_id", user_id);
+    formData2.append("image", imageUser[0]);
+    console.log(formData2);
+    uploadImage2(formData2);
+    setError(null);
+    e.target.reset();
+  } else {
+    setError("Please, complete the form");
+  }
+};
+  // actualiza foto usuario
+  const uploadImage2 = async (user_id, formData2) => {
+    try {
+      const response = await fetch(
+        `${process.env.BACKEND_URL}/userpictures/${user_id}`,
+        {
+          method: "PUT",
+          body: formData2,
+        }
+      );
+
+      if (response.status == 200)
+      getImageUser()
+
+      // const data = await response.json();
+
+      // if (data.length > 0) {
+      //   getImageUser(filter);
+      //   setImage(null);
+      //   setError(null);
+      // } else {
+      //   setError("Error uploading image");
+      // }
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+
+  // trae fotos galeria
+  const getImagesGallery = async () => {
+    try {
+      const response = await fetch(
+        `${process.env.BACKEND_URL}/api/galleries/${user_id}`
+      );
+      const data = await response.json();
+
+      setGallery(data);
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+
+ // actualiza fotos galeria
   const handleSubmit = (e) => {
     e.preventDefault();
+
     if (image !== null) {
+      console.log(image);
       const formData = new FormData();
-
       formData.append("user_id", user_id);
-      formData.append("image", image)
+      for (let i = 0; i < image.length; i++) {
+        formData.append("images", image[i]);
+      }
       console.log(formData);
-
       uploadImage(formData);
-
       setError(null);
       e.target.reset();
     } else {
       setError("Please, complete the form");
     }
   };
-  // actualiza foto usuario
-  const uploadImage = async (user_id, formData) => {
+
+    // actualiza fotos galeria
+  const uploadImage = async (formData) => {
+    console.log("uploadImage");
     try {
-      const response = await fetch(
-        `${process.env.BACKEND_URL}/userpictures/${user_id}`,
-        {
-          method: "PUT",
-          body: formData,
-        }
-      );
+      const response = await fetch(`${process.env.BACKEND_URL}/api/galleries/${user_id}`, {
+        method: "PUT",
+        body: formData,
+      });
+
       const data = await response.json();
+      console.log("esperandorespuesta data", data);
 
       if (data.length > 0) {
-        getImageUser(filter);
+        getImagesGallery();
         setImage(null);
         setError(null);
-      } else {
-        setError("Error uploading image");
       }
     } catch (error) {
+      console.log("catch error upload image");
+      setError("Error uploading image");
       console.log(error.message);
     }
   };
 
   return (
-    <div className="Col-lg-12 principal">
+    <div className="Container principal">
       <div className="row principal">
         <div className="contain1 col-lg-6">
+          <div className="row-usuario">
+              {photoUser ? (
+                <div className="col-md-3 m-auto" key={photoUser.id}>
+                  <div className="card position-relative">
+                    <img
+                      src={photoUser.filename}
+                      className="card-user  img-thumbnail"
+                      alt="..."
+                    />
+                  </div>
+                </div>
+
+                
+              ) : (
+                ""
+              )}
+              <div className="card-body">
+                  <p className="card-text">
+                    <strong>{store?.currentUser?.firstname}</strong>
+                    <br />
+                    <span>
+                      <FaStar />
+                      Qualified
+                    </span>
+                  </p>
+                </div>
+            </div>
           {/* <div className="row pic"> */}
-          <div className="row pic">
+          {/* <div className="row pic">
             <div className="col-userphoto">
               <div className="card" style={{ width: "10rem" }}>
                 <img
@@ -111,7 +196,7 @@ const Profile = () => {
                 </div>
               </div>
             </div>
-          </div>
+          </div> */}
 
           {/* <div className="row gen"> */}
           <div className="col gen">
@@ -187,20 +272,22 @@ const Profile = () => {
             </h5>
           </div>
 
-          <div className="row photos">
-            <div className="col-photos">
-              <div className="card" style={{ width: "5rem" }}>
-                <img
-                  className="card-img-top"
-                  src={user_profile}
-                  alt="Card image cap"
-                />
-                <div className="card-body">
-                  <p className="card-text">title</p>
+          <div className="row-galeria d-flex">
+          {!!gallery &&
+            gallery.map((image, index) => {
+              return (
+                <div className="col-lg-4 col-md-6" key={index}>
+                  <div className="card mx-2 rounded-3">
+                    <img
+                      src={image.filename}
+                      className="card-photos img-fluid img-thumbnail rounded-3"
+                      alt="..."
+                    />
+                  </div>
                 </div>
-              </div>
-            </div>
-          </div>
+              );
+            })}
+        </div>
         </div>
 
         {/* <div

@@ -1,24 +1,13 @@
-/* .btn-white{
-    background-color: beige !important;
-} */
-.maincontainer{
-  text-align: center;
-  padding: 30px;
-  border: 6px solid  #336b87;
-  background-color: rgba(255, 255, 255, 0.834);
-  border-radius: 10px;
-  box-shadow: 5px 5px 5px rgb(179, 177, 177);
-  margin: auto;
-  
-}
 
 .link{
-    padding:5px 10px 5px 10px;
+    padding:7px 15px 7px 10px;
     border-radius: 10px;
     border: 3px solid #336b87;
     color: white;
     text-align: center;
     justify-content: center;
+    font-size: medium;
+    text-decoration: none;
 
 }
 
@@ -27,10 +16,19 @@
   }
   
 .link:hover {
-    background: rgb(98, 174, 100);
+    background: rgb(165, 191, 212);
   }
   
 .link:active {
     background: rgb(96, 168, 223);
     color: white;
+  }
+
+.card-trip{
+  border: 1px solid #336b87 !important;
+}
+
+.card-header{
+    background-color:rgba(223, 236, 236, 0.795) !important;
+
   }
