@@ -23,9 +23,11 @@ class User(db.Model):  # type: ignore
         'CreateTrip', cascade='all, delete', backref='user')
     mytrips = db.relationship('Trips', cascade='all, delete', backref='user')
     rating = db.relationship('Rating', cascade='all, delete', backref='user')
-    galleries = db.relationship('Gallery', cascade='all, delete', backref='user')
+    galleries = db.relationship(
+        'Gallery', cascade='all, delete', backref='user')
     matches = db.relationship('Matches', cascade='all,delete', backref='user')
-    activities = db.relationship('Activities', cascade='all,delete', backref='user')
+    activities = db.relationship(
+        'Activities', cascade='all,delete', backref='user')
 
     def serialize(self):
         return {
@@ -361,3 +363,22 @@ class Matches(db.Model):
         'users.id', ondelete='CASCADE'), nullable=False)
     matchuser_id = db.Column(db.Integer, db.ForeignKey(
         'users.id', ondelete='CASCADE'), nullable=False)
+
+
+    def serialize(self):
+        return {
+            "id": self.id,
+            "users_id": self.users_id,
+            "matchuser_id": self.url_img,
+        }
+
+    def save(self):
+        db.session.add(self)
+        db.session.commit()
+
+    def update(self):
+        db.session.commit()
+
+    def delete(self):
+        db.session.delete(self)
+        db.session
