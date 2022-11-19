@@ -74,7 +74,6 @@ const Matches = () => {
     const postMatch = async () => {
 
         try {
-            //console.log("attempt to fetch")
 
             const response = await fetch(`${process.env.BACKEND_URL}/api//matches`, {
                 method: 'POST',
