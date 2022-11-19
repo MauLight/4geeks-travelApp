@@ -15,7 +15,6 @@ def all_activities():
 
 @bpRec.route('/activities', methods=['POST'])  # type: ignore
 def store_activity():
-    id = request.json.get('id')
     name = request.json.get('name')
     url_img = request.json.get('url_img')
     description = request.json.get('description')
@@ -24,7 +23,6 @@ def store_activity():
     country = request.json.get('country')
 
     activity = Activities()
-    activity.id = id
     activity.name = name
     activity.url_img = url_img
     activity.description = description
