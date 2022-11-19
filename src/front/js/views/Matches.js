@@ -30,7 +30,7 @@ const OffCanvasBtn = () => {
 const Matches = () => {
 
     const getAllUsersWithTripsAsync = async () => {
-        let url = ''
+        let url = `${process.env.BACKEND_URL}//users/mytrips`;
         let options_get = {
             method: 'GET',
             headers: {
@@ -50,17 +50,35 @@ const Matches = () => {
         }
     };
 
+    const getUserWithTripsAsync = async () => {
+        let url = `${process.env.BACKEND_URL}/users/${user_id}`;
+        let options_get = {
+            method: 'GET',
+            headers: {
+                'content-type': 'application/json'
+            }
+        }
+        try {
+            const response = await fetch(url,options_get);
+            const data = await response.json();
+            console.log(data);
+            console.log(data.createtrips);
+            setuser_trip(data.createtrips);
+            setUser(data);
+        }
+        catch(error) {
+            console.log(error);
+        }
+    };
+
 	//STATE VARIABLES
 	//Fetch user_trip and allusers_trips
 	const [allUsers, setAllUsers] = useState([]);
 	const [trips, setTrips] = useState([]);
-	const [user_trip, setuser_trip] = useState({
-		user: "Bud",
-		country: "Chile",
-		city: "Santiago",
-		start_date: "1/1/1",
-		end_date: "2/2/2"
-	});
+	const [user_trip, setuser_trip] = useState([]);
+	const [user, setUser] = useState([]);
+    const { store, actions } = useContext(Context);
+    const user_id = store.currentUser?.user?.id;
 
 	//Individual variables state.
 	//const [traveling, setTraveling] = useState(0);
@@ -642,9 +660,10 @@ const Matches = () => {
 	};
 
 
-	const handleChange = (e) => {
+	const handleMatch = () => {
 		//e.preventDefault();
-		console.log(e.target.value);
+		//console.log(e.target.value);
+		console.log('hey!');
 	};
 
 
@@ -705,6 +724,9 @@ const Matches = () => {
     useEffect(() => {
         getAllUsersWithTripsAsync()
     }, []);
+    useEffect(() => {
+        getUserWithTripsAsync()
+    }, []);
 
 	return (
 		<div className="container">
@@ -740,6 +762,7 @@ const Matches = () => {
                                                     } <p> goes to {trip.capital_trip}, {trip.country_trip} on the same date!</p>
 												</div>
 											</div>
+                                            <button className="btn w-25 mx-auto mb-3" onClick={handleMatch}>Add Match!</button>
 										</div>
 									</div>
 								)
