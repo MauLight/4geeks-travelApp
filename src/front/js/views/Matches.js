@@ -76,7 +76,7 @@ const Matches = () => {
         try {
             //console.log("attempt to fetch")
 
-            const response = await fetch(`${process.env.BACKEND_URL}/users/${id}/rating`, {
+            const response = await fetch(`${process.env.BACKEND_URL}/api//matches`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
