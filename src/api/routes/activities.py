@@ -3,7 +3,7 @@ from flask import Blueprint, jsonify, request
 from api.models import Activities
 
 
-bpRec = Blueprint('bpAct', __name__)
+bpAct = Blueprint('bpAct', __name__)
 
 
 @bpRec.route('/activities', methods=['GET'])  # type: ignore
