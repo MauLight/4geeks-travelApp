@@ -22,7 +22,6 @@ def store_match():
 
     match = Matches()
     match.users_id = users_id
-    match.matchuser_id = matchuser_id
     match.save()
 
     return jsonify(match.serialize()), 201

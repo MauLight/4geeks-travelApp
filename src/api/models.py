@@ -361,15 +361,12 @@ class Matches(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     users_id = db.Column(db.Integer, db.ForeignKey(
         'users.id', ondelete='CASCADE'), nullable=False)
-    matchuser_id = db.Column(db.Integer, db.ForeignKey(
-        'users.id', ondelete='CASCADE'), nullable=False)
 
 
     def serialize(self):
         return {
             "id": self.id,
             "users_id": self.users_id,
-            "matchuser_id": self.url_img,
         }
 
     def save(self):
