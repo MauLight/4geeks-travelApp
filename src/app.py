@@ -18,7 +18,8 @@ from api.routes.auth import bpAuth
 from api.routes.galleries import bpGI
 from api.routes.userpicture import bpUP
 from api.routes.userpicture import bpUP
-from api.routes.recommendations import bpRec
+from api.routes.activities import bpAct
+from api.routes.matches import bpMath
 
 from api.admin import setup_admin
 from api.commands import setup_commands
@@ -70,7 +71,8 @@ app.register_blueprint(bpUser)
 app.register_blueprint(bpAuth, url_prefix="/api")
 app.register_blueprint(bpGI, url_prefix="/api")
 app.register_blueprint(bpUP, url_prefix="/api")
-app.register_blueprint(bpRec, url_prefix="/api")
+app.register_blueprint(bpAct, url_prefix="/api")
+app.register_blueprint(bpMath, url_prefix="/api")
 
 
 # Handle/serialize errors like a JSON object

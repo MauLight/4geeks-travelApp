@@ -11,8 +11,8 @@ import CreateTrips from "./views/CreateTrips";
 import SetPreferences from "./views/SetPreferences";
 import Poll from "./views/Poll";
 import Save from "./views/Save";
-import RecommendationCard from "./views/Recommendations";
-import MatchCard from "./views/Matches";
+import Recommendations from "./views/Recommendations";
+import Matches from "./views/Matches";
 
 
 import injectContext from "./store/appContext";
@@ -44,8 +44,8 @@ const Layout = () => {
                         <Route path="users/:id/setpreferences/" element={<SetPreferences />}/>
                         <Route path="/users/:id/poll" element={<Poll />}/>
                         <Route path="/save" element={<Save />}/>
-                        <Route path="/recommendations" element={<RecommendationCard />}/>
-                        <Route path="/matches" element={<MatchCard />}/>
+                        <Route path="/recommendations" element={<Recommendations />}/>
+                        <Route path="/matches" element={<Matches />}/>
                     </Routes>
                     <Footer />
                 </ScrollToTop>
