@@ -6,14 +6,14 @@ from api.models import Activities
 bpAct = Blueprint('bpAct', __name__)
 
 
-@bpRec.route('/activities', methods=['GET'])  # type: ignore
+@bpAct.route('/activities', methods=['GET'])  # type: ignore
 def all_activities():
     activities = Activities.query.all()
     activities = list(map(lambda activity: activity.serialize(), activities))
     return jsonify(activities), 200
 
 
-@bpRec.route('/activities', methods=['POST'])  # type: ignore
+@bpAct.route('/activities', methods=['POST'])  # type: ignore
 def store_activity():
     name = request.json.get('name')
     url_img = request.json.get('url_img')
@@ -34,7 +34,7 @@ def store_activity():
     return jsonify(activity.serialize()), 201
 
 
-@bpRec.route('/activities/<int:id>/delete', methods=['DELETE'])
+@bpAct.route('/activities/<int:id>/delete', methods=['DELETE'])
 def delete_activity(id):
     activity = Activities.query.get(id)
     activity.delete()
