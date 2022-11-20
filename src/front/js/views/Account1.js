@@ -16,6 +16,8 @@ const Account1 = () => {
     const [countryAlert, setCountryAlert] = useState(false)
     const [languageAlert, setLanguageAlert] = useState(false)
     const [genderAlert, setGenderAlert] = useState(false)
+    const [fistNameAlert, setFirstNameAlert] = useState(false)
+    const [lastNameAlert, setLastNameAlert] = useState(false)
     
 
     useEffect(() => {
@@ -31,6 +33,8 @@ const Account1 = () => {
     }
 
     const handleChange = (e) => {
+        if (!e.target.value) return;
+
         setFormData({
             ...formData,
             [e.target.name]: e.target.value
