@@ -15,7 +15,7 @@ def get_matches_by_user_id(users_id):
     matches = list(map(lambda match: match.serialize(), matches))
     return jsonify(matches), 200
 
-@bpRec.route('/matches', methods=['POST'])  # type: ignore
+@bpMath.route('/matches', methods=['POST'])  # type: ignore
 def store_match():
     users_id = request.json.get('users_id')
     matchuser_id = request.json.get('matchuser_id')
