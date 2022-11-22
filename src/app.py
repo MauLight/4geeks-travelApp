@@ -19,6 +19,7 @@ from api.routes.galleries import bpGI
 from api.routes.userpicture import bpUP
 from api.routes.userpicture import bpUP
 from api.routes.activities import bpAct
+from api.routes.save_activity import bpSav
 from api.routes.matches import bpMath
 
 from api.admin import setup_admin
@@ -72,6 +73,7 @@ app.register_blueprint(bpAuth, url_prefix="/api")
 app.register_blueprint(bpGI, url_prefix="/api")
 app.register_blueprint(bpUP, url_prefix="/api")
 app.register_blueprint(bpAct, url_prefix="/api")
+app.register_blueprint(bpSav, url_prefix="/api")
 app.register_blueprint(bpMath, url_prefix="/api")
 
 

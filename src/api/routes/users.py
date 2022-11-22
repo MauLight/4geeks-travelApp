@@ -60,6 +60,19 @@ def user_rating_with_id(id):
     user = User.query.get(id)
     return jsonify(user.serialize_with_rating()), 200
 
+
+@bpUser.route('/users/<int:id>/activities', methods=['GET'])  # type: ignore
+def user_activities_with_id(id):
+    user = User.query.get(id)
+    return jsonify(user.serialize_with_saved_activities()), 200
+
+
+@bpUser.route('/users/<int:id>/matches', methods=['GET'])  # type: ignore
+def user_activities_with_id(id):
+    user = User.query.get(id)
+    return jsonify(user.serialize_with_matches()), 200
+
+
 # GET ALL USERS WITH TRIPS AND ACTIVITIES
 # @bpUser.route('/users/mytrips/activities', methods=['GET'])  # type: ignore
 # def all_users_with_trips_with_activities():

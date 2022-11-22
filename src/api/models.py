@@ -26,8 +26,8 @@ class User(db.Model):  # type: ignore
     galleries = db.relationship(
         'Gallery', cascade='all, delete', backref='user')
     matches = db.relationship('Matches', cascade='all,delete', backref='user')
-    activities = db.relationship(
-        'Activities', cascade='all,delete', backref='user')
+    saved_activities = db.relationship(
+        'SaveActivity', cascade='all,delete', backref='user')
 
     def serialize(self):
         return {
@@ -115,9 +115,9 @@ class User(db.Model):  # type: ignore
             'twitter': self.twitter,
             'verified': self.verified,
             'matches': [matches.serialize() for matches in self.matches]
-            }
+        }
 
-    def serialize_with_activities(self):
+    def serialize_with_saved_activities(self):
         return {
             'id': self.id,
             'firstname': self.firstname,
@@ -132,8 +132,8 @@ class User(db.Model):  # type: ignore
             'facebook': self.facebook,
             'twitter': self.twitter,
             'verified': self.verified,
-            'matches': [activities.serialize() for activities in self.activities]
-            }
+            'saved_activities': [saved_activities.serialize() for saved_activities in self.saved_activities]
+        }
 
     # def serialize_with_trips_with_activities(self):
     #     return {
@@ -320,6 +320,33 @@ class Rating(db.Model):  # calificacion match post-viaje
         db.session
 
 
+class SaveActivity(db.Model):
+    __tablename__ = 'saveactivity',
+    id = db.Column(db.Integer, primary_key=True)
+    users_id = db.Column(db.Integer, db.ForeignKey(
+        'users.id', ondelete='CASCADE'), nullable=False)
+    activity_id = db.Column(db.Integer, db.ForeignKey(
+        'activities.id', ondelete='CASCADE'), nullable=False)
+
+    def serialize(self):
+        return {
+            "id": self.id,
+            "users_id": self.users_id,
+            "activity_id": self.activity_id,
+        }
+
+    def save(self):
+        db.session.add(self)
+        db.session.commit()
+
+    def update(self):
+        db.session.commit()
+
+    def delete(self):
+        db.session.delete(self)
+        db.session
+
+
 class Activities(db.Model):
     __tablename__ = 'activities'
     id = db.Column(db.Integer, primary_key=True)
@@ -329,8 +356,6 @@ class Activities(db.Model):
     activity = db.Column(db.String(200))
     city = db.Column(db.String(200))
     country = db.Column(db.String(200))
-    users_id = db.Column(db.Integer, db.ForeignKey(
-        'users.id', ondelete='CASCADE'), nullable=False)
 
     def serialize(self):
         return {
@@ -341,7 +366,6 @@ class Activities(db.Model):
             "activity": self.activity,
             "city": self.city,
             "country": self.country,
-            'users_id': self.users_id
         }
 
     def save(self):
@@ -361,12 +385,14 @@ class Matches(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     users_id = db.Column(db.Integer, db.ForeignKey(
         'users.id', ondelete='CASCADE'), nullable=False)
-
+    match_id = db.Column(db.Integer, db.ForeignKey(
+        'users.id', ondelete='CASCADE'), nullable=False)
 
     def serialize(self):
         return {
             "id": self.id,
             "users_id": self.users_id,
+            "match_id": self.match_id,
         }
 
     def save(self):
