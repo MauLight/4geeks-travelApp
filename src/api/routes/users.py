@@ -68,7 +68,7 @@ def user_activities_with_id(id):
 
 
 @bpUser.route('/users/<int:id>/matches', methods=['GET'])  # type: ignore
-def user_activities_with_id(id):
+def user_matches_with_id(id):
     user = User.query.get(id)
     return jsonify(user.serialize_with_matches()), 200
 
