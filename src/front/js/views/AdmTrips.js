@@ -68,7 +68,12 @@ const Mytrips = () => {
                         <div className="row ">
                         <div className="btn my-auto">
                           <button className="btn-find btn-success">
+                          <Link
+                              className="text-decoration-none text-white"
+                              to="/matches"
+                            >
                             <BsFillPeopleFill /> Find Matches
+                            </Link>
                           </button>
                           <button className="btn-delete btn-danger m-1">
                             <MdDeleteForever /> Delete trip

@@ -4,7 +4,9 @@ import ReactDOM from "react-dom";
 import { Context } from "../store/appContext";
 import { FaStar } from "react-icons/fa";
 import { BsTagFill } from "react-icons/bs";
+import { BsFillPencilFill } from 'react-icons/bs';
 import user_profile from "../../img/user_profile.png";
+import logo from "../../img/logo.png"
 import "../../styles/profile.css";
 
 const Profile = () => {
@@ -13,8 +15,9 @@ const Profile = () => {
   const [image, setImage] = useState(null);
   const [imageUser, setImageUser] = useState(null);
   const [error, setError] = useState(null);
+  const [selectedImg, setSelectedImg] = useState(logo);
   const { store, actions } = useContext(Context);
-  const user_id = store.currentUser?.user?.id;
+  // const user_id = store.currentUser?.user?.id;
 
   useEffect(() => {
     console.log(store.currentUser);
@@ -31,33 +34,33 @@ const Profile = () => {
   const getImageUser = async () => {
     try {
       const response = await fetch(
-        `${process.env.BACKEND_URL}/api/userpictures/${user_id}`
+        `${process.env.BACKEND_URL}/api/userpictures/${store?.currentUser?.user?.id}`
       );
-      console.log("ahora hay img", response)
+      console.log("ahora hay img");
+      console.log(response);
       const data = await response.json();
-
       setPhotoUser(data);
     } catch (error) {
       console.log(error.message);
     }
   };
   // actualiza foto usuario
- const handleSubmit2 = (e) => {
-  e.preventDefault();
+  const handleSubmit2 = (e) => {
+    e.preventDefault();
 
-  if (imageUser !== null) {
-    const formData2 = new FormData();
-    console.log(user_id);
-    formData2.append("user_id", user_id);
-    formData2.append("image", imageUser[0]);
-    console.log(formData2);
-    uploadImage2(formData2);
-    setError(null);
-    e.target.reset();
-  } else {
-    setError("Please, complete the form");
-  }
-};
+    if (imageUser !== null) {
+      const formData2 = new FormData();
+      console.log(user_id);
+      formData2.append("user_id", user_id);
+      formData2.append("image", imageUser[0]);
+      console.log(formData2);
+      uploadImage2(formData2);
+      setError(null);
+      e.target.reset();
+    } else {
+      setError("Please, complete the form");
+    }
+  };
   // actualiza foto usuario
   const uploadImage2 = async (user_id, formData2) => {
     try {
@@ -70,7 +73,7 @@ const Profile = () => {
       );
 
       if (response.status == 200)
-      getImageUser()
+        getImageUser()
 
       // const data = await response.json();
 
@@ -90,7 +93,7 @@ const Profile = () => {
   const getImagesGallery = async () => {
     try {
       const response = await fetch(
-        `${process.env.BACKEND_URL}/api/galleries/${user_id}`
+        `${process.env.BACKEND_URL}/api/galleries/${store.currentUser?.user?.id}`
       );
       const data = await response.json();
 
@@ -100,7 +103,7 @@ const Profile = () => {
     }
   };
 
- // actualiza fotos galeria
+  // actualiza fotos galeria
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -120,7 +123,7 @@ const Profile = () => {
     }
   };
 
-    // actualiza fotos galeria
+  // actualiza fotos galeria
   const uploadImage = async (formData) => {
     console.log("uploadImage");
     try {
@@ -143,154 +146,149 @@ const Profile = () => {
       console.log(error.message);
     }
   };
+  const createTrip = async () => {
 
+    window.location = `/users/${store.currentUser?.user?.id}/createtrip`
+  }
   return (
-    <div className="Container principal">
-      <div className="row principal">
-        <div className="contain1 col-lg-6">
-          <div className="row-usuario">
-              {photoUser ? (
-                <div className="col-md-3 m-auto" key={photoUser.id}>
-                  <div className="card position-relative">
-                    <img
-                      src={photoUser.filename}
-                      className="card-user  img-thumbnail"
-                      alt="..."
-                    />
-                  </div>
-                </div>
 
-                
-              ) : (
-                ""
-              )}
-              <div className="card-body">
-                  <p className="card-text">
-                    <strong>{store?.currentUser?.firstname}</strong>
-                    <br />
-                    <span>
-                      <FaStar />
-                      Qualified
-                    </span>
-                  </p>
-                </div>
-            </div>
-          {/* <div className="row pic"> */}
-          {/* <div className="row pic">
-            <div className="col-userphoto">
-              <div className="card" style={{ width: "10rem" }}>
-                <img
-                  className="card-img-top"
-                  src="https://res.cloudinary.com/dcdt9yvc2/image/upload/v1666963928/picture/rizdywqkuwis9thyytff.jpg"
-                  alt="Card image cap"
-                />
-                <div className="card-body">
-                  <p className="card-text">
-                    <strong>{store?.currentUser?.firstname}</strong>
-                    <br />
-                    <span>
-                      <FaStar />
-                      Qualified
-                    </span>
-                  </p>
+    <div className="ContainerPrincipal">
+
+      <div className="container my-4">
+        <h1 className="text-center">{store?.currentUser?.user?.firstname}'s Profile</h1>
+        <div className="row principal">
+          <div className="container1 col-lg-6">
+            <div className="">
+              <div className="mx-0 mt-0  mb-2 py-0 px-0">
+                <h4 className="text-center my-0" style={{ color: '#336b87' }}>{store?.currentUser?.user?.firstname} {store?.currentUser?.user?.lastname}</h4>
+
+              </div>
+              <div className="containerPhoto d-inline-flex">
+                {photoUser ? (
+                  <div className="photoUser m-auto" >
+                    <div className="photoUser1 position-relative"key={photoUser.id}>
+                      <img
+                        src={photoUser.filename}
+                        className="photo img-thumbnail"
+                        alt="..."
+                      />
+                    </div>
+                  </div>
+                ) : (
+                  ""
+                )}
+                <div className="edit d-inline ">
+                  <span className="pe-0">
+                    < BsFillPencilFill className="editPhoto" />
+                  </span>
                 </div>
               </div>
             </div>
+            <div className="infogen ">
+              <ul>
+                <li>Gender:  <strong>{store?.currentUser?.user?.gender}</strong> </li>
+                <li>Native Language: <strong>{store?.currentUser?.user?.languages}</strong> </li>
+                <li>Country of residence: <strong>{store?.currentUser?.user?.countryofresidence}</strong></li>
+                <li>Instagram: <strong>{store?.currentUser?.user?.instagram}</strong></li>
+                <li>Facebook: <strong>{store?.currentUser?.user?.facebook}</strong></li>
+                <li>Twitter: <strong>{store?.currentUser?.user?.twitter}</strong></li>
+                <li>Rating:  <FaStar /></li>
+              </ul>
+            </div>
+
+            <div className="row label">
+              <div className="tags px-5" style={{ color: '#336b87' }}>
+                <BsTagFill />
+                <a href="#" className="card-link">
+                  Card link
+                </a>
+                <BsTagFill />
+                <a href="#" className="card-link">
+                  Another link
+                </a>
+                <BsTagFill />
+                <a href="#" className="card-link">
+                  Last link
+                </a>
+              </div>
+            </div>
+
+            <div className="row matches">
+              <div className="col matches">
+                <div className="card">
+                  <div className="card-header">
+                    <img style={{ width: "3rem" }}
+                      className="card-img-top"
+                      src={user_profile}
+                      alt="Card image cap"
+                    /> Name match</div>
+                  <div className="card-body">
+                    <blockquote className="blockquote mb-0">
+                      <p >
+                        A well-known quote, contained in a blockquote element.
+                      </p>
+                      <footer className="blockquote-footer">
+                        Calification given{" "}
+                        <cite title="Source Title">6/7</cite>
+                      </footer>
+                    </blockquote>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <div className="container2 col-lg-6">
+            <div className="d-grid gap-2 d-md-flex justify-content-md-end me-md-5">
+
+            </div>
+            <div className="d-flex justify-content-evenly">
+              <h4 className="mt-0">
+                My trips
+              </h4>
+              <button type='button' style={{ backgroundColor: '#336b87', color: 'white' }} className='btn mb-3 me-md-2 ' onClick={createTrip} >Create Trip</button>
+            </div>
+            <div className="Gall">
+              <div className="cont">
+                <img src={selectedImg} alt="Selected" className="selected" />
+                <div className="imgContainer">
+                  {!!gallery &&
+                    gallery.map((img, index) => {
+                      return (
+                        <img
+                          style={{ border: selectedImg === img.filename ? "4px solid #89bed3" : "" }}
+                          key={index}
+                          src={img.filename}
+                          onClick={() => setSelectedImg(img.filename)}
+                          alt="..."
+                        />
+
+
+                      );
+                    })}
+                </div>
+              </div>
+            </div>
+            {/* <div className="row-galeria d-flex">
+            {!!gallery &&
+              gallery.map((image, index) => {
+                return (
+                  <div className="col-lg-4 col-md-6" key={index}>
+                    <div className="card mx-2 rounded-3">
+                      <img
+                        src={image.filename}
+                        className="card-photos img-fluid img-thumbnail rounded-3"
+                        alt="..."
+                      />
+                    </div>
+                  </div>
+                );
+              })}
           </div> */}
-
-          {/* <div className="row gen"> */}
-          <div className="col gen">
-            <ul>
-              <li>Gender: {store?.currentUser?.gender}</li>
-              <li>Native Language: {store?.currentUser?.languages} </li>
-              <li>Country of residence: {store?.currentUser?.countryofresidence}</li>
-              <li>Instagram: {store?.currentUser?.instagram}</li>
-              <li>Facebook: {store?.currentUser?.facebook}</li>
-              <li>Twitter: {store?.currentUser?.twitter}</li>
-            </ul>
-          </div>
-          {/* </div> */}
-
-          <div className="row label">
-            <div className="tags px-5" style={{ color: '#336b87' }}>
-              {/* <div className="col label 1"> */}
-              <BsTagFill />
-              <a href="#" className="card-link">
-                Card link
-              </a>
-              {/* </div> */}
-              {/* <div className="col label 2"> */}
-              <BsTagFill />
-              <a href="#" className="card-link">
-                Another link
-              </a>
-              {/* </div> */}
-              {/* <div className="col label 3"> */}
-              <BsTagFill />
-              <a href="#" className="card-link">
-                Last link
-              </a>
-              {/* </div> */}
-            </div>
           </div>
 
-          <div className="row matches">
-            <div className="col matches">
-              <div className="card">
-                <div className="card-header">
-                  <img style={{ width: "3rem" }}
-                    className="card-img-top"
-                    src={user_profile}
-                    alt="Card image cap"
-                  /> Name match</div>
-                <div className="card-body">
-                  <blockquote className="blockquote mb-0">
-                    <p >
-                      A well-known quote, contained in a blockquote element.
-                    </p>
-                    <footer className="blockquote-footer">
-                      Calification given{" "}
-                      <cite title="Source Title">6/7</cite>
-                    </footer>
-                  </blockquote>
-                </div>
-              </div>
-            </div>
-          </div>
-          {/* </div> */}
-        </div>
-        <div className="contain2 col-lg-6">
-          {/* <div className="row btn"> */}
-          <Link className="link" to="/users/1/createtrip">
-            Create my trips
-          </Link>
-          {/* </div> */}
-
-          <div className="row trips">
-            <h5 className="col-trips">
-              My trips
-            </h5>
-          </div>
-
-          <div className="row-galeria d-flex">
-          {!!gallery &&
-            gallery.map((image, index) => {
-              return (
-                <div className="col-lg-4 col-md-6" key={index}>
-                  <div className="card mx-2 rounded-3">
-                    <img
-                      src={image.filename}
-                      className="card-photos img-fluid img-thumbnail rounded-3"
-                      alt="..."
-                    />
-                  </div>
-                </div>
-              );
-            })}
-        </div>
-        </div>
-
-        {/* <div
+          {/* <div
           className="offcanvas offcanvas-start"
           tabIndex="-1"
           id="offcanvasExample"
@@ -333,6 +331,7 @@ const Profile = () => {
                 <button className="btn btn-primary btn-sm gap-2">Upload</button>
               </div>
             </form> */}
+        </div>
       </div>
     </div>
   );

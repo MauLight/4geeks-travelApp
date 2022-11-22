@@ -1,58 +1,132 @@
-.contain1{
-    padding: 25px 5px 25px 30px;
-}
-
-.contain2{
-    padding: 25px 5px 25px 30px;
-}
-
-.main-container{
-    background-color: rgb(243, 246, 247);
-    border: 4px solid #336b87;
-    border-radius: 10px;
-    margin: 30px;
-    box-shadow: 5px 10px 5px rgb(164, 163, 163);
-    margin:auto;
-}
-
-.trips{
+.ContainerPrincipal {
+    padding-top: 30px;
+    background: #e6edf5;
+    width: 100vw;
+    height: 100%;
+    font-family: "IM Fell Double Pica";
+  }
+  .container {
+    background: #fbfcfd !important;
+    border: 6px solid #336b87 !important;
+    border-radius: 10px !important;
+    padding: 30px !important;
+    box-shadow: 5px 10px 5px rgb(164, 163, 163) !important;
+  }
+  
+  .container1 {
+    padding: 25px 5px 25px 5px;
+    text-align: center;
+    ;
+  }
+  .containerPhoto{
+    width: 100%;
+  }
+  .photo{
+    margin: auto;
+  }
+  .photoUser{
+    width: 100%;
+    margin: auto;
+  }
+  .photoUser img {
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    justify-items: center;
+    width: 90%;  
+    border-radius: 15px;
+  }
+  .edit{
+    padding-top: 15px;
+    padding-right: 15px;
+    float: right;
+  }
+  .container2 {
+    border-left: 3px double #336b87;
+    padding: 25px 5px 25px 5px;
+  }
+  
+  .trips {
     text-align: center;
     padding: 20px;
     color: #336b87;
-}
-
-.gen{
+  }
+  .infogen {
+    align-items: center;
     padding: 20px;
     border: 1px solid #336b87;
     border-radius: 10px;
-}
-
-.card-link{
-    padding-right:30px;
-}
-
-.tags{
+    justify-content: start;
+    display: inline-block;
+    min-width: auto;
+  }
+  
+  .card-link {
+    padding-right: 30px;
+  }
+  
+  .tags {
     padding: 15px;
     text-align: center;
-}
-
-.card {
-    height: auto;
-    max-width: 50% ;
-    /* size: ; */
-    }
-
-.card-text{
-    font-size: 1rem;
-    text-align: center;
-}
-
-.link{
-    padding:5px 10px 5px 10px;
+  }
+  
+  .card {
+    margin: auto;
+    margin-bottom: 0;
+  }
+  .editPhoto {
+    color: #336b87;
+    font-size: 25px;
+  }
+  
+  li {
+    list-style: none;
+    color: #336b87;
+    font-style: italic;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  }
+  
+  .link {
+    padding: 5px 10px 5px 10px;
     border-radius: 10px;
     border: 3px solid #336b87;
     color: white;
     text-align: center;
     align-content: center;
-
-}
+  }
+  
+  .Gall {
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+  }
+  img {
+    display: block;
+    cursor: pointer;
+  }
+  .cont {
+    margin: 0 auto;
+    width: 100%;
+    max-width: 400px;
+  }
+  .cont .selected {
+    width: 400px;
+    height: 400px;
+    margin: 0 auto;
+    border: 4px ridge #89bed3;
+    border-radius: 10px;
+  }
+  
+  .cont .imgContainer {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    padding: 40px 0 0 0;
+  }
+  .cont .imgContainer img {
+    width: 100px;
+    height: 100px;
+    margin: 5px 0;
+  }
+  

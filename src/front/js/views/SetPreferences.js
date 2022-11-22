@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../../styles/setpreferences.css'
 import { useParams } from 'react-router-dom';
+import {useContext } from "react";
+import { Context } from "../store/appContext";
 //import ReactDOM from 'react-dom';
 
 const SetPreferences = () => {
@@ -10,6 +12,7 @@ const SetPreferences = () => {
     const handleBudget = (e) => {
         setBudget(e.target.value)
     }
+    const { store, actions } = useContext(Context);
     const handleSubmitPreferences = (e) => {
         e.preventDefault()
         const sampleForm = document.getElementById("preferences");
@@ -18,7 +21,7 @@ const SetPreferences = () => {
         sampleForm.addEventListener("submit", async (e) => {
             e.preventDefault();
             let form = e.currentTarget;
-            let url = `${process.env.BACKEND_URL}/users/${id}/mytrips`;
+            let url = `${process.env.BACKEND_URL}/users/${store?.currentUser?.user?.id}/mytrips`;
 
             try {
                 let formData = new FormData(form);
