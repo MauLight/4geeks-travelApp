@@ -321,7 +321,7 @@ class Rating(db.Model):  # calificacion match post-viaje
 
 
 class SaveActivity(db.Model):
-    __tablename__ = 'saveactivity',
+    __tablename__ = 'saveactivity'
     id = db.Column(db.Integer, primary_key=True)
     users_id = db.Column(db.Integer, db.ForeignKey(
         'users.id', ondelete='CASCADE'), nullable=False)
