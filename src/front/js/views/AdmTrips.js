@@ -7,6 +7,7 @@ import { BsFillPeopleFill } from "react-icons/bs";
 import { MdDeleteForever } from "react-icons/md";
 import { GrConfigure } from "react-icons/gr";
 import { RiChatHeartFill } from "react-icons/ri";
+import { FaSuitcase } from "react-icons/fa";
 
 const Mytrips = () => {
   const [trip, setTrip] = useState([]);
@@ -45,10 +46,8 @@ const Mytrips = () => {
 
     const response = await fetch(
       `${process.env.BACKEND_URL}/api/trip/${data}/delete`,
-      
-      fetchOptions
 
-      
+      fetchOptions
     );
     const res = await response.json();
     console.log(res);
@@ -57,53 +56,50 @@ const Mytrips = () => {
 
   const functionDisabled = (end_date) => {
     const myDate = new Date(end_date);
-    const today = new Date()
-    console.log("fecha", myDate, today)
-    if (today >= myDate){
-      console.log("if")
-      return (<button className="btn-delete btn-warning" disabled={true}><Link
-      className="text-decoration-none text-dark"
-      to="/users/poll"
-    >
-      <RiChatHeartFill /> Poll
-    </Link></button>)
-
+    const today = new Date();
+    console.log("fecha", myDate, today);
+    if (today >= myDate) {
+      console.log("if");
+      return (
+        <button className="btn-delete btn-warning" disabled={true}>
+          <Link className="text-decoration-none text-dark" to="/users/poll">
+            <RiChatHeartFill /> Rate your partner
+          </Link>
+        </button>
+      );
+    } else {
+      console.log("else");
+      return (
+        <button className="btn-delete btn-warning">
+          <Link
+            className="text-decoration-none text-dark"
+            to="/users/:id/setpreferences"
+          >
+            <GrConfigure /> Preferences
+          </Link>
+        </button>
+      );
     }
-    else {
-      console.log("else")
-      return (<button className="btn-delete btn-warning" >
-      <Link
-        className="text-decoration-none text-dark"
-        to="/users/:id/setpreferences"
-      >
-        <GrConfigure /> Preferences
-      </Link>
-    </button>)
-    }
-  }
+  };
 
   const functionMatch = (end_date) => {
     const myDate = new Date(end_date);
-    const today = new Date()
-    console.log("fecha", myDate, today)
-    if (today >= myDate){
-      console.log("if2")
-      return ""
-
+    const today = new Date();
+    console.log("fecha", myDate, today);
+    if (today >= myDate) {
+      console.log("if2");
+      return "";
+    } else {
+      console.log("else2");
+      return (
+        <button className="btn-find btn-success">
+          <Link className="text-decoration-none text-white" to="/matches">
+            <BsFillPeopleFill /> Find Matches
+          </Link>
+        </button>
+      );
     }
-    else {
-      console.log("else2")
-      return (<button className="btn-find btn-success">
-      <Link
-          className="text-decoration-none text-white"
-          to="/matches"
-        >
-        <BsFillPeopleFill /> Find Matches
-        </Link>
-      </button>)
-    }
-  }
-
+  };
 
   return (
     <div className="full-account1 ">
@@ -141,10 +137,10 @@ const Mytrips = () => {
                             {item.start_date} / {item.end_date}
                           </p>
                         </div>
-                        </div>
-                        <div className="row ">
+                      </div>
+                      <div className="row ">
                         <div className="btn my-auto">
-                        {functionMatch(item.end_date)}
+                          {functionMatch(item.end_date)}
                           {/* <button className="btn-find btn-success">
                           <Link
                               className="text-decoration-none text-white"
@@ -153,7 +149,10 @@ const Mytrips = () => {
                             <BsFillPeopleFill /> Find Matches
                             </Link>
                           </button> */}
-                          <button onClick={() => DeleteTrip(item.id)} className="btn-delete btn-danger m-1">
+                          <button
+                            onClick={() => DeleteTrip(item.id)}
+                            className="btn-delete btn-danger m-1"
+                          >
                             <MdDeleteForever /> Delete trip
                           </button>
                           {/* <button className="btn-delete btn-warning" disabled={functionDisabled(item.end_date)}>
@@ -165,6 +164,14 @@ const Mytrips = () => {
                             </Link>
                           </button> */}
                           {functionDisabled(item.end_date)}
+                          <button className="btn-find btn-primary m-1">
+                            <Link
+                              className="text-decoration-none text-white"
+                              to="/recommendations"
+                            >
+                              <FaSuitcase /> Recommendations
+                            </Link>
+                          </button>
                         </div>
                       </div>
                     </div>
