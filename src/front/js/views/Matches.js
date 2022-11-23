@@ -44,7 +44,7 @@ const Matches = () => {
   //FETCH FUNCTIONS
 
   const getAllUsersWithTripsAsync = async () => {
-    let url = `${process.env.BACKEND_URL}/users/mytrips`;
+    let url = `https://3000-kpaezastudi-finalprojec-c1xotzmu4j9.ws-us77.gitpod.io/users/mytrips`;
     let options_get = {
       method: "GET",
       mode: "cors",
@@ -66,10 +66,10 @@ const Matches = () => {
   };
 
   const getUserWithTripsAsync = async () => {
-    let url = `${process.env.BACKEND_URL}/users/${user_id}/mytrips`;
+    let url = `https://3000-kpaezastudi-finalprojec-c1xotzmu4j9.ws-us77.gitpod.io/users/${user_id}/mytrips`;
     let options_get = {
       method: "GET",
-      mode: "cors",
+
       headers: {
         "content-type": "application/json",
         "Access-Control-Allow-Origin": "*",
@@ -121,17 +121,15 @@ const Matches = () => {
 
   //GET ONLY TRIPS ARRAY FROM CURRENT USER AND ALL USERS
 
-  const onlyAllTrips = trips.map((elem, i) => {
-    return elem.createtrips[0];
-  });
-  const onlyUserTrips = [
-    {
-      country_trip: "Chile",
-      capital_trip: "Santiago",
-      start_date: "1/1/1",
-      end_date: "2/2/2",
-    },
-  ];
+  const onlyAllTrips = !!trips && trips.length > 0 && trips.map((elem, i) => {
+      return elem.createtrips[0];
+    });
+  const onlyUserTrips =
+    !!user_trip &&
+    user_trip.length > 0 &&
+    user_trip.createtrips.map((elem, i) => {
+      return elem;
+    });
 
   const userFilter = (elem) => {
     if (
@@ -145,7 +143,7 @@ const Matches = () => {
 
   //MATCHEDUSERS LOADS USERS IN THE SAME TRIP THAN CURRENT USER
 
-  const matchedUsers = onlyAllTrips.filter(userFilter);
+  const matchedUsers = !!onlyAllTrips && onlyAllTrips.length > 0 && onlyAllTrips.filter(userFilter);
   console.log(matchedUsers);
   //const userAllActivity = activities.filter(userFilter);
 
