@@ -44,7 +44,7 @@ const Matches = () => {
   //FETCH FUNCTIONS
 
   const getAllUsersWithTripsAsync = async () => {
-    let url = `https://3000-kpaezastudi-finalprojec-c1xotzmu4j9.ws-us77.gitpod.io/users/mytrips`;
+    let url = `${process.env.BACKEND_URL}/users/mytrips`;
     let options_get = {
       method: "GET",
       mode: "cors",
@@ -57,16 +57,16 @@ const Matches = () => {
       const response = await fetch(url, options_get);
       const data = await response.json();
       console.log(data);
-      console.log(data.createtrips);
+      console.log(data.mytrips);
       setAllUsers(data);
-      setTrips(data.createtrips);
+      setTrips(data.mytrips);
     } catch (error) {
       console.log(error);
     }
   };
 
   const getUserWithTripsAsync = async () => {
-    let url = `https://3000-kpaezastudi-finalprojec-c1xotzmu4j9.ws-us77.gitpod.io/users/${user_id}/mytrips`;
+    let url = `${process.env.BACKEND_URL}/users/${user_id}/mytrips`;
     let options_get = {
       method: "GET",
 
@@ -79,8 +79,8 @@ const Matches = () => {
       const response = await fetch(url, options_get);
       const data = await response.json();
       console.log(data);
-      console.log(data.createtrips);
-      setuser_trip(data.createtrips);
+      console.log(data.mytrips);
+      setuser_trip(data.mytrips);
       setUser(data);
     } catch (error) {
       console.log(error);
@@ -121,13 +121,17 @@ const Matches = () => {
 
   //GET ONLY TRIPS ARRAY FROM CURRENT USER AND ALL USERS
 
-  const onlyAllTrips = !!trips && trips.length > 0 && trips.map((elem, i) => {
-      return elem.createtrips[0];
+  const onlyAllTrips =
+    !!trips &&
+    trips.length > 0 &&
+    trips.map((elem, i) => {
+      return elem.mytrips[0];
     });
   const onlyUserTrips =
     !!user_trip &&
     user_trip.length > 0 &&
-    user_trip.createtrips.map((elem, i) => {
+    user_trip.mytrips.map((elem, i) => {
+      console.log(elem);
       return elem;
     });
 
@@ -143,7 +147,10 @@ const Matches = () => {
 
   //MATCHEDUSERS LOADS USERS IN THE SAME TRIP THAN CURRENT USER
 
-  const matchedUsers = !!onlyAllTrips && onlyAllTrips.length > 0 && onlyAllTrips.filter(userFilter);
+  const matchedUsers =
+    !!onlyAllTrips &&
+    onlyAllTrips.length > 0 &&
+    onlyAllTrips.filter(userFilter);
   console.log(matchedUsers);
   //const userAllActivity = activities.filter(userFilter);
 
@@ -181,7 +188,7 @@ const Matches = () => {
       }
     };
     const filterFunction2 = (elem) => {
-      const usertrip = elem.createtrips[0];
+      const usertrip = elem.mytrips[0];
       console.log(usertrip);
       if (usertrip.traveling == value) {
         return elem;
@@ -220,7 +227,7 @@ const Matches = () => {
     };
 
     const filterFunction2 = (elem) => {
-      const usertrip = elem.createtrips[0];
+      const usertrip = elem.mytrips[0];
       console.log(usertrip);
       if (usertrip.children == value) {
         return elem;
@@ -265,7 +272,7 @@ const Matches = () => {
     };
 
     const filterFunction2 = (elem) => {
-      const usertrip = elem.createtrips[0];
+      const usertrip = elem.mytrips[0];
       console.log(usertrip);
       if (Math.abs(usertrip.budget - value) <= 1000) {
         return elem;
@@ -314,7 +321,7 @@ const Matches = () => {
     };
 
     const filterFunction2 = (elem) => {
-      const usertrip = elem.createtrips[0];
+      const usertrip = elem.mytrips[0];
       console.log(usertrip.activity);
       if (usertrip.activity == value) {
         return elem;
@@ -372,7 +379,7 @@ const Matches = () => {
     };
 
     const filterFunction2 = (elem) => {
-      const usertrip = elem.createtrips[0];
+      const usertrip = elem.mytrips[0];
       console.log(usertrip);
       if (usertrip.gender == value) {
         return elem;
@@ -436,7 +443,7 @@ const Matches = () => {
     };
 
     const filterFunction2 = (elem) => {
-      const usertrip = elem.createtrips[0];
+      const usertrip = elem.mytrips[0];
       console.log(usertrip);
       if (usertrip.age == value) {
         return elem;
@@ -506,7 +513,7 @@ const Matches = () => {
     };
 
     const filterFunction2 = (elem) => {
-      const usertrip = elem.createtrips[0];
+      const usertrip = elem.mytrips[0];
       console.log(usertrip);
       if (usertrip.stay == value) {
         return elem;
@@ -607,7 +614,7 @@ const Matches = () => {
   const handleTrip = (id) => {
     console.log("hey!");
     console.log(id);
-    const tripArr = user_trip.createtrips;
+    const tripArr = user_trip.mytrips;
     const chosenTripArr = tripArr.filter((elem) => elem.id === id);
     setChosenTrip(chosenTripArr[0]);
     console.log(chosenTripArr[0]);
