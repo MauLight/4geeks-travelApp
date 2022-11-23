@@ -6,6 +6,7 @@ import "../../styles/mytrip.css";
 import { BsFillPeopleFill } from "react-icons/bs";
 import { MdDeleteForever } from "react-icons/md";
 import { GrConfigure } from "react-icons/gr";
+import { RiChatHeartFill } from "react-icons/ri";
 
 const Mytrips = () => {
   const [trip, setTrip] = useState([]);
@@ -28,6 +29,82 @@ const Mytrips = () => {
     setTrip(res.createtrips);
   };
 
+  const DeleteTrip = async (data) => {
+    let fetchOptions = {
+      //HTTP method set to POST.
+      method: "POST",
+      //Set the headers that specify you're sending a JSON body request and accepting JSON response
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+        "Access-Control-Allow-Origin": "*",
+      },
+      // POST request body as JSON string.
+      body: {},
+    };
+
+    const response = await fetch(
+      `${process.env.BACKEND_URL}/api/trip/${data}/delete`,
+      
+      fetchOptions
+
+      
+    );
+    const res = await response.json();
+    console.log(res);
+    getTrip();
+  };
+
+  const functionDisabled = (end_date) => {
+    const myDate = new Date(end_date);
+    const today = new Date()
+    console.log("fecha", myDate, today)
+    if (today >= myDate){
+      console.log("if")
+      return (<button className="btn-delete btn-warning" disabled={true}><Link
+      className="text-decoration-none text-dark"
+      to="/users/poll"
+    >
+      <RiChatHeartFill /> Poll
+    </Link></button>)
+
+    }
+    else {
+      console.log("else")
+      return (<button className="btn-delete btn-warning" >
+      <Link
+        className="text-decoration-none text-dark"
+        to="/users/:id/setpreferences"
+      >
+        <GrConfigure /> Preferences
+      </Link>
+    </button>)
+    }
+  }
+
+  const functionMatch = (end_date) => {
+    const myDate = new Date(end_date);
+    const today = new Date()
+    console.log("fecha", myDate, today)
+    if (today >= myDate){
+      console.log("if2")
+      return ""
+
+    }
+    else {
+      console.log("else2")
+      return (<button className="btn-find btn-success">
+      <Link
+          className="text-decoration-none text-white"
+          to="/matches"
+        >
+        <BsFillPeopleFill /> Find Matches
+        </Link>
+      </button>)
+    }
+  }
+
+
   return (
     <div className="full-account1 ">
       <div className="container my-4">
@@ -37,7 +114,7 @@ const Mytrips = () => {
           </div>
           <div className="col-md-4 col-12 ">
             <div className=" mx-auto mt-2">
-              <Link className="link" to="/createtrip">
+              <Link className="link" to={`/users/${user_id}/createtrip`}>
                 Create my trips
               </Link>
             </div>
@@ -67,25 +144,27 @@ const Mytrips = () => {
                         </div>
                         <div className="row ">
                         <div className="btn my-auto">
-                          <button className="btn-find btn-success">
+                        {functionMatch(item.end_date)}
+                          {/* <button className="btn-find btn-success">
                           <Link
                               className="text-decoration-none text-white"
                               to="/matches"
                             >
                             <BsFillPeopleFill /> Find Matches
                             </Link>
-                          </button>
-                          <button className="btn-delete btn-danger m-1">
+                          </button> */}
+                          <button onClick={() => DeleteTrip(item.id)} className="btn-delete btn-danger m-1">
                             <MdDeleteForever /> Delete trip
                           </button>
-                          <button className="btn-delete btn-warning">
+                          {/* <button className="btn-delete btn-warning" disabled={functionDisabled(item.end_date)}>
                             <Link
                               className="text-decoration-none text-dark"
                               to="/users/poll"
                             >
                               <GrConfigure /> Rate your partner
                             </Link>
-                          </button>
+                          </button> */}
+                          {functionDisabled(item.end_date)}
                         </div>
                       </div>
                     </div>

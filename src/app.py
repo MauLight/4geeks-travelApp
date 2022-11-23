@@ -14,6 +14,7 @@ import cloudinary
 
 from api.routes.main import bpMain
 from api.routes.users import bpUser
+from api.routes.createtrip import bpCtrip
 from api.routes.auth import bpAuth
 from api.routes.galleries import bpGI
 from api.routes.userpicture import bpUP
@@ -75,6 +76,7 @@ app.register_blueprint(bpUP, url_prefix="/api")
 app.register_blueprint(bpAct, url_prefix="/api")
 app.register_blueprint(bpSav, url_prefix="/api")
 app.register_blueprint(bpMath, url_prefix="/api")
+app.register_blueprint(bpCtrip, url_prefix="/api")
 
 
 # Handle/serialize errors like a JSON object
