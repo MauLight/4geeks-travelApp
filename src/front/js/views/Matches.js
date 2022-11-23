@@ -616,7 +616,7 @@ const Matches = () => {
 		//console.log('saved!');
 		const postMatches = savedMatches.map((elem, i) => {
 			return ({
-				users_id: userTrips.id,
+				users_id: user_id,
 				match_id: elem.id
 			});
 		});
