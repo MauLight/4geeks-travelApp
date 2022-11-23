@@ -81,9 +81,9 @@ const Mytrips = () => {
                           <button className="btn-delete btn-warning">
                             <Link
                               className="text-decoration-none text-dark"
-                              to="/users/:id/setpreferences"
+                              to="/users/poll"
                             >
-                              <GrConfigure /> Preferences
+                              <GrConfigure /> Rate your partner
                             </Link>
                           </button>
                         </div>
