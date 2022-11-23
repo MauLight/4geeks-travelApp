@@ -40,71 +40,71 @@ const Matches = () => {
 	//FETCH FUNCTIONS
 
 	const getAllUsersWithTripsAsync = async () => {
-        let url = `${process.env.BACKEND_URL}//users/mytrips`;
-        let options_get = {
-            method: 'GET',
-            headers: {
-                'content-type': 'application/json'
-            }
-        }
-        try {
-            const response = await fetch(url, options_get);
-            const data = await response.json();
-            console.log(data);
-            console.log(data.createtrips);
-            setAllUsers(data);
-            setTrips(data.createtrips);
-        }
-        catch (error) {
-            console.log(error);
-        }
-    };
+		let url = `${process.env.BACKEND_URL}//users/mytrips`;
+		let options_get = {
+			method: 'GET',
+			headers: {
+				'content-type': 'application/json'
+			}
+		}
+		try {
+			const response = await fetch(url, options_get);
+			const data = await response.json();
+			console.log(data);
+			console.log(data.createtrips);
+			setAllUsers(data);
+			setTrips(data.createtrips);
+		}
+		catch (error) {
+			console.log(error);
+		}
+	};
 
-    const getUserWithTripsAsync = async () => {
-        let url = `${process.env.BACKEND_URL}/users/${user_id}/mytrips`;
-        let options_get = {
-            method: 'GET',
-            headers: {
-                'content-type': 'application/json'
-            }
-        }
-        try {
-            const response = await fetch(url, options_get);
-            const data = await response.json();
-            console.log(data);
-            console.log(data.createtrips);
-            setuser_trip(data.createtrips);
-            setUser(data);
-        }
-        catch (error) {
-            console.log(error);
-        }
-    };
+	const getUserWithTripsAsync = async () => {
+		let url = `${process.env.BACKEND_URL}/users/${user_id}/mytrips`;
+		let options_get = {
+			method: 'GET',
+			headers: {
+				'content-type': 'application/json'
+			}
+		}
+		try {
+			const response = await fetch(url, options_get);
+			const data = await response.json();
+			console.log(data);
+			console.log(data.createtrips);
+			setuser_trip(data.createtrips);
+			setUser(data);
+		}
+		catch (error) {
+			console.log(error);
+		}
+	};
 
-    const postMatch = async (match) => {
+	const postMatch = async (match) => {
 
-        try {
-            //console.log("attempt to fetch")
+		try {
+			//console.log("attempt to fetch")
 
-            const response = await fetch(`${process.env.BACKEND_URL}/users/${id}/rating`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Access-Control-Allow-Origin': '*'
-                },
-                body: JSON.stringify(match)
+			const response = await fetch(`${process.env.BACKEND_URL}/api/matches`, {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json',
+					'Access-Control-Allow-Origin': '*'
+				},
+				body: JSON.stringify(match)
 
-            });
-            const data = await response.json()
-            window.location = '/save'
-            console.log(data);
-            console.log('data posted!');
+			});
+			const data = await response.json()
+			window.location = '/save'
+			console.log(data);
+			console.log('data posted!');
 
-        } catch (error) {
-            console.log(error)
-        }
+		} catch (error) {
+			console.log(error)
+		}
 
-    };
+	};
 
 	//GENERAL STATE VARIABLES
 	//Fetch user_trip and allusers_trips
@@ -112,8 +112,8 @@ const Matches = () => {
 	const [user_trip, setuser_trip] = useState([]);
 	const [chosen_trip, setChosenTrip] = useState('');
 	const [matchData, setMatchData] = useState({});
-    const { store, actions } = useContext(Context);
-    const user_id = store.currentUser?.user?.id;
+	const { store, actions } = useContext(Context);
+	const user_id = store.currentUser?.user?.id;
 
 	//GET ONLY TRIPS ARRAY FROM CURRENT USER AND ALL USERS
 
@@ -624,7 +624,7 @@ const Matches = () => {
 		postMatches.forEach(function (match, i) {
 			console.log(match, i);
 			postMatch(match);
-		  })
+		})
 	};
 
 	//CHOOSE YOUR TRIP FEATURE
@@ -647,10 +647,6 @@ const Matches = () => {
 
 	useEffect(() => {
 		getUserWithTripsAsync()
-	}, []);
-
-	useEffect(() => {
-		postMatch()
 	}, []);
 
 	return (
