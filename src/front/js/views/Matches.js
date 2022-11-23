@@ -30,7 +30,7 @@ const OffCanvasBtn = () => {
 const Matches = () => {
 
     const getAllUsersWithTripsAsync = async () => {
-        let url = `${process.env.BACKEND_URL}//users/mytrips`;
+        let url = `${process.env.BACKEND_URL}/users/mytrips`;
         let options_get = {
             method: 'GET',
             headers: {
@@ -75,7 +75,7 @@ const Matches = () => {
 
         try {
 
-            const response = await fetch(`${process.env.BACKEND_URL}/api//matches`, {
+            const response = await fetch(`${process.env.BACKEND_URL}/api/matches`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

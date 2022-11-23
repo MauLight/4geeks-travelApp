@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from "react";
+import portrait from "../../img/portrait.png";
+import placeholder from "../../img/placeholder.png";
 
 const PhotosAccount = () => {
   const [gallery, setGallery] = useState(null);
@@ -24,10 +26,12 @@ const PhotosAccount = () => {
       const response = await fetch(
         `${process.env.BACKEND_URL}/api/userpictures/${user_id}`
       );
-      console.log("ahora hay img", response);
       const data = await response.json();
 
-      setPhotoUser(data);
+      if (data?.msg !== 'User with no photo!'){
+       setPhotoUser(data); 
+      }
+      
     } catch (error) {
       console.log(error.message);
     }
@@ -38,6 +42,7 @@ const PhotosAccount = () => {
         `${process.env.BACKEND_URL}/api/galleries/${user_id}`
       );
       const data = await response.json();
+      console.log("data", data)
 
       setGallery(data);
     } catch (error) {
@@ -163,18 +168,16 @@ const PhotosAccount = () => {
                 Please select one profile photo
               </div>
               <div className="user-pic">
-                {photoUser ? (
+               
                   <div className="card rounded-circle m-auto">
                     <img
-                      src={photoUser.filename}
+                      src={photoUser ? photoUser.filename : portrait}
                       className="card-user img-fluid rounded-circle"
-                      key={photoUser.id}
+                      key={photoUser ? photoUser.id: "a"}
                       alt="..."
                     />
                   </div>
-                ) : (
-                  ""
-                )}
+               
               </div>
             </div>
             {/* final de columna usuario e inicio col viajes */}
@@ -196,7 +199,7 @@ const PhotosAccount = () => {
               </div>
 
               <div className="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-2 g-lg-2">
-                {!!gallery &&
+                {gallery?.length > 0 ? (
                   gallery.map((image, index) => {
                     return (
                       <div className="card-ph" >
@@ -204,11 +207,18 @@ const PhotosAccount = () => {
                           src={image.filename}
                           className="card-photos" 
                           key={index}
-                          alt="..."
+
                         />
                       </div>
                     );
-                  })}
+                  })) : (<div className="card-ph" >
+                  <img
+                    src={placeholder}
+                    className="card-photos" 
+                    key={"x"}
+
+                  />
+                </div>)}
               </div>
             </div>
             {/* fin columna viajes */}
