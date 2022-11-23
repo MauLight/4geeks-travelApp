@@ -16,7 +16,7 @@
 }
 
 textarea {
-  height: 100px;
+  height: 120px;
 
 }
 
@@ -40,4 +40,8 @@ textarea {
 
   font-family: Open Sans;
   color: rgb(0, 0, 0);
+}
+
+.imagematch{
+  width: 50%
 }
