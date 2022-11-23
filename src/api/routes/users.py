@@ -36,6 +36,13 @@ def all_users_with_trips():
     users = list(map(lambda user: user.serialize_with_trips(), users))
     return jsonify(users), 200
 
+
+@bpUser.route('/users/createtrips', methods=['GET'])  # type: ignore
+def all_users_with_created_trips():
+    users = User.query.all()
+    users = list(map(lambda user: user.serialize_with_createdtrips(), users))
+    return jsonify(users), 200
+
 # GET USER AND TRIPS BY USER ID
 
 
