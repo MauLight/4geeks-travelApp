@@ -26,7 +26,7 @@ class User(db.Model):  # type: ignore
     galleries = db.relationship(
         'Gallery', cascade='all, delete', backref='user')
     matches = db.relationship('Matches', cascade='all,delete', backref='user')
-    saved_activities = db.relationship(
+    saveactivity = db.relationship(
         'SaveActivity', cascade='all,delete', backref='user')
 
     def serialize(self):
@@ -132,7 +132,7 @@ class User(db.Model):  # type: ignore
             'facebook': self.facebook,
             'twitter': self.twitter,
             'verified': self.verified,
-            'saved_activities': [saved_activities.serialize() for saved_activities in self.saved_activities]
+            'saveactivity': [saveactivity.serialize() for saveactivity in self.saveactivity]
         }
 
     # def serialize_with_trips_with_activities(self):

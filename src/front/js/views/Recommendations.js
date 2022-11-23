@@ -67,7 +67,7 @@ const RecommendationCard = () => {
       //console.log("attempt to fetch")
 
       const response = await fetch(
-        `${process.env.BACKEND_URL}/api/savedactivity`,
+        `${process.env.BACKEND_URL}/api/saveactivity`,
         {
           method: "POST",
           headers: {
