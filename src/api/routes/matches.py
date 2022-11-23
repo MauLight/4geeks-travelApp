@@ -29,3 +29,8 @@ def delete_match(id):
     match = Matches.query.get(id)
     match.delete()
     return jsonify({"message": "Match deleted"}), 200
+
+@bpMath.route('/matches/<int:users_id>', methods=['GET'])
+def get_match(users_id):
+    user = Matches.query.filter_by(users_id=users_id).first()
+    return jsonify(user.serialize()), 200

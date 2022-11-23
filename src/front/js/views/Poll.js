@@ -1,12 +1,34 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { Link, useParams } from 'react-router-dom';
+import { Context } from "../store/appContext";
 //import ReactDOM from 'react-dom';
 import '../../styles/poll.css'
 const Poll = () => {
     const { id } = useParams();
+    const { store, actions } = useContext(Context);
+    const user_id = store.currentUser?.user?.id;
+    const [matchID, setMatchID] = useState()
     const [formData, setFormData] = useState(null);
     const [firstInput, setFirstInput] = useState('7');
     const [secondInput, setSecondInput] = useState('7');
+
+    useEffect(() => {
+        fetchMatch()
+    }, [])
+
+    const fetchMatch = async () => {
+        try {
+            const response = await fetch(`${process.env.BACKEND_URL}/api/matches/${user_id}`);
+            const data = await response.json()
+            console.log(`${process.env.BACKEND_URL}/api/matches/${user_id}`);
+            setMatchID(data.match_id)
+            
+
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
     const handleFirstInput = (e) => {
         setFirstInput(e.target.value)
     }
@@ -28,7 +50,7 @@ const Poll = () => {
         try {
             //console.log("attempt to fetch")
 
-            const response = await fetch(`${process.env.BACKEND_URL}/users/${id}/rating`, {
+            const response = await fetch(`${process.env.BACKEND_URL}/users/${matchID}/rating`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -39,6 +61,7 @@ const Poll = () => {
             });
             const data = await response.json()
             window.location = '/save'
+            console.log(matchID)
             console.log(data);
 
         } catch (error) {

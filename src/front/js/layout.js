@@ -42,7 +42,7 @@ const Layout = () => {
                         <Route path="/mytrips" element={<Mytrips />}/>
                         <Route path="/users/:id/createtrip" element={<CreateTrips />}/>
                         <Route path="users/:id/setpreferences/" element={<SetPreferences />}/>
-                        <Route path="/users/:id/poll" element={<Poll />}/>
+                        <Route path="/users/poll" element={<Poll />}/>
                         <Route path="/save" element={<Save />}/>
                         <Route path="/recommendations" element={<Recommendations />}/>
                         <Route path="/matches" element={<Matches />}/>

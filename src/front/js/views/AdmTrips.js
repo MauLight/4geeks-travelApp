@@ -159,9 +159,9 @@ const Mytrips = () => {
                           {/* <button className="btn-delete btn-warning" disabled={functionDisabled(item.end_date)}>
                             <Link
                               className="text-decoration-none text-dark"
-                              to="/users/:id/setpreferences"
+                              to="/users/poll"
                             >
-                              <GrConfigure /> Preferences
+                              <GrConfigure /> Rate your partner
                             </Link>
                           </button> */}
                           {functionDisabled(item.end_date)}
