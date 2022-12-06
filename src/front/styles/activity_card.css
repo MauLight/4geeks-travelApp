@@ -1,0 +1,46 @@
+
+  .activities_title {
+    color: #336b87;
+    font-weight: bold;
+  }
+
+.activity_card {
+
+    box-shadow:  18px 18px 30px #bcbcbc,
+               -18px -18px 30px #ffffff;
+    background-image: linear-gradient(to bottom, #336b87, #487b95, #5d8ca4, #719db3, #85aec2, #94baca, #a3c6d3, #b3d2dc, #c2dae0, #d1e2e5, #e0eaeb, #f0f2f2);
+  }
+
+  .activity_title:hover {
+    color: #94baca !important;
+    font-style: italic;
+  }
+
+  .filters_btn:hover {
+    background-color:#336b87 !important;
+    color: #e7f9ff !important;
+  }
+
+  .activity_btn:hover {
+    background-color:#336b87 !important;
+    color: #e7f9ff !important;
+  }  
+
+  .activity_btn:focus {
+    background-color: #338757 !important;
+    color: #e7f9ff !important;
+  }  
+
+  .save_btn:hover {
+    background-color:#338757 !important;
+    color: #e7f9ff !important;
+  }  
+
+  .trip_list:hover {
+    background-color:#5d8ca4 !important;
+    color: #e7f9ff !important;
+  }  
+
+  .card {
+    overflow: hidden;
+  }

@@ -1,5 +1,8 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect, useContext, useRef } from "react";
+import { Link, useParams } from "react-router-dom";
 import { Context } from "../store/appContext";
+import { arr } from "../component/array";
+import { userTrips } from "../component/user";
 
 //CSS STYLES
 
@@ -41,101 +44,21 @@ const OffCanvasBtn = () => {
 };
 
 const Matches = () => {
-  //FETCH FUNCTIONS
-
-  const getAllUsersWithTripsAsync = async () => {
-    let url = `${process.env.BACKEND_URL}/users/createtrips`;
-    let options_get = {
-      method: "GET",
-      mode: "cors",
-      headers: {
-        "content-type": "application/json",
-        "Access-Control-Allow-Origin": "*",
-      },
-    };
-    try {
-      const response = await fetch(url, options_get);
-      const data = await response.json();
-      console.log(data);
-      console.log(data[0]);
-      //setAllUsers(data);
-      setTrips(data);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  const getUserWithTripsAsync = async () => {
-    let url = `${process.env.BACKEND_URL}/users/${user_id}/createtrips`;
-    let options_get = {
-      method: "GET",
-
-      headers: {
-        "content-type": "application/json",
-        "Access-Control-Allow-Origin": "*",
-      },
-    };
-    try {
-      const response = await fetch(url, options_get);
-      const data = await response.json();
-      console.log(data);
-      console.log(data);
-      setuser_trip(data.createtrips);
-      console.log(user_trip);
-      setUser(data);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  const postMatch = async (match) => {
-    try {
-      //console.log("attempt to fetch")
-
-      const response = await fetch(`${process.env.BACKEND_URL}/api/matches`, {
-        method: "POST",
-        mode: "cors",
-        headers: {
-          "Content-Type": "application/json",
-          "Access-Control-Allow-Origin": "*",
-        },
-        body: JSON.stringify(match),
-      });
-      const data = await response.json();
-      window.location = "/save";
-      console.log(data);
-      console.log("data posted!");
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
   //GENERAL STATE VARIABLES
   //Fetch user_trip and allusers_trips
-  const [trips, setTrips] = useState([]);
-  const [user, setUser] = useState([]);
-  const [user_trip, setuser_trip] = useState([]);
-  const [chosen_trip, setChosenTrip] = useState([]);
+  const [trips, setTrips] = useState(arr);
+  const [user_trip, setuser_trip] = useState(userTrips);
+  const [chosen_trip, setChosenTrip] = useState("");
   const [matchData, setMatchData] = useState({});
-  const { store, actions } = useContext(Context);
-  const user_id = store.currentUser?.user?.id;
 
   //GET ONLY TRIPS ARRAY FROM CURRENT USER AND ALL USERS
 
-  const onlyAllTrips =
-    !!trips &&
-    trips.length > 0 &&
-    trips.map((elem, i) => {
-      console.log(elem.createtrips);
-      return elem.createtrips;
-    });
-  const onlyUserTrips =
-    !!user_trip &&
-    user_trip.length > 0 &&
-    user_trip.map((elem, i) => {
-      console.log(elem);
-      return elem;
-    });
+  const onlyAllTrips = trips.map((elem, i) => {
+    return elem.createtrips[0];
+  });
+  const onlyUserTrips = user_trip.createtrips.map((elem, i) => {
+    return elem;
+  });
 
   const userFilter = (elem) => {
     if (
@@ -149,10 +72,7 @@ const Matches = () => {
 
   //MATCHEDUSERS LOADS USERS IN THE SAME TRIP THAN CURRENT USER
 
-  const matchedUsers =
-    !!onlyAllTrips &&
-    onlyAllTrips.length > 0 &&
-    onlyAllTrips.filter(userFilter);
+  const matchedUsers = onlyAllTrips.filter(userFilter);
   console.log(matchedUsers);
   //const userAllActivity = activities.filter(userFilter);
 
@@ -600,14 +520,14 @@ const Matches = () => {
     //console.log('saved!');
     const postMatches = savedMatches.map((elem, i) => {
       return {
-        users_id: user_id,
+        users_id: userTrips.id,
         match_id: elem.id,
       };
     });
 
     postMatches.forEach(function (match, i) {
       console.log(match, i);
-      postMatch(match);
+      //postMatch(match)
     });
   };
 
@@ -616,22 +536,12 @@ const Matches = () => {
   const handleTrip = (id) => {
     console.log("hey!");
     console.log(id);
-    const tripArr = user_trip;
+    const tripArr = user_trip.createtrips;
     const chosenTripArr = tripArr.filter((elem) => elem.id === id);
     setChosenTrip(chosenTripArr[0]);
     console.log(chosenTripArr[0]);
     console.log(chosen_trip);
   };
-
-  //USEEFFECT
-
-  useEffect(() => {
-    getUserWithTripsAsync();
-  }, []);
-
-  useEffect(() => {
-    getAllUsersWithTripsAsync();
-  }, []);
 
   return (
     <div className="container">
@@ -749,9 +659,9 @@ const Matches = () => {
           ></button>
         </div>
         <div>
-          <div className="img-card card border-0 my-3 justify-content-center">
+          <div className="img-card card border-0 justify-content-center">
             <img
-              src={user.user_img}
+              src={userTrips.user_img}
               className="p-0 mx-auto"
               alt="..."
               style={rounded2}
@@ -760,10 +670,10 @@ const Matches = () => {
           <div className="description-card text-center">
             <a className="mx-auto" href="https://rr.noordstar.me/test-109ddae8">
               <h3>
-                {user.firstname} {user.lastname}
+                {userTrips.firstname} {userTrips.lastname}
               </h3>
             </a>
-            <p>From {user.countryofresidence}</p>
+            <p>From {userTrips.countryofresidence}</p>
           </div>
         </div>
         <div className="offcanvas-body">

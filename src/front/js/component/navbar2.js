@@ -25,7 +25,7 @@ const Navbar2 = () => {
             { link: '/#', label: 'Servicios' },
         ]
     }
-    return (<nav className="navbar navbar-expand-lg img-fluid sticky-top">
+    return (<nav className="navbar navbar-expand-lg img-fluid">
         <div className="container-fluid ">
         <img className="img-logo" src={logo} />
             <div className="item ps-0 d-flex align-items-center" to="#page-top" target="_blank"><strong>{navbar?.logo}</strong></div>
